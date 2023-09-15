@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class TaskTableViewModel {
+struct TaskTableViewModel {
     
     
 }
