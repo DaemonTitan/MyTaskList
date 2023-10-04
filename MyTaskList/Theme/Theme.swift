@@ -35,6 +35,7 @@ struct Theme {
     
     // MARK: Text and label display in model
     struct Text {
+        static let emptyText = ""
         static let viewTaskControllerTitle = "My Tasks"
         static let editTaskControllerTitle = "Edit Task"
         static let taskTitlePlaceholder = "Enter task title..."
@@ -48,6 +49,8 @@ struct Theme {
         static let enableNotificationBody = "To use reminder me feature, please enable notifications in settings."
         static let discardChangeAlertTitle = "Unsaved changes?"
         static let discardChangeAlertBody = "You have made changes, Do you want to keep editing or discard them?"
+        static let toDoListSectionTitle = "To-Do List"
+        static let completedSectionTitle = "Completed"
     }
     
     // MARK: Label display in buttons

@@ -14,6 +14,8 @@ class TaskCell: UITableViewCell {
     let enterTaskUI = TaskUI()
     let viewTaskViewModel = ViewTaskViewModel()
     
+    var completionClosure: (() -> Void)?
+    
     /// Date format for future dates
     static let futureDatesFormatter: DateFormatter = {
         let format = "EEEE, MMM d, yyyy, h:mm a"
@@ -41,7 +43,6 @@ class TaskCell: UITableViewCell {
         contentView.addSubview(taskCellUI.flagImage)
         contentView.addSubview(taskCellUI.reminderMeLabel)
         
-        taskCellUI.completeCheckButton.addTarget(self, action: #selector(completeTask), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -111,13 +112,18 @@ class TaskCell: UITableViewCell {
         }
     }
     
-    @objc func completeTask(_ sender: UIButton) {
-        sender.checkboxAnimation() {
-            sender.isSelected
-            self.taskCellUI.toggleStrikeThrough(for: self.taskCellUI.taskTitleLabel)
-            
+    func completeTask(completion: @escaping () -> Void) {
+            taskCellUI.completeCheckButton.addTarget(self, action: #selector(taskCheckBox), for: .touchUpInside)
+            self.completionClosure = completion
         }
-    }
+    
+    @objc func taskCheckBox(_ sender: UIButton) {
+   //        sender.checkboxAnimation() {
+   //            sender.isSelected
+   //            self.taskCellUI.toggleStrikeThrough(for: self.taskCellUI.taskTitleLabel)
+   //            self.completionClosure?()
+   //        }
+       }
     
     
     

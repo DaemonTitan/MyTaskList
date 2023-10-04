@@ -41,10 +41,34 @@ extension ViewTaskController: UITableViewDelegate {
 }
 
 extension ViewTaskController: UITableViewDataSource {
-    /// Display number of rows for each task
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return realmManager.taskData.count
-    }
+    /// Display number of sections
+      func numberOfSections(in tableView: UITableView) -> Int {
+          return 2
+      }
+    
+    /// Display number of rows for each section
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            switch section {
+            case 0:
+                return realmManager.taskData.count
+            case 1:
+                return 0
+            default:
+                return 0
+            }
+        }
+    
+    /// Display section header
+     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+         switch section {
+         case 0:
+             return Theme.Text.toDoListSectionTitle
+         case 1:
+             return Theme.Text.completedSectionTitle
+         default:
+             return Theme.Text.emptyText
+         }
+     }
     
     /// Display cell content for each row task
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
