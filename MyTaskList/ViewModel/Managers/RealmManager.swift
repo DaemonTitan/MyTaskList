@@ -33,7 +33,7 @@ class RealmManager {
         }
     }
     
-    /// Realm File
+    /// Display realm file location
     func findRealmFile() {
         do {
             let realm = try Realm()
@@ -137,7 +137,7 @@ class RealmManager {
     }
     
     // MARK: Complete a task
-    func closeTask(id: ObjectId, taskStatus: Bool, closeDate: Date) {
+    func completeTask(id: ObjectId, taskStatus: Bool, closeDate: Date) {
         do {
             let realm = try Realm()
             let task = realm.object(ofType: TaskListItem.self, forPrimaryKey: id)
