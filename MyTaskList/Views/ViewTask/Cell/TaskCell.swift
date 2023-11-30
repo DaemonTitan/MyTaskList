@@ -11,10 +11,8 @@ class TaskCell: UITableViewCell {
     static let taskCellIdentifier = "taskCell"
     
     let taskCellUI = TaskCellUI()
-    let enterTaskUI = TaskUI()
-    let viewTaskViewModel = ViewTaskViewModel()
-    
-    var completionClosure: (() -> Void)?
+    //let viewTaskViewModel = ViewTaskViewModel()
+    public var buttonTapCallBack: (() -> Void)?
     
     /// Date format for future dates
     static let futureDatesFormatter: DateFormatter = {
@@ -43,6 +41,7 @@ class TaskCell: UITableViewCell {
         contentView.addSubview(taskCellUI.flagImage)
         contentView.addSubview(taskCellUI.reminderMeLabel)
         
+        taskCellUI.completeCheckButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -112,19 +111,14 @@ class TaskCell: UITableViewCell {
         }
     }
     
-    func completeTask(completion: @escaping () -> Void) {
-            taskCellUI.completeCheckButton.addTarget(self, action: #selector(taskCheckBox), for: .touchUpInside)
-            self.completionClosure = completion
-        }
+    func configureCompleteButton(imageName: String, size: Double, color: UIColor, state: UIControl.State) {
+            self.taskCellUI.completeCheckButton.sfButtonState(sfImage: imageName,
+                                              sfSize: size,
+                                              color: color,
+                                              state: state)
+    }
     
-    @objc func taskCheckBox(_ sender: UIButton) {
-   //        sender.checkboxAnimation() {
-   //            sender.isSelected
-   //            self.taskCellUI.toggleStrikeThrough(for: self.taskCellUI.taskTitleLabel)
-   //            self.completionClosure?()
-   //        }
+    @objc func buttonTapped() {
+        buttonTapCallBack?()
        }
-    
-    
-    
 }

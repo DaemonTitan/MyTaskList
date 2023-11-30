@@ -25,13 +25,16 @@ extension ViewTaskController: UITableViewDelegate {
         
         // Save task and back to view task screen
         rootViewSelectTaskScreen.saveComplitionHandler = { [weak self] in
-            self?.realmManager.readData()
+            //self?.realmManager.readData()
+            self?.realmManager.viewOpenedTask()
             self?.tableView.reloadData()
         }
         
         // Delete task and back to view task screen
         rootViewSelectTaskScreen.deleteComplitionHandler = { [weak self] in
-            self?.realmManager.readData()
+            //self?.realmManager.readData()
+            self?.realmManager.viewOpenedTask()
+            self?.realmManager.viewCompletedTask()
             self?.tableView.reloadData()
         }
         
@@ -52,7 +55,7 @@ extension ViewTaskController: UITableViewDataSource {
             case 0:
                 return realmManager.taskData.count
             case 1:
-                return 0
+                return realmManager.completeTaskData.count
             default:
                 return 0
             }
@@ -75,13 +78,81 @@ extension ViewTaskController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskCell.taskCellIdentifier, for: indexPath) as? TaskCell else {
             return UITableViewCell()
         }
-        let task = realmManager.taskData[indexPath.row]
-        if let dateValue = task.reminderMeDate {
-            cell.displayReminderMeDate(date: dateValue)
+
+        switch indexPath.section {
+        case 0:
+            // MARK: Configure To - Do section
+            let task = realmManager.taskData[indexPath.row]
+            if let dateValue = task.reminderMeDate {
+                cell.displayReminderMeDate(date: dateValue)
+            }
+            cell.configureCell(taskTitle: task.title)
+            cell.configureFlag(showImage: task.flag)
+            cell.configureCompleteButton(imageName: "square",
+                                         size: 25.0,
+                                         color: Theme.Colours.lightGray,
+                                         state: .normal)
+            
+            
+            cell.buttonTapCallBack = { [weak self] in
+                guard let self = self else {return}
+                /// Update task status to complete and write closed date
+                self.realmManager.completeTask(id: task.id, taskStatus: true, closeDate: Date())
+                
+                //MARK: Move task from Task Data Array to Complete Task Data Array
+                /// Remove selected data from Task Data Array
+    
+                let selectedTaskData = self.realmManager.taskData.remove(at: indexPath.row)
+                
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
+ 
+                self.realmManager.completeTaskData.append(selectedTaskData)
+                
+                //let insertCompleteTaskIndexPath = IndexPath(row: self.realmManager.completeTaskData.count - 1 , section: 1)
+                
+//                if self.realmManager.completeTaskData.count == 0 {
+//                    self.tableView.insertRows(at: [IndexPath(row: 0, section: 1)], with: .fade)
+//                } else {
+//                    self.tableView.insertRows(at: [insertCompleteTaskIndexPath], with: .fade)
+//                }
+                
+                //self.tableView.insertRows(at: [insertCompleteTaskIndexPath], with: .fade)
+               
+
+                self.tableView.reloadData()
+            }
+            
+        case 1:
+            // MARK: Configure Completed section
+            let task = realmManager.completeTaskData[indexPath.row]
+            cell.configureCell(taskTitle: task.title)
+            
+            cell.configureCompleteButton(imageName: "checkmark.square.fill",
+                                         size: 25.0,
+                                         color: Theme.Colours.green,
+                                         state: .normal)
+            
+            
+            cell.buttonTapCallBack = { [weak self] in
+                guard let self = self else {return}
+                self.realmManager.completeTask(id: task.id, taskStatus: false, closeDate: nil)
+                
+                let selectedCompleteTask = self.realmManager.completeTaskData.remove(at: indexPath.row)
+                
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
+                
+                self.realmManager.taskData.append(selectedCompleteTask)
+                
+//                let insertTaskIndexPath = IndexPath(row: self.realmManager.taskData.count - 1, section: 0)
+//                self.tableView.insertRows(at: [insertTaskIndexPath], with: .fade)
+                
+                self.tableView.reloadData()
+            }
+            
+        default:
+            fatalError("No sections")
         }
         
-        cell.configureCell(taskTitle: task.title)
-        cell.configureFlag(showImage: task.flag)
         return cell
     }
     
@@ -94,7 +165,8 @@ extension ViewTaskController: UITableViewDataSource {
             self?.realmManager.deleteData(at: indexPath)
             self?.notificationManager.deletePendingNotification(notificationId: selectedNotificationId)
             tableView.deselectRow(at: indexPath, animated: true)
-            self?.realmManager.readData()
+            //self?.realmManager.readData()
+            self?.realmManager.taskFilter(status: false)
             tableView.reloadData()
             completionHandler(true)
         }

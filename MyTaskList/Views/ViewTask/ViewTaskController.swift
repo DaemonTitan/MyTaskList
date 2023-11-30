@@ -41,9 +41,6 @@ class ViewTaskController: UIViewController {
         // find realm file location
         realmManager.findRealmFile()
         
-        // Test
-        print(realmManager.taskData)
-        
         taskViewUI.plusButton.addTarget(self, action: #selector(createTask), for: .touchUpInside)
     }
     

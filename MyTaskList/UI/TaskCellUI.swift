@@ -23,14 +23,6 @@ class TaskCellUI: UIView {
         var completeCheckButton = UIButton(type: .custom)
         completeCheckButton.backgroundColor = Theme.Colours.whiteColour
         completeCheckButton.layer.cornerRadius = 10
-        completeCheckButton.sfButtonState(sfImage: "square",
-                                          sfSize: 25.0,
-                                          color: Theme.Colours.lightGray,
-                                          state: .normal)
-        completeCheckButton.sfButtonState(sfImage: "checkmark.square.fill",
-                                          sfSize: 25.0,
-                                          color: Theme.Colours.green,
-                                          state: .selected)
         completeCheckButton.clipsToBounds = true
         completeCheckButton.translatesAutoresizingMaskIntoConstraints = false
         return completeCheckButton
