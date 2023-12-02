@@ -15,31 +15,40 @@ extension ViewTaskController: UITableViewDelegate {
     
     /// Tap on task row to view selected task
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let text = realmManager.taskData[indexPath.row]
-        let taskNotificationId = realmManager.taskData[indexPath.row].notificationId ?? ""
-        selectedNotificationId = taskNotificationId
-        
-        let rootViewSelectTaskScreen = ViewSelectTaskScreen()
-        rootViewSelectTaskScreen.task = text
-        
-        // Save task and back to view task screen
-        rootViewSelectTaskScreen.saveComplitionHandler = { [weak self] in
-            //self?.realmManager.readData()
-            self?.realmManager.viewOpenedTask()
-            self?.tableView.reloadData()
+        switch indexPath.section {
+        case 0:
+            tableView.deselectRow(at: indexPath, animated: true)
+            let text = realmManager.taskData[indexPath.row]
+            let taskNotificationId = realmManager.taskData[indexPath.row].notificationId ?? ""
+            selectedNotificationId = taskNotificationId
+            
+            let rootViewSelectTaskScreen = ViewSelectTaskScreen()
+            rootViewSelectTaskScreen.task = text
+            
+            // Save task and back to view task screen
+            rootViewSelectTaskScreen.saveComplitionHandler = { [weak self] in
+                self?.realmManager.viewOpenedTask()
+                self?.realmManager.viewCompletedTask()
+                self?.tableView.reloadData()
+            }
+            
+            // Delete task and back to view task screen
+            rootViewSelectTaskScreen.deleteComplitionHandler = { [weak self] in
+                self?.realmManager.viewOpenedTask()
+                self?.realmManager.viewCompletedTask()
+                self?.tableView.reloadData()
+            }
+            
+            let viewSelectTaskScreen = UINavigationController(rootViewController: rootViewSelectTaskScreen)
+            present(viewSelectTaskScreen, animated: true)
+            
+        case 1:
+            tableView.deselectRow(at: indexPath, animated: true)
+            Alert.showDisableEditTaskAlert(on: self)
+            
+        default:
+            fatalError("Section not exists")
         }
-        
-        // Delete task and back to view task screen
-        rootViewSelectTaskScreen.deleteComplitionHandler = { [weak self] in
-            //self?.realmManager.readData()
-            self?.realmManager.viewOpenedTask()
-            self?.realmManager.viewCompletedTask()
-            self?.tableView.reloadData()
-        }
-        
-        let viewSelectTaskScreen = UINavigationController(rootViewController: rootViewSelectTaskScreen)
-        present(viewSelectTaskScreen, animated: true)
     }
 }
 
@@ -93,7 +102,6 @@ extension ViewTaskController: UITableViewDataSource {
                                          color: Theme.Colours.lightGray,
                                          state: .normal)
             
-            
             cell.buttonTapCallBack = { [weak self] in
                 guard let self = self else {return}
                 /// Update task status to complete and write closed date
@@ -101,31 +109,27 @@ extension ViewTaskController: UITableViewDataSource {
                 
                 //MARK: Move task from Task Data Array to Complete Task Data Array
                 /// Remove selected data from Task Data Array
-    
                 let selectedTaskData = self.realmManager.taskData.remove(at: indexPath.row)
-                
+                /// Delete selected row from table view
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
- 
+                /// Append removed row to Completed section
                 self.realmManager.completeTaskData.append(selectedTaskData)
+                self.tableView.reloadData()
                 
                 //let insertCompleteTaskIndexPath = IndexPath(row: self.realmManager.completeTaskData.count - 1 , section: 1)
-                
 //                if self.realmManager.completeTaskData.count == 0 {
 //                    self.tableView.insertRows(at: [IndexPath(row: 0, section: 1)], with: .fade)
 //                } else {
 //                    self.tableView.insertRows(at: [insertCompleteTaskIndexPath], with: .fade)
 //                }
-                
                 //self.tableView.insertRows(at: [insertCompleteTaskIndexPath], with: .fade)
-               
-
-                self.tableView.reloadData()
             }
             
         case 1:
             // MARK: Configure Completed section
             let task = realmManager.completeTaskData[indexPath.row]
             cell.configureCell(taskTitle: task.title)
+            cell.configureFlag(showImage: false)
             
             cell.configureCompleteButton(imageName: "checkmark.square.fill",
                                          size: 25.0,
@@ -135,18 +139,19 @@ extension ViewTaskController: UITableViewDataSource {
             
             cell.buttonTapCallBack = { [weak self] in
                 guard let self = self else {return}
+                /// Update task status to Uncomplete and write closed date to nil
                 self.realmManager.completeTask(id: task.id, taskStatus: false, closeDate: nil)
-                
+                //MARK: Move task from Complete Task Data Array to Task Data Array
+                /// Remove selected data from Completed Data Array
                 let selectedCompleteTask = self.realmManager.completeTaskData.remove(at: indexPath.row)
-                
+                /// Delete selected row from table view
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
-                
+                /// Append removed row to To-do section
                 self.realmManager.taskData.append(selectedCompleteTask)
+                self.tableView.reloadData()
                 
 //                let insertTaskIndexPath = IndexPath(row: self.realmManager.taskData.count - 1, section: 0)
 //                self.tableView.insertRows(at: [insertTaskIndexPath], with: .fade)
-                
-                self.tableView.reloadData()
             }
             
         default:
@@ -158,36 +163,59 @@ extension ViewTaskController: UITableViewDataSource {
     
     /// Swipe cell to delete task
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
         let task = realmManager.taskData[indexPath.row]
         selectedNotificationId = task.notificationId ?? ""
-        /// Delete task action
-        let deleteAction = UIContextualAction(style: .destructive, title: Theme.ButtonLabel.deleteButton) { [weak self] (action, view, completionHandler) in
-            self?.realmManager.deleteData(at: indexPath)
-            self?.notificationManager.deletePendingNotification(notificationId: selectedNotificationId)
-            tableView.deselectRow(at: indexPath, animated: true)
-            //self?.realmManager.readData()
-            self?.realmManager.taskFilter(status: false)
-            tableView.reloadData()
-            completionHandler(true)
-        }
         
-        /// Add & remove flag action
-        let flagTitle = task.flag ? Theme.Text.unflagLabel : Theme.Text.flagLabel
-        let flagAction = UIContextualAction(style: .normal, title: flagTitle) { [weak self] (action, view, completionHandler) in
-            let cell = tableView.cellForRow(at: indexPath) as! TaskCell
-            let flag = task.flag ? false : true
-            self?.realmManager.updateFlagData(id: task.id, flag: flag)
-            cell.configureFlag(showImage: task.flag)
-            tableView.reloadData()
-            completionHandler(true)
+        switch indexPath.section {
+        case 0:
+            /// Delete task action
+            let deleteAction = UIContextualAction(style: .destructive, title: Theme.ButtonLabel.deleteButton) { [weak self] (action, view, completionHandler) in
+                self?.realmManager.deleteData(at: indexPath)
+                self?.notificationManager.deletePendingNotification(notificationId: selectedNotificationId)
+                tableView.deselectRow(at: indexPath, animated: true)
+                self?.realmManager.viewOpenedTask()
+                self?.realmManager.viewCompletedTask()
+                tableView.reloadData()
+                completionHandler(true)
+            }
+            
+            /// Add & remove flag action
+            let flagTitle = task.flag ? Theme.Text.unflagLabel : Theme.Text.flagLabel
+            let flagAction = UIContextualAction(style: .normal, title: flagTitle) { [weak self] (action, view, completionHandler) in
+                let cell = tableView.cellForRow(at: indexPath) as! TaskCell
+                let flag = task.flag ? false : true
+                self?.realmManager.updateFlagData(id: task.id, flag: flag)
+                cell.configureFlag(showImage: task.flag)
+                tableView.reloadData()
+                completionHandler(true)
+            }
+            
+            deleteAction.image = UIImage(systemName: Theme.images.trash)
+            let flag = UIImage(systemName: Theme.images.flag)
+            let unflag = UIImage(systemName: Theme.images.unflag)
+            let flagImage = task.flag ? unflag : flag
+            flagAction.image = flagImage
+            flagAction.backgroundColor = Theme.Colours.orange
+            return UISwipeActionsConfiguration(actions: [deleteAction, flagAction])
+            
+        case 1:
+            /// Delete task action
+            let deleteAction = UIContextualAction(style: .destructive, title: Theme.ButtonLabel.deleteButton) { [weak self] (action, view, completionHandler) in
+                self?.realmManager.deleteData(at: indexPath)
+                self?.notificationManager.deletePendingNotification(notificationId: selectedNotificationId)
+                tableView.deselectRow(at: indexPath, animated: true)
+                self?.realmManager.viewOpenedTask()
+                self?.realmManager.viewCompletedTask()
+                tableView.reloadData()
+                completionHandler(true)
+            }
+            
+            deleteAction.image = UIImage(systemName: Theme.images.trash)
+            return UISwipeActionsConfiguration(actions: [deleteAction])
+            
+        default:
+            fatalError("No sections")
         }
-        
-        deleteAction.image = UIImage(systemName: Theme.images.trash)
-        let flag = UIImage(systemName: Theme.images.flag)
-        let unflag = UIImage(systemName: Theme.images.unflag)
-        let flagImage = task.flag ? unflag : flag
-        flagAction.image = flagImage
-        flagAction.backgroundColor = Theme.Colours.orange
-        return UISwipeActionsConfiguration(actions: [deleteAction, flagAction])
     }
 }
