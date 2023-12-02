@@ -100,6 +100,19 @@ struct Alert {
         vc.present(alert, animated: true)
     }
     
+    /// Dismiss open edit task controller
+    static func disableEditTaskAlert(on vc: UIViewController,
+                                     with title: String,
+                                     message: String) {
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        let dismissButton = UIAlertAction(title: Theme.ButtonLabel.dismissbutton,
+                                          style: .default)
+        alert.addAction(dismissButton)
+        vc.present(alert, animated: true)
+    }
+    
     
     // MARK: Display enable notification alert when notification is denied or notDetermined
     static func showNotificationDenyAlert(on vc: UIViewController) {
@@ -115,6 +128,11 @@ struct Alert {
                            message: Theme.Text.discardChangeAlertBody) {
             vc.dismiss(animated: true)
         }
+    }
+    
+    static func showDisableEditTaskAlert(on vc: UIViewController) {
+        disableEditTaskAlert(on: vc, with: Theme.Text.cantEditTaskTitle,
+                             message: Theme.Text.cantEditTaskBody)
     }
     
 }
