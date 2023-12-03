@@ -36,7 +36,8 @@ class ViewTaskController: UIViewController {
         notificationManager.notificationList()
         buttonLayout()
         realmManager.openRealm()
-        realmManager.readData()
+        realmManager.viewOpenedTask()
+        realmManager.viewCompletedTask()
         
         // find realm file location
         realmManager.findRealmFile()
