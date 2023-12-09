@@ -29,6 +29,8 @@
 		F3A1FC4B2A724B9100818B86 /* ViewTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A1FC4A2A724B9100818B86 /* ViewTaskViewModel.swift */; };
 		F3A1FC4D2A724B9D00818B86 /* CreateTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A1FC4C2A724B9D00818B86 /* CreateTaskViewModel.swift */; };
 		F3BC09AE2A8CEEEC0042BD60 /* TaskTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BC09AD2A8CEEEC0042BD60 /* TaskTableViewModel.swift */; };
+		F3C235C72B21EC96005E890F /* EmptyBox.json in Resources */ = {isa = PBXBuildFile; fileRef = F3C235C62B21EC96005E890F /* EmptyBox.json */; };
+		F3DF25522B1F428900395B38 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = F3DF25512B1F428900395B38 /* Lottie */; };
 		F3F51C642A2E0072003321F1 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F51C632A2E0072003321F1 /* AlertManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +57,7 @@
 		F3A1FC4A2A724B9100818B86 /* ViewTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTaskViewModel.swift; sourceTree = "<group>"; };
 		F3A1FC4C2A724B9D00818B86 /* CreateTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskViewModel.swift; sourceTree = "<group>"; };
 		F3BC09AD2A8CEEEC0042BD60 /* TaskTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewModel.swift; sourceTree = "<group>"; };
+		F3C235C62B21EC96005E890F /* EmptyBox.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EmptyBox.json; sourceTree = "<group>"; };
 		F3F51C632A2E0072003321F1 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,6 +68,7 @@
 			files = (
 				F37E861C2A13B5C30090D2C9 /* RealmSwift in Frameworks */,
 				F37E861A2A13B5C30090D2C9 /* Realm in Frameworks */,
+				F3DF25522B1F428900395B38 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +182,7 @@
 		F37E86232A13B6B90090D2C9 /* Assets  */ = {
 			isa = PBXGroup;
 			children = (
+				F3C235C62B21EC96005E890F /* EmptyBox.json */,
 				F326D4172A8CE6D000891E7E /* Assets.xcassets */,
 			);
 			path = "Assets ";
@@ -239,6 +244,7 @@
 			packageProductDependencies = (
 				F37E86192A13B5C30090D2C9 /* Realm */,
 				F37E861B2A13B5C30090D2C9 /* RealmSwift */,
+				F3DF25512B1F428900395B38 /* Lottie */,
 			);
 			productName = MyTaskList;
 			productReference = F37E85FC2A13B4AA0090D2C9 /* MyTaskList.app */;
@@ -270,6 +276,7 @@
 			mainGroup = F37E85F32A13B4AA0090D2C9;
 			packageReferences = (
 				F37E86182A13B5C30090D2C9 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				F3DF25502B1F428900395B38 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = F37E85FD2A13B4AA0090D2C9 /* Products */;
 			projectDirPath = "";
@@ -286,6 +293,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F326D4182A8CE6D000891E7E /* Assets.xcassets in Resources */,
+				F3C235C72B21EC96005E890F /* EmptyBox.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,6 +530,14 @@
 				minimumVersion = 10.39.1;
 			};
 		};
+		F3DF25502B1F428900395B38 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.3.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -534,6 +550,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F37E86182A13B5C30090D2C9 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		F3DF25512B1F428900395B38 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F3DF25502B1F428900395B38 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

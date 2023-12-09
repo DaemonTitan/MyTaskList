@@ -10,8 +10,8 @@ import UIKit
 var selectedNotificationId: String = ""
 
 class ViewTaskController: UIViewController {
-    
-    private var taskViewUI = TaskViewUI()
+    var taskViewUI = TaskViewUI()
+    var taskTableViewModel = TaskTableViewModel()
     var notificationManager = NotificationManager()
     var realmManager = RealmManager()
     
@@ -65,7 +65,13 @@ class ViewTaskController: UIViewController {
             taskViewUI.blurView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             taskViewUI.blurView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             taskViewUI.blurView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            taskViewUI.blurView.topAnchor.constraint(equalTo: taskViewUI.plusButton.topAnchor, constant: -20)
+            taskViewUI.blurView.topAnchor.constraint(equalTo: taskViewUI.plusButton.topAnchor, constant: -20),
+            
+//            taskViewUI.noRecordGif.topAnchor.constraint(equalTo: tableView.topAnchor, constant: -125),
+//            taskViewUI.noRecordGif.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),
+//            taskViewUI.noRecordGif.widthAnchor.constraint(equalToConstant: 400),
+            
+            //taskViewUI.noTaskLabel.topAnchor.constraint(equalTo: )
         ])
     }
     
