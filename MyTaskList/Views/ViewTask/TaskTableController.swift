@@ -60,23 +60,37 @@ extension ViewTaskController: UITableViewDataSource {
     
     /// Display number of rows for each section
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            switch section {
-            case 0:
-                return realmManager.taskData.count
-            case 1:
-                return realmManager.completeTaskData.count
-            default:
-                return 0
+            if realmManager.taskData.count == 0 && realmManager.completeTaskData.count == 0 {
+                taskTableViewModel.noRecordsFoundSetup(view: view, tableView: tableView)
+            } else {
+                taskTableViewModel.restore()
+                switch section {
+                case 0:
+                    return realmManager.taskData.count
+                case 1:
+                    return realmManager.completeTaskData.count
+                default:
+                    return 0
+                }
             }
+            return 0
         }
     
     /// Display section header
      func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
          switch section {
          case 0:
-             return Theme.Text.toDoListSectionTitle
+             if realmManager.taskData.count > 0 {
+                 return Theme.Text.toDoListSectionTitle
+             } else {
+                 return Theme.Text.emptyText
+             }
          case 1:
-             return Theme.Text.completedSectionTitle
+             if realmManager.completeTaskData.count > 0 {
+                 return Theme.Text.completedSectionTitle
+             } else {
+                 return Theme.Text.emptyText
+             }
          default:
              return Theme.Text.emptyText
          }
