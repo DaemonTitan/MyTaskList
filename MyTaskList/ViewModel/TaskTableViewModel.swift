@@ -39,7 +39,7 @@ class TaskTableViewModel {
         ])
     }
     
-    func restore() {
+    func restoreTableView() {
         taskViewUI.noRecordGif.stop()
         taskViewUI.noRecordGif.removeFromSuperview()
         taskViewUI.noTaskLabel.removeFromSuperview()

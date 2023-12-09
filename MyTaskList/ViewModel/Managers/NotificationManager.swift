@@ -58,11 +58,6 @@ class NotificationManager {
         })
     }
     
-    
-    
-    
-    
-    
     // MARK: Get notification identifier list
     func notificationList() {
         UNUserNotificationCenter.current().getPendingNotificationRequests { notificationRequests in
