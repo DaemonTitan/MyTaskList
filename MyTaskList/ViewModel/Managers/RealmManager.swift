@@ -119,10 +119,23 @@ class RealmManager {
         }
     }
     
-    // MARK: Delete data from table view on Realm
-    func deleteData(at indexPath: IndexPath) {
+    // MARK: Delete task data from table view on Realm
+    func deleteTaskData(at indexPath: IndexPath) {
         do {
             let taskDelete = taskData[indexPath.row]
+            let realm = try Realm()
+            try realm.write {
+                realm.delete(taskDelete)
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    // MARK: Delete completed data from table view on Realm
+    func deleteCompleteTaskData(at indexPath: IndexPath) {
+        do {
+            let taskDelete = completeTaskData[indexPath.row]
             let realm = try Realm()
             try realm.write {
                 realm.delete(taskDelete)

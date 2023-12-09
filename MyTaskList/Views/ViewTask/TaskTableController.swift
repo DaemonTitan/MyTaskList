@@ -63,7 +63,7 @@ extension ViewTaskController: UITableViewDataSource {
             if realmManager.taskData.count == 0 && realmManager.completeTaskData.count == 0 {
                 taskTableViewModel.noRecordsFoundSetup(view: view, tableView: tableView)
             } else {
-                taskTableViewModel.restore()
+                taskTableViewModel.restoreTableView()
                 switch section {
                 case 0:
                     return realmManager.taskData.count
@@ -177,15 +177,13 @@ extension ViewTaskController: UITableViewDataSource {
     
     /// Swipe cell to delete task
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
-        let task = realmManager.taskData[indexPath.row]
-        selectedNotificationId = task.notificationId ?? ""
-        
         switch indexPath.section {
         case 0:
+            let task = realmManager.taskData[indexPath.row]
+            selectedNotificationId = task.notificationId ?? ""
             /// Delete task action
             let deleteAction = UIContextualAction(style: .destructive, title: Theme.ButtonLabel.deleteButton) { [weak self] (action, view, completionHandler) in
-                self?.realmManager.deleteData(at: indexPath)
+                self?.realmManager.deleteTaskData(at: indexPath)
                 self?.notificationManager.deletePendingNotification(notificationId: selectedNotificationId)
                 tableView.deselectRow(at: indexPath, animated: true)
                 self?.realmManager.viewOpenedTask()
@@ -214,9 +212,11 @@ extension ViewTaskController: UITableViewDataSource {
             return UISwipeActionsConfiguration(actions: [deleteAction, flagAction])
             
         case 1:
+            let completedtask = realmManager.completeTaskData[indexPath.row]
+            selectedNotificationId = completedtask.notificationId ?? ""
             /// Delete task action
             let deleteAction = UIContextualAction(style: .destructive, title: Theme.ButtonLabel.deleteButton) { [weak self] (action, view, completionHandler) in
-                self?.realmManager.deleteData(at: indexPath)
+                self?.realmManager.deleteCompleteTaskData(at: indexPath)
                 self?.notificationManager.deletePendingNotification(notificationId: selectedNotificationId)
                 tableView.deselectRow(at: indexPath, animated: true)
                 self?.realmManager.viewOpenedTask()
