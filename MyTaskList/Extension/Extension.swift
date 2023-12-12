@@ -132,6 +132,18 @@ extension UIButton {
         }, for: .touchUpInside)
     }
     
+    func buttonBounceAnimation(button: UIButton) {
+        button.transform = CGAffineTransform(scaleX: 0.50, y: 0.50)
+        UIView.animate(withDuration: 0.8,
+                       delay: 0,
+                       usingSpringWithDamping: 0.5,
+                       initialSpringVelocity: 2.0,
+                       options: .allowUserInteraction,
+                       animations: {
+            button.transform = .identity
+        }, completion: nil)
+    }
+    
     
 //    func checkboxAnimation(label: UILabel, closure: @escaping () -> Void) {
 //        guard let image = self.imageView else { return }

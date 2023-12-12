@@ -44,6 +44,5 @@ class TaskTableViewModel {
         taskViewUI.noRecordGif.removeFromSuperview()
         taskViewUI.noTaskLabel.removeFromSuperview()
         taskViewUI.noTaskFoundDescription.removeFromSuperview()
-    
     }
 }
