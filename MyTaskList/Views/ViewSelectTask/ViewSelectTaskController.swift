@@ -189,6 +189,8 @@ extension ViewSelectTaskScreen {
     }
     
     @objc func tapUpdateTask() {
+        let saveButton = viewTaskUI.saveTaskButton
+        saveButton.buttonBounceAnimation(button: saveButton)
         notificationCenter.getNotificationSettings { (settings) in
             DispatchQueue.main.async {
                 switch settings.authorizationStatus {
@@ -241,6 +243,8 @@ extension ViewSelectTaskScreen {
     }
     
     @objc func tapDeleteTask() {
+        let deleteButton = viewTaskUI.deleteTaskButton
+        deleteButton.buttonBounceAnimation(button: deleteButton)
         Alert.deleteTaskAlert(on: self,
                               with: Theme.Text.deleteTaskAlertTitle,
                               message: Theme.Text.deleteTaskAlertBody)

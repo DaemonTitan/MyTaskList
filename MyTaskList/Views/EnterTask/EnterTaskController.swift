@@ -133,6 +133,8 @@ extension EnterTaskController {
     }
     
     @objc func tapSaveButton() {
+        let saveButton = enterTaskUI.saveTaskButton
+        saveButton.buttonBounceAnimation(button: saveButton)
             notificationCenter.getNotificationSettings { (settings) in
                 DispatchQueue.main.async {
                     switch settings.authorizationStatus {
