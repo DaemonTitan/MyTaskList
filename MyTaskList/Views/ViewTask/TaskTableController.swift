@@ -109,9 +109,9 @@ extension ViewTaskController: UITableViewDataSource {
             if let dateValue = task.reminderMeDate {
                 cell.displayReminderMeDate(date: dateValue)
             }
-            cell.configureCell(taskTitle: task.title)
+            cell.configureTaskTitle(taskTitle: task.title)
             cell.configureFlag(showImage: task.flag)
-            cell.configureCompleteButton(imageName: "square",
+            cell.configureCompleteButton(imageName: Theme.images.sfButtonSquare,
                                          size: 25.0,
                                          color: Theme.Colours.lightGray,
                                          state: .normal)
@@ -142,10 +142,9 @@ extension ViewTaskController: UITableViewDataSource {
         case 1:
             // MARK: Configure Completed section
             let task = realmManager.completeTaskData[indexPath.row]
-            cell.configureCell(taskTitle: task.title)
+            cell.completedTaskTitle(taskTitle: task.title)
             cell.configureFlag(showImage: false)
-            
-            cell.configureCompleteButton(imageName: "checkmark.square.fill",
+            cell.configureCompleteButton(imageName: Theme.images.sfButtonSqureCheckmark,
                                          size: 25.0,
                                          color: Theme.Colours.green,
                                          state: .normal)
