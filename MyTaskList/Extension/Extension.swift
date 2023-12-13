@@ -143,38 +143,24 @@ extension UIButton {
             button.transform = .identity
         }, completion: nil)
     }
+}
+
+extension String {
+    func strikeThrough() -> NSAttributedString {
+        let attributedText = NSMutableAttributedString(string: self)
+        attributedText.addAttribute(NSAttributedString.Key.strikethroughStyle,
+                                    value: NSUnderlineStyle.single.rawValue,
+                                    range: NSMakeRange(0, attributedText.length))
+        return attributedText
+    }
     
-    
-//    func checkboxAnimation(label: UILabel, closure: @escaping () -> Void) {
-//        guard let image = self.imageView else { return }
-//        self.adjustsImageWhenHighlighted = false
-//        self.isHighlighted = false
-//
-//        UIView.animate(withDuration: 0.1, delay: 0.1, options: .curveLinear, animations: {
-//            image.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-//
-//        }) { (success) in
-//            UIView.animate(withDuration: 0.1, delay: 0, options: .curveLinear, animations: {
-//                self.isSelected = !self.isSelected
-//
-//                // Toggle the strike-through effect on the label's text
-//                let attributedText = NSMutableAttributedString(string: label.text ?? "")
-//                let attributes: [NSAttributedString.Key: Any]
-//
-//                if self.isSelected {
-//                    attributes = [NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.single.rawValue]
-//                } else {
-//                    attributes = [:]
-//                }
-//
-//                attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
-//                label.attributedText = attributedText
-//
-//                closure()
-//                image.transform = .identity
-//            }, completion: nil)
-//        }
-//    }
+    func removeStrikeThrough() -> NSAttributedString {
+        let attributedText = NSMutableAttributedString(string: self)
+        attributedText.addAttribute(NSAttributedString.Key.strikethroughStyle,
+                                    value: [],
+                                    range: NSMakeRange(0, attributedText.length))
+        return attributedText
+    }
 }
 
 // MARK: UISwitch Extension

@@ -58,8 +58,8 @@ class TaskCell: UITableViewCell {
             
             taskCellUI.completeCheckButton.leadingAnchor.constraint(equalTo: taskCellUI.backgroundView.leadingAnchor, constant: 10),
             taskCellUI.completeCheckButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 1),
-//            taskCellUI.completeCheckButton.heightAnchor.constraint(equalToConstant: 21),
-//            taskCellUI.completeCheckButton.widthAnchor.constraint(equalToConstant: 21),
+            taskCellUI.completeCheckButton.heightAnchor.constraint(equalToConstant: 50),
+            taskCellUI.completeCheckButton.widthAnchor.constraint(equalToConstant: 50),
             
             taskCellUI.taskTitleLabel.leadingAnchor.constraint(equalTo: taskCellUI.completeCheckButton.trailingAnchor, constant: 15),
             taskCellUI.taskTitleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
@@ -84,8 +84,14 @@ class TaskCell: UITableViewCell {
         taskCellUI.reminderMeLabel.text = nil
     }
     
-    func configureCell(taskTitle: String) {
-        taskCellUI.taskTitleLabel.text = taskTitle
+    func configureTaskTitle(taskTitle: String) {
+        taskCellUI.taskTitleLabel.attributedText = taskTitle.removeStrikeThrough()
+        taskCellUI.taskTitleLabel.textColor = .black
+    }
+    
+    func completedTaskTitle(taskTitle: String) {
+        taskCellUI.taskTitleLabel.attributedText = taskTitle.strikeThrough()
+        taskCellUI.taskTitleLabel.textColor = .systemGray2
     }
     
     func configureFlag(showImage: Bool) {
@@ -119,6 +125,8 @@ class TaskCell: UITableViewCell {
     }
     
     @objc func buttonTapped() {
-        buttonTapCallBack?()
+        taskCellUI.completeCheckButton.checkboxAnimation {
+            self.buttonTapCallBack?()
+        }
        }
 }

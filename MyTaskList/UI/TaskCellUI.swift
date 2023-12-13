@@ -62,26 +62,3 @@ class TaskCellUI: UIView {
         return flagImage
     }()
 }
-
-extension TaskCellUI {
-    
-    func toggleStrikeThrough(for label: UILabel) {
-        let currentAttributes = label.attributedText?.attributes(at: 0, effectiveRange: nil)
-        let hasStrikeThrough = currentAttributes?[NSAttributedString.Key.strikethroughStyle] != nil
-        
-        let attributedText = NSMutableAttributedString(string: label.text ?? "")
-        
-        if hasStrikeThrough {
-            attributedText.removeAttribute(NSAttributedString.Key.strikethroughStyle,
-                                           range: NSMakeRange(0, attributedText.length))
-            label.textColor = .black
-        } else {
-            attributedText.addAttribute(NSAttributedString.Key.strikethroughStyle,
-                                        value: NSUnderlineStyle.single.rawValue,
-                                        range: NSMakeRange(0, attributedText.length))
-            label.textColor = .systemGray2
-        }
-        
-        label.attributedText = attributedText
-    }
-}
