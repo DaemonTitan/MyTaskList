@@ -41,10 +41,10 @@ extension UIViewController {
 // MARK: UITextField Extension
 extension UITextField {
     /// Add padding to textField
-    func addPadding(textField: UITextField) {
+    func addPadding() {
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 50))
-        textField.leftView = paddingView
-        textField.leftViewMode = .always
+        self.leftView = paddingView
+        self.leftViewMode = .always
     }
     
     /// Add bottom boarder to UITextField
@@ -69,7 +69,6 @@ extension UITextField {
             onTextEdit()
         }, for: .editingChanged)
     }
-    
 }
 
 // MARK: UILabel Extension

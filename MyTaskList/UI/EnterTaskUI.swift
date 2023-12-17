@@ -16,44 +16,55 @@ class TaskUI: UIView {
                                                                       attributes:
                                                                         [NSAttributedString.Key.foregroundColor: Theme.Colours.lightGray])
         taskTitleTextField.font = .systemFont(ofSize: 20)
-        taskTitleTextField.tintColor = .white
-        taskTitleTextField.textColor = .white
+        taskTitleTextField.tintColor = Theme.Colours.whiteColour
+        taskTitleTextField.textColor = Theme.Colours.whiteColour
         taskTitleTextField.backgroundColor = Theme.Colours.vividBlue
-        taskTitleTextField.layer.cornerRadius = 8.0
-        taskTitleTextField.addBottomBorder(height: 1.0, color: .white)
+        taskTitleTextField.addPadding()
+        taskTitleTextField.layer.borderColor = Theme.Colours.lightGray.cgColor
+        taskTitleTextField.layer.cornerRadius = 7
+        taskTitleTextField.layer.borderWidth = 1.0
+        //taskTitleTextField.addBottomBorder(height: 1.0, color: Theme.Colours.whiteColour)
         taskTitleTextField.translatesAutoresizingMaskIntoConstraints = false
         return taskTitleTextField
     }()
     
     /// Record task note
-    lazy var noteTextField: UITextField = {
-        var noteTextField = UITextField()
-        noteTextField.attributedPlaceholder = NSAttributedString(string: Theme.Text.notePlaceholder,
-                                                                      attributes:
-                                                                    [NSAttributedString.Key.foregroundColor: Theme.Colours.lightGray])
-        noteTextField.tintColor = .white
-        noteTextField.textColor = .white
-        noteTextField.backgroundColor = Theme.Colours.vividBlue
-        noteTextField.layer.cornerRadius = 8.0
-        noteTextField.addBottomBorder(height: 1.0, color: .white)
-        noteTextField.translatesAutoresizingMaskIntoConstraints = false
-        return noteTextField
-    }()
-//    lazy var noteTextView: UITextView = {
-//        var noteTextView = UITextView()
-//        noteTextView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-//        noteTextView.font = .systemFont(ofSize: 16)
-//        noteTextView.layer.cornerRadius = 8.0
-//        noteTextView.isScrollEnabled = true
-//        noteTextView.textContainerInset = UIEdgeInsets(top: 10,
-//                                                       left: 6,
-//                                                       bottom: 10,
-//                                                       right: 6)
-//        noteTextView.autocorrectionType = .yes
-//        noteTextView.spellCheckingType = .yes
-//        noteTextView.translatesAutoresizingMaskIntoConstraints = false
-//        return noteTextView
+//    lazy var noteTextField: UITextField = {
+//        var noteTextField = UITextField()
+//        noteTextField.attributedPlaceholder = NSAttributedString(string: Theme.Text.notePlaceholder,
+//                                                                      attributes:
+//                                                                    [NSAttributedString.Key.foregroundColor: Theme.Colours.lightGray])
+//        noteTextField.tintColor = .white
+//        noteTextField.textColor = .white
+//        noteTextField.backgroundColor = Theme.Colours.vividBlue
+//        noteTextField.layer.cornerRadius = 8.0
+//        noteTextField.addBottomBorder(height: 1.0, color: .white)
+//        noteTextField.translatesAutoresizingMaskIntoConstraints = false
+//        return noteTextField
 //    }()
+    
+    lazy var noteTextView: UITextView = {
+        var noteTextView = UITextView()
+        noteTextView.font = .systemFont(ofSize: 18)
+        //noteTextView.text = Theme.Text.notePlaceholder
+        noteTextView.tintColor = Theme.Colours.whiteColour
+        noteTextView.textColor = Theme.Colours.whiteColour
+        noteTextView.backgroundColor = Theme.Colours.vividBlue
+        noteTextView.layer.cornerRadius = 8.0
+        noteTextView.isScrollEnabled = true
+        noteTextView.isEditable = true
+        noteTextView.layer.borderColor = Theme.Colours.lightGray.cgColor
+        noteTextView.layer.cornerRadius = 7
+        noteTextView.layer.borderWidth = 1.0
+        noteTextView.textContainerInset = UIEdgeInsets(top: 10,
+                                                       left: 6,
+                                                       bottom: 10,
+                                                       right: 6)
+        noteTextView.autocorrectionType = .yes
+        noteTextView.spellCheckingType = .yes
+        noteTextView.translatesAutoresizingMaskIntoConstraints = false
+        return noteTextView
+    }()
 
     /// Task titile and notes stack view
     lazy var taskDetailStackView: UIStackView = {
@@ -63,7 +74,8 @@ class TaskUI: UIView {
         taskDetailStackView.alignment = .fill
         taskDetailStackView.distribution = .fill
         taskDetailStackView.addArrangedSubview(taskTitleTextField)
-        taskDetailStackView.addArrangedSubview(noteTextField)
+        //taskDetailStackView.addArrangedSubview(noteTextField)
+        taskDetailStackView.addArrangedSubview(noteTextView)
         taskDetailStackView.translatesAutoresizingMaskIntoConstraints = false
         return taskDetailStackView
     }()
@@ -222,12 +234,12 @@ extension TaskUI {
     /// Reminder me swtich to unhide calender date picker
     func toggleReminderMeSwitch() {
         //reminderMeSwitch.addTarget(self, action: #selector(hideReminderMeField), for: .valueChanged)
-        
         reminderMeSwitch.switchEditChangeListner{
             self.hideReminderMeField()
         }
     }
     
+    /// Button action to hide reminder me date picker
     @objc func hideReminderMeField() {
         remindMeDatePicker.isHidden = !reminderMeSwitch.isOn
         
@@ -235,17 +247,18 @@ extension TaskUI {
     
     /// Check text field is empty or not to change save button state
     func textFieldEditChange() {
-        updateButtonState()
+        updateSaveButtonState()
         taskTitleTextField.textFieldEditChangeListner {
             self.textfieldEditChange()
         }
     }
     
+    /// Button action to change Save button state
     @objc func textfieldEditChange() {
-        updateButtonState()
+        updateSaveButtonState()
     }
     
-    func updateButtonState() {
+    func updateSaveButtonState() {
         if let titleText = taskTitleTextField.text, !titleText.isEmpty {
             saveTaskButton.isEnabled = true
         } else {
@@ -263,39 +276,27 @@ extension TaskUI {
         }
         
         /// Check notes text field eidt change to change save button state
-        noteTextField.textFieldEditChangeListner {
-            self.checkTaskNoteValueChange()
-        }
+//        noteTextField.textFieldEditChangeListner {
+//            self.checkTaskNoteValueChange()
+//        }
         
         /// Check flag switch eidt change to change save button state
         flagSwitch.switchEditChangeListner {
-            self.checkFlagValueChange()
+            self.enableSaveTaskButton()
         }
         
         /// Check reminder me switch eidt change to change save button state
         reminderMeSwitch.switchEditChangeListner {
-            self.checkReminderMeValueChange()
+            self.enableSaveTaskButton()
         }
         
         /// Check date picker eidt change to change save button state
         remindMeDatePicker.datePickerEditChangeListner {
-            self.checkDatePickerValueChange()
+            self.enableSaveTaskButton()
         }
     }
     
-    @objc func checkTaskNoteValueChange() {
-        saveTaskButton.isEnabled = true
-    }
-    
-    @objc func checkFlagValueChange() {
-        saveTaskButton.isEnabled = true
-    }
-    
-    @objc func checkReminderMeValueChange() {
-        saveTaskButton.isEnabled = true
-    }
-    
-    @objc func checkDatePickerValueChange() {
+    @objc func enableSaveTaskButton() {
         saveTaskButton.isEnabled = true
     }
 }

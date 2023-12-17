@@ -71,7 +71,7 @@ class TaskCell: UITableViewCell {
             taskCellUI.reminderMeLabel.heightAnchor.constraint(equalToConstant: 14),
             taskCellUI.reminderMeLabel.widthAnchor.constraint(equalToConstant: 240),
             
-            taskCellUI.flagImage.trailingAnchor.constraint(equalTo: taskCellUI.backgroundView.trailingAnchor, constant: -30),
+            taskCellUI.flagImage.trailingAnchor.constraint(equalTo: taskCellUI.backgroundView.trailingAnchor, constant: -20),
             taskCellUI.flagImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             taskCellUI.flagImage.heightAnchor.constraint(equalToConstant: 40),
             taskCellUI.flagImage.widthAnchor.constraint(equalToConstant: 40),
