@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EnterTaskController: UIViewController, UITextFieldDelegate {
+class EnterTaskController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     private var enterTaskUI = TaskUI()
     private var realmManager = RealmManager()
     private var notificationManager = NotificationManager()
@@ -24,9 +24,11 @@ class EnterTaskController: UIViewController, UITextFieldDelegate {
         
         enterTaskUI.taskTitleTextField.becomeFirstResponder()
         enterTaskUI.taskTitleTextField.delegate = self
-        enterTaskUI.noteTextField.delegate = self
+        //enterTaskUI.noteTextField.delegate = self
+        enterTaskUI.noteTextView.delegate = self
         enterTaskUI.taskTitleTextField.returnKeyType = .next
-        enterTaskUI.noteTextField.returnKeyType = .done
+        //enterTaskUI.noteTextField.returnKeyType = .done
+        enterTaskUI.noteTextView.returnKeyType = .done
         enterTaskUI.toggleReminderMeSwitch()
         enterTaskUI.textFieldEditChange()
         dismissKeyboard()
@@ -66,7 +68,7 @@ class EnterTaskController: UIViewController, UITextFieldDelegate {
             enterTaskUI.contentView.leadingAnchor.constraint(equalTo: enterTaskUI.scrollView.leadingAnchor),
             enterTaskUI.contentView.trailingAnchor.constraint(equalTo: enterTaskUI.scrollView.trailingAnchor),
             enterTaskUI.contentView.bottomAnchor.constraint(equalTo: enterTaskUI.scrollView.bottomAnchor),
-            enterTaskUI.contentView.heightAnchor.constraint(equalTo: enterTaskUI.scrollView.heightAnchor),
+            enterTaskUI.contentView.heightAnchor.constraint(equalTo: enterTaskUI.scrollView.heightAnchor, constant: 50),
             enterTaskUI.contentView.widthAnchor.constraint(equalTo: enterTaskUI.scrollView.widthAnchor),
         ])
         newUILayout()
@@ -84,7 +86,8 @@ class EnterTaskController: UIViewController, UITextFieldDelegate {
             enterTaskUI.taskDetailStackView.leadingAnchor.constraint(equalTo: enterTaskUI.contentView.leadingAnchor, constant: 18),
             enterTaskUI.taskDetailStackView.trailingAnchor.constraint(equalTo: enterTaskUI.contentView.trailingAnchor, constant: -18),
             enterTaskUI.taskTitleTextField.heightAnchor.constraint(equalToConstant: 40),
-            enterTaskUI.noteTextField.heightAnchor.constraint(equalToConstant: 30),
+            //enterTaskUI.noteTextField.heightAnchor.constraint(equalToConstant: 30),
+            enterTaskUI.noteTextView.heightAnchor.constraint(equalToConstant: 100),
         
             enterTaskUI.flagStackView.topAnchor.constraint(equalTo: enterTaskUI.taskDetailStackView.bottomAnchor, constant: 30),
             enterTaskUI.flagStackView.leadingAnchor.constraint(equalTo: enterTaskUI.contentView.leadingAnchor, constant: 18),
@@ -99,24 +102,27 @@ class EnterTaskController: UIViewController, UITextFieldDelegate {
             enterTaskUI.remindMeDatePicker.leadingAnchor.constraint(equalTo: enterTaskUI.contentView.leadingAnchor, constant: 18),
             enterTaskUI.remindMeDatePicker.trailingAnchor.constraint(equalTo: enterTaskUI.contentView.trailingAnchor, constant: -18),
         
-            enterTaskUI.saveTaskButton.topAnchor.constraint(equalTo: enterTaskUI.remindMeDatePicker.bottomAnchor, constant: 40),
+            enterTaskUI.saveTaskButton.topAnchor.constraint(equalTo: enterTaskUI.remindMeDatePicker.bottomAnchor, constant: 30),
             enterTaskUI.saveTaskButton.leadingAnchor.constraint(equalTo: enterTaskUI.contentView.leadingAnchor, constant: 40),
             enterTaskUI.saveTaskButton.trailingAnchor.constraint(equalTo: enterTaskUI.contentView.trailingAnchor, constant: -40),
             enterTaskUI.saveTaskButton.heightAnchor.constraint(equalToConstant: 40),
         ])
     }
+}
 
+extension EnterTaskController {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == enterTaskUI.taskTitleTextField {
-            enterTaskUI.noteTextField.becomeFirstResponder()
+            //enterTaskUI.noteTextField.becomeFirstResponder()
+            enterTaskUI.noteTextView.becomeFirstResponder()
         } else {
             textField.resignFirstResponder()
         }
         return true
     }
-}
-
-extension EnterTaskController {
+    
+    
+    
     @objc func keyboardWillShow(notification:NSNotification) {
         guard let userInfo = notification.userInfo else { return }
         var keyboardFrame:CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
@@ -151,7 +157,8 @@ extension EnterTaskController {
     
     func saveTask() {
         guard let titleField = enterTaskUI.taskTitleTextField.text, !titleField.isEmpty else {return}
-        let noteField = enterTaskUI.noteTextField.text ?? ""
+        //let noteField = enterTaskUI.noteTextField.text ?? ""
+        let noteField = enterTaskUI.noteTextView.text ?? ""
         let flagSwitch = enterTaskUI.flagSwitch.isOn
         let reminderMeSwitch = enterTaskUI.reminderMeSwitch.isOn
         let reminderDate = enterTaskUI.remindMeDatePicker.date
