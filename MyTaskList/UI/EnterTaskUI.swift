@@ -65,6 +65,16 @@ class TaskUI: UIView {
         noteTextView.translatesAutoresizingMaskIntoConstraints = false
         return noteTextView
     }()
+    
+    lazy var noteTextPlaceholder: UILabel = {
+        var placeholder = UILabel()
+        placeholder.text = Theme.Text.notePlaceholder
+        placeholder.textColor = Theme.Colours.lightGray
+        placeholder.textAlignment = .left
+        placeholder.font = .systemFont(ofSize: 18)
+        placeholder.translatesAutoresizingMaskIntoConstraints = false
+        return placeholder
+    }()
 
     /// Task titile and notes stack view
     lazy var taskDetailStackView: UIStackView = {
@@ -269,6 +279,17 @@ extension TaskUI {
 
 //MARK: Task UI Extension for View Task Screen
 extension TaskUI {
+    func taskNotesPlaceholder() {
+        noteTextView.addSubview(noteTextPlaceholder)
+        noteTextPlaceholder.isHidden = !noteTextView.text.isEmpty
+        NSLayoutConstraint.activate([
+            noteTextPlaceholder.topAnchor.constraint(equalTo: noteTextView.topAnchor, constant: 10),
+            noteTextPlaceholder.leadingAnchor.constraint(equalTo: noteTextView.leadingAnchor, constant: 11)
+        ])
+    }
+    
+    
+    
     func unhideSaveButton() {
         /// Check task titile text field eidt change to change save button state
         taskTitleTextField.textFieldEditChangeListner {
