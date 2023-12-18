@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewSelectTaskScreen: UIViewController, UITextFieldDelegate, UITextViewDelegate {
+class ViewSelectTaskScreen: UIViewController {
     
     private var viewTaskUI = TaskUI()
     private var realmManager = RealmManager()
@@ -92,6 +92,12 @@ class ViewSelectTaskScreen: UIViewController, UITextFieldDelegate, UITextViewDel
         }
     }
     
+    override func viewIsAppearing(_ animated: Bool) {
+        super.viewIsAppearing(animated)
+        /// Hide or Add task notes placeholder when view is appearing
+        viewTaskUI.taskNotesPlaceholder()
+    }
+    
     private func configureView() {
         view.addSubview(viewTaskUI.scrollView)
         NSLayoutConstraint.activate([
@@ -153,7 +159,10 @@ class ViewSelectTaskScreen: UIViewController, UITextFieldDelegate, UITextViewDel
             viewTaskUI.saveTaskButton.widthAnchor.constraint(equalToConstant: 150),
         ])
     }
-    
+}
+
+extension ViewSelectTaskScreen: UITextFieldDelegate, UITextViewDelegate {
+    // MARK: Text field
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == viewTaskUI.taskTitleTextField {
             //viewTaskUI.noteTextField.becomeFirstResponder()
@@ -168,13 +177,14 @@ class ViewSelectTaskScreen: UIViewController, UITextFieldDelegate, UITextViewDel
         if textField === viewTaskUI.taskTitleTextField {
             guard let titleText = textField.text else { return }
             taskTitle = titleText
-        } 
+        }
 //        else if textField === viewTaskUI.noteTextField {
 //            guard let noteText = textField.text else { return }
 //            taskNote = noteText
 //        }
     }
     
+    // MARK: Text view
     func textViewDidChangeSelection(_ textView: UITextView) {
         if textView == viewTaskUI.noteTextView {
             guard let noteText = textView.text else {return}
@@ -185,6 +195,15 @@ class ViewSelectTaskScreen: UIViewController, UITextFieldDelegate, UITextViewDel
     /// Check notes text view edit change to change save button state
     func textViewDidChange(_ textView: UITextView) {
         viewTaskUI.saveTaskButton.isEnabled = true
+        viewTaskUI.noteTextPlaceholder.isHidden = !viewTaskUI.noteTextView.text.isEmpty
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        viewTaskUI.noteTextPlaceholder.isHidden = true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        viewTaskUI.noteTextPlaceholder.isHidden = !viewTaskUI.noteTextView.text.isEmpty
     }
 }
 

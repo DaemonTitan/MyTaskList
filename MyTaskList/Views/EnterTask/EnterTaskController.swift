@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EnterTaskController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
+class EnterTaskController: UIViewController {
     private var enterTaskUI = TaskUI()
     private var realmManager = RealmManager()
     private var notificationManager = NotificationManager()
@@ -18,10 +18,9 @@ class EnterTaskController: UIViewController, UITextFieldDelegate, UITextViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Theme.Colours.vividBlue
-        
         navigationController?.navigationBar.barTintColor = Theme.Colours.vividBlue
         configureView()
-        
+        enterTaskUI.taskNotesPlaceholder()
         enterTaskUI.taskTitleTextField.becomeFirstResponder()
         enterTaskUI.taskTitleTextField.delegate = self
         //enterTaskUI.noteTextField.delegate = self
@@ -110,7 +109,7 @@ class EnterTaskController: UIViewController, UITextFieldDelegate, UITextViewDele
     }
 }
 
-extension EnterTaskController {
+extension EnterTaskController: UITextFieldDelegate, UITextViewDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == enterTaskUI.taskTitleTextField {
             //enterTaskUI.noteTextField.becomeFirstResponder()
@@ -121,8 +120,20 @@ extension EnterTaskController {
         return true
     }
     
+    func textViewDidChange(_ textView: UITextView) {
+        enterTaskUI.noteTextPlaceholder.isHidden = !enterTaskUI.noteTextView.text.isEmpty
+    }
     
+    func textViewDidEndEditing(_ textView: UITextView) {
+        enterTaskUI.noteTextPlaceholder.isHidden = !enterTaskUI.noteTextView.text.isEmpty
+    }
     
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        enterTaskUI.noteTextPlaceholder.isHidden = true
+    }
+}
+
+extension EnterTaskController {
     @objc func keyboardWillShow(notification:NSNotification) {
         guard let userInfo = notification.userInfo else { return }
         var keyboardFrame:CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
@@ -191,5 +202,4 @@ extension EnterTaskController {
     @objc func cancel() {
         dismiss(animated: true)
     }
-    
 }
