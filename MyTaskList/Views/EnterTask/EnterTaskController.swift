@@ -12,6 +12,8 @@ class EnterTaskController: UIViewController {
     private var realmManager = RealmManager()
     private var notificationManager = NotificationManager()
     private let notificationCenter = UNUserNotificationCenter.current()
+    private let taskTitleMaxLength = 50
+    private let notesMaxLength = 500
     
     public var completionHandler: (() -> Void)?
     
@@ -23,10 +25,8 @@ class EnterTaskController: UIViewController {
         enterTaskUI.taskNotesPlaceholder()
         enterTaskUI.taskTitleTextField.becomeFirstResponder()
         enterTaskUI.taskTitleTextField.delegate = self
-        //enterTaskUI.noteTextField.delegate = self
         enterTaskUI.noteTextField.delegate = self
         enterTaskUI.taskTitleTextField.returnKeyType = .next
-        //enterTaskUI.noteTextField.returnKeyType = .done
         enterTaskUI.noteTextField.returnKeyType = .done
         enterTaskUI.toggleReminderMeSwitch()
         enterTaskUI.textFieldEditChange()
@@ -87,7 +87,6 @@ class EnterTaskController: UIViewController {
             enterTaskUI.taskDetailStackView.trailingAnchor.constraint(equalTo: enterTaskUI.contentView.trailingAnchor, constant: -18),
             enterTaskUI.taskTitleTextField.heightAnchor.constraint(equalToConstant: 40),
             enterTaskUI.taskTitleCountLabel.heightAnchor.constraint(equalToConstant: 20),
-            //enterTaskUI.noteTextField.heightAnchor.constraint(equalToConstant: 30),
             enterTaskUI.noteTextField.heightAnchor.constraint(equalToConstant: 120),
             enterTaskUI.notesCountLabel.heightAnchor.constraint(equalToConstant: 20),
         
@@ -117,7 +116,6 @@ extension EnterTaskController: UITextFieldDelegate, UITextViewDelegate{
     /// when user hit enter from keyboard, text cursor on task title field move to next text field
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == enterTaskUI.taskTitleTextField {
-            //enterTaskUI.noteTextField.becomeFirstResponder()
             enterTaskUI.noteTextField.becomeFirstResponder()
         } else {
             textField.resignFirstResponder()
@@ -132,9 +130,8 @@ extension EnterTaskController: UITextFieldDelegate, UITextViewDelegate{
     
     /// Set character limit to task title field
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let maxLength = 50
         let currentString = enterTaskUI.taskTitleTextField.text ?? ""
-        return currentString.count + (string.count - range.length) <= maxLength
+        return currentString.count + (string.count - range.length) <= taskTitleMaxLength
     }
     
     // MARK: Text View
@@ -154,9 +151,8 @@ extension EnterTaskController: UITextFieldDelegate, UITextViewDelegate{
     
     /// Set character limit to notes field
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        let maxLength = 500
         let currentString = enterTaskUI.noteTextField.text ?? ""
-        return currentString.count + (text.count - range.length) <= maxLength
+        return currentString.count + (text.count - range.length) <= notesMaxLength
     }
 }
 
@@ -166,8 +162,8 @@ extension EnterTaskController {
         guard let taskTitleCount = enterTaskUI.taskTitleTextField.text?.count else { return }
         guard let notesCount = enterTaskUI.noteTextField.text?.count else { return }
         
-        enterTaskUI.taskTitleCountLabel.text = "\(taskTitleCount) / 50"
-        enterTaskUI.notesCountLabel.text = "\(notesCount) / 500"
+        enterTaskUI.taskTitleCountLabel.text = "\(taskTitleCount) / \(String(taskTitleMaxLength))"
+        enterTaskUI.notesCountLabel.text = "\(notesCount) / \(String(notesMaxLength))"
     }
     
     @objc func keyboardWillShow(notification:NSNotification) {
@@ -204,7 +200,6 @@ extension EnterTaskController {
     
     func saveTask() {
         guard let titleField = enterTaskUI.taskTitleTextField.text, !titleField.isEmpty else {return}
-        //let noteField = enterTaskUI.noteTextField.text ?? ""
         let noteField = enterTaskUI.noteTextField.text ?? ""
         let flagSwitch = enterTaskUI.flagSwitch.isOn
         let reminderMeSwitch = enterTaskUI.reminderMeSwitch.isOn
@@ -221,7 +216,7 @@ extension EnterTaskController {
             completionHandler?()
             dismiss(animated: true)
         } else {
-            notificationManager.dispatchNotification(title: "Task reminder",
+            notificationManager.dispatchNotification(title: Theme.Text.taskReminder,
                                                      body: titleField,
                                                      date: reminderDate)
             realmManager.writeData(title: titleField,
