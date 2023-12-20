@@ -31,6 +31,7 @@ class EnterTaskController: UIViewController {
         enterTaskUI.toggleReminderMeSwitch()
         enterTaskUI.textFieldEditChange()
         dismissKeyboard()
+        displayCharacterCount()
         
         leftBarButton(title: Theme.ButtonLabel.cancelButton,
                       color: .white,
@@ -67,7 +68,7 @@ class EnterTaskController: UIViewController {
             enterTaskUI.contentView.leadingAnchor.constraint(equalTo: enterTaskUI.scrollView.leadingAnchor),
             enterTaskUI.contentView.trailingAnchor.constraint(equalTo: enterTaskUI.scrollView.trailingAnchor),
             enterTaskUI.contentView.bottomAnchor.constraint(equalTo: enterTaskUI.scrollView.bottomAnchor),
-            enterTaskUI.contentView.heightAnchor.constraint(equalTo: enterTaskUI.scrollView.heightAnchor, constant: 90),
+            enterTaskUI.contentView.heightAnchor.constraint(equalTo: enterTaskUI.scrollView.heightAnchor, constant: 120),
             enterTaskUI.contentView.widthAnchor.constraint(equalTo: enterTaskUI.scrollView.widthAnchor),
         ])
         newUILayout()
@@ -85,10 +86,10 @@ class EnterTaskController: UIViewController {
             enterTaskUI.taskDetailStackView.leadingAnchor.constraint(equalTo: enterTaskUI.contentView.leadingAnchor, constant: 18),
             enterTaskUI.taskDetailStackView.trailingAnchor.constraint(equalTo: enterTaskUI.contentView.trailingAnchor, constant: -18),
             enterTaskUI.taskTitleTextField.heightAnchor.constraint(equalToConstant: 40),
+            enterTaskUI.taskTitleCountLabel.heightAnchor.constraint(equalToConstant: 20),
             //enterTaskUI.noteTextField.heightAnchor.constraint(equalToConstant: 30),
-            enterTaskUI.taskTitleCount.heightAnchor.constraint(equalToConstant: 20),
             enterTaskUI.noteTextField.heightAnchor.constraint(equalToConstant: 120),
-            enterTaskUI.notesCount.heightAnchor.constraint(equalToConstant: 20),
+            enterTaskUI.notesCountLabel.heightAnchor.constraint(equalToConstant: 20),
         
             enterTaskUI.flagStackView.topAnchor.constraint(equalTo: enterTaskUI.taskDetailStackView.bottomAnchor, constant: 30),
             enterTaskUI.flagStackView.leadingAnchor.constraint(equalTo: enterTaskUI.contentView.leadingAnchor, constant: 18),
@@ -112,6 +113,7 @@ class EnterTaskController: UIViewController {
 }
 
 extension EnterTaskController: UITextFieldDelegate, UITextViewDelegate{
+    // MARK: Text field
     /// when user hit enter from keyboard, text cursor on task title field move to next text field
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == enterTaskUI.taskTitleTextField {
@@ -123,8 +125,22 @@ extension EnterTaskController: UITextFieldDelegate, UITextViewDelegate{
         return true
     }
     
-    /// show and hide note field place holder
+    /// Count character when user enters text
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        displayCharacterCount()
+    }
+    
+    /// Set character limit to task title field
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let maxLength = 50
+        let currentString = enterTaskUI.taskTitleTextField.text ?? ""
+        return currentString.count + (string.count - range.length) <= maxLength
+    }
+    
+    // MARK: Text View
+    /// Show and hide note field place holder and Count character when user enters text
     func textViewDidChange(_ textView: UITextView) {
+        displayCharacterCount()
         enterTaskUI.noteTextPlaceholder.isHidden = !enterTaskUI.noteTextField.text.isEmpty
     }
     
@@ -135,26 +151,25 @@ extension EnterTaskController: UITextFieldDelegate, UITextViewDelegate{
     func textViewDidBeginEditing(_ textView: UITextView) {
         enterTaskUI.noteTextPlaceholder.isHidden = true
     }
-        
-    /// Set character limit to task title field
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let maxLength = 10
-        let currentString = enterTaskUI.taskTitleTextField.text ?? ""
-        return currentString.count + (string.count - range.length) <= maxLength
-        
-        
-    }
     
     /// Set character limit to notes field
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        let maxLength = 10
+        let maxLength = 500
         let currentString = enterTaskUI.noteTextField.text ?? ""
         return currentString.count + (text.count - range.length) <= maxLength
-        
     }
 }
 
 extension EnterTaskController {
+    /// Display task titile and notes field character count down
+    func displayCharacterCount() {
+        guard let taskTitleCount = enterTaskUI.taskTitleTextField.text?.count else { return }
+        guard let notesCount = enterTaskUI.noteTextField.text?.count else { return }
+        
+        enterTaskUI.taskTitleCountLabel.text = "\(taskTitleCount) / 50"
+        enterTaskUI.notesCountLabel.text = "\(notesCount) / 500"
+    }
+    
     @objc func keyboardWillShow(notification:NSNotification) {
         guard let userInfo = notification.userInfo else { return }
         var keyboardFrame:CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
