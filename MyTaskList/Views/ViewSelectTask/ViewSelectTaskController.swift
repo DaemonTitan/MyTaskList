@@ -35,10 +35,10 @@ class ViewSelectTaskScreen: UIViewController {
         
         viewTaskUI.taskTitleTextField.delegate = self
         //viewTaskUI.noteTextField.delegate = self
-        viewTaskUI.noteTextView.delegate = self
+        viewTaskUI.noteTextField.delegate = self
         viewTaskUI.taskTitleTextField.returnKeyType = .next
         //viewTaskUI.noteTextField.returnKeyType = .done
-        viewTaskUI.noteTextView.returnKeyType = .done
+        viewTaskUI.noteTextField.returnKeyType = .done
         viewTaskUI.unhideSaveButton()
         viewTaskUI.toggleReminderMeSwitch()
         dismissKeyboard()
@@ -72,7 +72,7 @@ class ViewSelectTaskScreen: UIViewController {
         guard let taskItem = task else { return }
         viewTaskUI.taskTitleTextField.text = taskItem.title
         //viewTaskUI.noteTextField.text = taskItem.note
-        viewTaskUI.noteTextView.text = taskItem.note
+        viewTaskUI.noteTextField.text = taskItem.note
         viewTaskUI.flagSwitch.isOn = taskItem.flag
         
         if let noteField = task?.note {
@@ -133,7 +133,7 @@ class ViewSelectTaskScreen: UIViewController {
             viewTaskUI.taskDetailStackView.trailingAnchor.constraint(equalTo: viewTaskUI.contentView.trailingAnchor, constant: -18),
             viewTaskUI.taskTitleTextField.heightAnchor.constraint(equalToConstant: 40),
             //viewTaskUI.noteTextField.heightAnchor.constraint(equalToConstant: 30),
-            viewTaskUI.noteTextView.heightAnchor.constraint(equalToConstant: 100),
+            viewTaskUI.noteTextField.heightAnchor.constraint(equalToConstant: 100),
         
             viewTaskUI.flagStackView.topAnchor.constraint(equalTo: viewTaskUI.taskDetailStackView.bottomAnchor, constant: 30),
             viewTaskUI.flagStackView.leadingAnchor.constraint(equalTo: viewTaskUI.contentView.leadingAnchor, constant: 18),
@@ -166,7 +166,7 @@ extension ViewSelectTaskScreen: UITextFieldDelegate, UITextViewDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == viewTaskUI.taskTitleTextField {
             //viewTaskUI.noteTextField.becomeFirstResponder()
-            viewTaskUI.noteTextView.becomeFirstResponder()
+            viewTaskUI.noteTextField.becomeFirstResponder()
         } else {
             textField.resignFirstResponder()
         }
@@ -186,7 +186,7 @@ extension ViewSelectTaskScreen: UITextFieldDelegate, UITextViewDelegate {
     
     // MARK: Text view
     func textViewDidChangeSelection(_ textView: UITextView) {
-        if textView == viewTaskUI.noteTextView {
+        if textView == viewTaskUI.noteTextField {
             guard let noteText = textView.text else {return}
             taskNote = noteText
         }
@@ -195,7 +195,7 @@ extension ViewSelectTaskScreen: UITextFieldDelegate, UITextViewDelegate {
     /// Check notes text view edit change to change save button state
     func textViewDidChange(_ textView: UITextView) {
         viewTaskUI.saveTaskButton.isEnabled = true
-        viewTaskUI.noteTextPlaceholder.isHidden = !viewTaskUI.noteTextView.text.isEmpty
+        viewTaskUI.noteTextPlaceholder.isHidden = !viewTaskUI.noteTextField.text.isEmpty
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -203,7 +203,7 @@ extension ViewSelectTaskScreen: UITextFieldDelegate, UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        viewTaskUI.noteTextPlaceholder.isHidden = !viewTaskUI.noteTextView.text.isEmpty
+        viewTaskUI.noteTextPlaceholder.isHidden = !viewTaskUI.noteTextField.text.isEmpty
     }
 }
 
@@ -244,7 +244,7 @@ extension ViewSelectTaskScreen {
         guard let titleField = viewTaskUI.taskTitleTextField.text, !titleField.isEmpty else {return}
         guard let taskId = task?.id else {return}
         //let noteField = viewTaskUI.noteTextField.text ?? ""
-        let noteField = viewTaskUI.noteTextView.text ?? ""
+        let noteField = viewTaskUI.noteTextField.text ?? ""
         let flagSwitch = viewTaskUI.flagSwitch.isOn
         let reminderMeSwitch = viewTaskUI.reminderMeSwitch.isOn
         let reminderDate = viewTaskUI.remindMeDatePicker.date
