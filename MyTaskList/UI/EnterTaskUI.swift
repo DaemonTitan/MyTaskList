@@ -34,30 +34,14 @@ class TaskUI: UIView {
         taskTitleCount.textColor = Theme.Colours.whiteColour
         taskTitleCount.font = .systemFont(ofSize: 14)
         taskTitleCount.textAlignment = .right
-        //taskTitleCount.text = "20/50"
         taskTitleCount.translatesAutoresizingMaskIntoConstraints = false
         return taskTitleCount
     }()
     
     /// Record task note
-//    lazy var noteTextField: UITextField = {
-//        var noteTextField = UITextField()
-//        noteTextField.attributedPlaceholder = NSAttributedString(string: Theme.Text.notePlaceholder,
-//                                                                      attributes:
-//                                                                    [NSAttributedString.Key.foregroundColor: Theme.Colours.lightGray])
-//        noteTextField.tintColor = .white
-//        noteTextField.textColor = .white
-//        noteTextField.backgroundColor = Theme.Colours.vividBlue
-//        noteTextField.layer.cornerRadius = 8.0
-//        noteTextField.addBottomBorder(height: 1.0, color: .white)
-//        noteTextField.translatesAutoresizingMaskIntoConstraints = false
-//        return noteTextField
-//    }()
-    
     lazy var noteTextField: UITextView = {
         var noteTextField = UITextView()
         noteTextField.font = .systemFont(ofSize: 18)
-        //noteTextView.text = Theme.Text.notePlaceholder
         noteTextField.tintColor = Theme.Colours.whiteColour
         noteTextField.textColor = Theme.Colours.whiteColour
         noteTextField.backgroundColor = Theme.Colours.vividBlue
@@ -83,7 +67,6 @@ class TaskUI: UIView {
         notesCount.textColor = Theme.Colours.whiteColour
         notesCount.font = .systemFont(ofSize: 14)
         notesCount.textAlignment = .right
-        //notesCount.text = "20/500"
         notesCount.translatesAutoresizingMaskIntoConstraints = false
         return notesCount
     }()
@@ -107,7 +90,6 @@ class TaskUI: UIView {
         taskDetailStackView.distribution = .fill
         taskDetailStackView.addArrangedSubview(taskTitleTextField)
         taskDetailStackView.addArrangedSubview(taskTitleCountLabel)
-        //taskDetailStackView.addArrangedSubview(noteTextField)
         taskDetailStackView.addArrangedSubview(noteTextField)
         taskDetailStackView.addArrangedSubview(notesCountLabel)
         taskDetailStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -117,7 +99,7 @@ class TaskUI: UIView {
     /// Flag label
     lazy var flagLabel: UILabel = {
         var flagLabel = UILabel()
-        let sfSymbolName = "flag.circle.fill"
+        let sfSymbolName = Theme.images.flagCircleFill
         let flagText = Theme.Text.flagLabel
         let sfImageConfiguration = UIImage.SymbolConfiguration(font: .systemFont(ofSize: 25.0))
         let image = UIImage(systemName: sfSymbolName,
@@ -157,7 +139,7 @@ class TaskUI: UIView {
     /// Reminder me Label
     lazy var reminderMeLabel: UILabel = {
         var reminderMeLabel = UILabel()
-        let sfSymbolName = "calendar.circle.fill"
+        let sfSymbolName = Theme.images.calendarCircleFill
         let reminderMeText = Theme.Text.reminderMeLabel
         let sfImageConfiguration = UIImage.SymbolConfiguration(font: .systemFont(ofSize: 25.0))
         let image = UIImage(systemName: sfSymbolName, withConfiguration: sfImageConfiguration)?.withTintColor(.white, renderingMode: .alwaysOriginal)
@@ -236,19 +218,6 @@ class TaskUI: UIView {
         return saveTaskButton
     }()
     
-    /// Add another task button
-//    lazy var addMoreButton: UIButton = {
-//        var addMoreButton = UIButton()
-//        addMoreButton.configuration = .filled()
-//        addMoreButton.tintColor = .white
-//        addMoreButton.configuration?.title = "Add more"
-//        addMoreButton.titleLabel?.font = .systemFont(ofSize: 100, weight: .bold)
-//        addMoreButton.layer.cornerRadius = 20.0
-//        addMoreButton.layer.masksToBounds = true
-//        addMoreButton.translatesAutoresizingMaskIntoConstraints = false
-//        return addMoreButton
-//    }()
-    
     /// Delete task button
     lazy var deleteTaskButton: UIButton = {
         var deleteTaskButton = UIButton()
@@ -317,11 +286,6 @@ extension TaskUI {
         taskTitleTextField.textFieldEditChangeListner {
             self.textfieldEditChange()
         }
-        
-        /// Check notes text field eidt change to change save button state
-//        noteTextField.textFieldEditChangeListner {
-//            self.checkTaskNoteValueChange()
-//        }
         
         /// Check flag switch eidt change to change save button state
         flagSwitch.switchEditChangeListner {

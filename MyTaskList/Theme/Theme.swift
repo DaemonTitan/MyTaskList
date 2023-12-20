@@ -33,7 +33,8 @@ struct Theme {
         static let trash = "trash.fill"
         static let flag = "flag.fill"
         static let unflag = "flag.slash.fill"
-        
+        static let flagCircleFill = "flag.circle.fill"
+        static let calendarCircleFill = "calendar.circle.fill"
     }
     
     // MARK: Text and label display in model
@@ -50,6 +51,7 @@ struct Theme {
         static let reminderMeLabel = " Reminder me"
         static let deleteTaskAlertTitle = "Delete task?"
         static let deleteTaskAlertBody = "You cannot undo this action"
+        static let taskReminder = "Task reminder"
         static let enableNotificationTitle = "Enable Notification?"
         static let enableNotificationBody = "To use reminder me feature, please enable notifications in settings."
         static let discardChangeAlertTitle = "Unsaved changes?"
