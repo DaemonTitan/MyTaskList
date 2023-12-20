@@ -96,6 +96,9 @@ class ViewSelectTaskScreen: UIViewController {
         super.viewIsAppearing(animated)
         /// Hide or Add task notes placeholder when view is appearing
         viewTaskUI.taskNotesPlaceholder()
+        
+        /// Display character count after screen loads
+        displayCharacterCount()
     }
     
     private func configureView() {
@@ -113,7 +116,7 @@ class ViewSelectTaskScreen: UIViewController {
            viewTaskUI.contentView.leadingAnchor.constraint(equalTo: viewTaskUI.scrollView.leadingAnchor),
            viewTaskUI.contentView.trailingAnchor.constraint(equalTo: viewTaskUI.scrollView.trailingAnchor),
            viewTaskUI.contentView.bottomAnchor.constraint(equalTo: viewTaskUI.scrollView.bottomAnchor),
-           viewTaskUI.contentView.heightAnchor.constraint(equalTo: viewTaskUI.scrollView.heightAnchor, constant: 50),
+           viewTaskUI.contentView.heightAnchor.constraint(equalTo: viewTaskUI.scrollView.heightAnchor, constant: 90),
            viewTaskUI.contentView.widthAnchor.constraint(equalTo: viewTaskUI.scrollView.widthAnchor),
         ])
         newUILayout()
@@ -132,8 +135,10 @@ class ViewSelectTaskScreen: UIViewController {
             viewTaskUI.taskDetailStackView.leadingAnchor.constraint(equalTo: viewTaskUI.contentView.leadingAnchor, constant: 18),
             viewTaskUI.taskDetailStackView.trailingAnchor.constraint(equalTo: viewTaskUI.contentView.trailingAnchor, constant: -18),
             viewTaskUI.taskTitleTextField.heightAnchor.constraint(equalToConstant: 40),
+            viewTaskUI.taskTitleCountLabel.heightAnchor.constraint(equalToConstant: 20),
             //viewTaskUI.noteTextField.heightAnchor.constraint(equalToConstant: 30),
             viewTaskUI.noteTextField.heightAnchor.constraint(equalToConstant: 100),
+            viewTaskUI.notesCountLabel.heightAnchor.constraint(equalToConstant: 20),
         
             viewTaskUI.flagStackView.topAnchor.constraint(equalTo: viewTaskUI.taskDetailStackView.bottomAnchor, constant: 30),
             viewTaskUI.flagStackView.leadingAnchor.constraint(equalTo: viewTaskUI.contentView.leadingAnchor, constant: 18),
@@ -174,14 +179,19 @@ extension ViewSelectTaskScreen: UITextFieldDelegate, UITextViewDelegate {
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
+        
         if textField === viewTaskUI.taskTitleTextField {
             guard let titleText = textField.text else { return }
             taskTitle = titleText
+            displayCharacterCount()
         }
-//        else if textField === viewTaskUI.noteTextField {
-//            guard let noteText = textField.text else { return }
-//            taskNote = noteText
-//        }
+    }
+    
+    /// Set character limit to task title field
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let maxLength = 50
+        let currentString = viewTaskUI.taskTitleTextField.text ?? ""
+        return currentString.count + (string.count - range.length) <= maxLength
     }
     
     // MARK: Text view
@@ -189,12 +199,14 @@ extension ViewSelectTaskScreen: UITextFieldDelegate, UITextViewDelegate {
         if textView == viewTaskUI.noteTextField {
             guard let noteText = textView.text else {return}
             taskNote = noteText
+            displayCharacterCount()
         }
     }
     
     /// Check notes text view edit change to change save button state
     func textViewDidChange(_ textView: UITextView) {
         viewTaskUI.saveTaskButton.isEnabled = true
+        displayCharacterCount()
         viewTaskUI.noteTextPlaceholder.isHidden = !viewTaskUI.noteTextField.text.isEmpty
     }
     
@@ -205,9 +217,25 @@ extension ViewSelectTaskScreen: UITextFieldDelegate, UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         viewTaskUI.noteTextPlaceholder.isHidden = !viewTaskUI.noteTextField.text.isEmpty
     }
+    
+    /// Set character limit to notes field
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let maxLength = 500
+        let currentString = viewTaskUI.noteTextField.text ?? ""
+        return currentString.count + (text.count - range.length) <= maxLength
+    }
 }
 
 extension ViewSelectTaskScreen {
+    /// Display task titile and notes field character count down
+    func displayCharacterCount() {
+        guard let taskTitleCount = viewTaskUI.taskTitleTextField.text?.count else { return }
+        guard let notesCount = viewTaskUI.noteTextField.text?.count else { return }
+        
+        viewTaskUI.taskTitleCountLabel.text = "\(taskTitleCount) / 50"
+        viewTaskUI.notesCountLabel.text = "\(notesCount) / 500"
+    }
+    
     @objc func keyboardWillShow(notification:NSNotification) {
         guard let userInfo = notification.userInfo else { return }
         var keyboardFrame:CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue

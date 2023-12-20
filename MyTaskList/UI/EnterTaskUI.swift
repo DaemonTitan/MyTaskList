@@ -29,12 +29,12 @@ class TaskUI: UIView {
     }()
     
     /// Task title field character count down label
-    lazy var taskTitleCount: UILabel = {
+    lazy var taskTitleCountLabel: UILabel = {
         var taskTitleCount = UILabel()
         taskTitleCount.textColor = Theme.Colours.whiteColour
         taskTitleCount.font = .systemFont(ofSize: 14)
         taskTitleCount.textAlignment = .right
-        taskTitleCount.text = "20/50"
+        //taskTitleCount.text = "20/50"
         taskTitleCount.translatesAutoresizingMaskIntoConstraints = false
         return taskTitleCount
     }()
@@ -78,12 +78,12 @@ class TaskUI: UIView {
     }()
     
     /// Notes field character count down label
-    lazy var notesCount: UILabel = {
+    lazy var notesCountLabel: UILabel = {
         var notesCount = UILabel()
         notesCount.textColor = Theme.Colours.whiteColour
         notesCount.font = .systemFont(ofSize: 14)
         notesCount.textAlignment = .right
-        notesCount.text = "20/500"
+        //notesCount.text = "20/500"
         notesCount.translatesAutoresizingMaskIntoConstraints = false
         return notesCount
     }()
@@ -106,10 +106,10 @@ class TaskUI: UIView {
         taskDetailStackView.alignment = .fill
         taskDetailStackView.distribution = .fill
         taskDetailStackView.addArrangedSubview(taskTitleTextField)
-        taskDetailStackView.addArrangedSubview(taskTitleCount)
+        taskDetailStackView.addArrangedSubview(taskTitleCountLabel)
         //taskDetailStackView.addArrangedSubview(noteTextField)
         taskDetailStackView.addArrangedSubview(noteTextField)
-        taskDetailStackView.addArrangedSubview(notesCount)
+        taskDetailStackView.addArrangedSubview(notesCountLabel)
         taskDetailStackView.translatesAutoresizingMaskIntoConstraints = false
         return taskDetailStackView
     }()
