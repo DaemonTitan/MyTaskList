@@ -28,6 +28,17 @@ class TaskUI: UIView {
         return taskTitleTextField
     }()
     
+    /// Task title field character count down label
+    lazy var taskTitleCount: UILabel = {
+        var taskTitleCount = UILabel()
+        taskTitleCount.textColor = Theme.Colours.whiteColour
+        taskTitleCount.font = .systemFont(ofSize: 14)
+        taskTitleCount.textAlignment = .right
+        taskTitleCount.text = "20/50"
+        taskTitleCount.translatesAutoresizingMaskIntoConstraints = false
+        return taskTitleCount
+    }()
+    
     /// Record task note
 //    lazy var noteTextField: UITextField = {
 //        var noteTextField = UITextField()
@@ -43,27 +54,38 @@ class TaskUI: UIView {
 //        return noteTextField
 //    }()
     
-    lazy var noteTextView: UITextView = {
-        var noteTextView = UITextView()
-        noteTextView.font = .systemFont(ofSize: 18)
+    lazy var noteTextField: UITextView = {
+        var noteTextField = UITextView()
+        noteTextField.font = .systemFont(ofSize: 18)
         //noteTextView.text = Theme.Text.notePlaceholder
-        noteTextView.tintColor = Theme.Colours.whiteColour
-        noteTextView.textColor = Theme.Colours.whiteColour
-        noteTextView.backgroundColor = Theme.Colours.vividBlue
-        noteTextView.layer.cornerRadius = 8.0
-        noteTextView.isScrollEnabled = true
-        noteTextView.isEditable = true
-        noteTextView.layer.borderColor = Theme.Colours.lightGray.cgColor
-        noteTextView.layer.cornerRadius = 7
-        noteTextView.layer.borderWidth = 1.0
-        noteTextView.textContainerInset = UIEdgeInsets(top: 10,
+        noteTextField.tintColor = Theme.Colours.whiteColour
+        noteTextField.textColor = Theme.Colours.whiteColour
+        noteTextField.backgroundColor = Theme.Colours.vividBlue
+        noteTextField.layer.cornerRadius = 8.0
+        noteTextField.isScrollEnabled = true
+        noteTextField.isEditable = true
+        noteTextField.layer.borderColor = Theme.Colours.lightGray.cgColor
+        noteTextField.layer.cornerRadius = 7
+        noteTextField.layer.borderWidth = 1.0
+        noteTextField.textContainerInset = UIEdgeInsets(top: 10,
                                                        left: 6,
                                                        bottom: 10,
                                                        right: 6)
-        noteTextView.autocorrectionType = .yes
-        noteTextView.spellCheckingType = .yes
-        noteTextView.translatesAutoresizingMaskIntoConstraints = false
-        return noteTextView
+        noteTextField.autocorrectionType = .yes
+        noteTextField.spellCheckingType = .yes
+        noteTextField.translatesAutoresizingMaskIntoConstraints = false
+        return noteTextField
+    }()
+    
+    /// Notes field character count down label
+    lazy var notesCount: UILabel = {
+        var notesCount = UILabel()
+        notesCount.textColor = Theme.Colours.whiteColour
+        notesCount.font = .systemFont(ofSize: 14)
+        notesCount.textAlignment = .right
+        notesCount.text = "20/500"
+        notesCount.translatesAutoresizingMaskIntoConstraints = false
+        return notesCount
     }()
     
     lazy var noteTextPlaceholder: UILabel = {
@@ -84,8 +106,10 @@ class TaskUI: UIView {
         taskDetailStackView.alignment = .fill
         taskDetailStackView.distribution = .fill
         taskDetailStackView.addArrangedSubview(taskTitleTextField)
+        taskDetailStackView.addArrangedSubview(taskTitleCount)
         //taskDetailStackView.addArrangedSubview(noteTextField)
-        taskDetailStackView.addArrangedSubview(noteTextView)
+        taskDetailStackView.addArrangedSubview(noteTextField)
+        taskDetailStackView.addArrangedSubview(notesCount)
         taskDetailStackView.translatesAutoresizingMaskIntoConstraints = false
         return taskDetailStackView
     }()
@@ -280,15 +304,13 @@ extension TaskUI {
 //MARK: Task UI Extension for View Task Screen
 extension TaskUI {
     func taskNotesPlaceholder() {
-        noteTextView.addSubview(noteTextPlaceholder)
-        noteTextPlaceholder.isHidden = !noteTextView.text.isEmpty
+        noteTextField.addSubview(noteTextPlaceholder)
+        noteTextPlaceholder.isHidden = !noteTextField.text.isEmpty
         NSLayoutConstraint.activate([
-            noteTextPlaceholder.topAnchor.constraint(equalTo: noteTextView.topAnchor, constant: 10),
-            noteTextPlaceholder.leadingAnchor.constraint(equalTo: noteTextView.leadingAnchor, constant: 11)
+            noteTextPlaceholder.topAnchor.constraint(equalTo: noteTextField.topAnchor, constant: 10),
+            noteTextPlaceholder.leadingAnchor.constraint(equalTo: noteTextField.leadingAnchor, constant: 11)
         ])
     }
-    
-    
     
     func unhideSaveButton() {
         /// Check task titile text field eidt change to change save button state
