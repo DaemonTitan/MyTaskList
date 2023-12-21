@@ -48,6 +48,9 @@ struct Theme {
         static let notePlaceholder = "Add note..."
         static let flagLabel = "Flag"
         static let unflagLabel = "Unflag"
+        static let today = "Today,"
+        static let tomorrow = "Tomorrow,"
+        static let yesterday = "Yesterday,"
         static let reminderMeLabel = " Reminder me"
         static let deleteTaskAlertTitle = "Delete task?"
         static let deleteTaskAlertBody = "You cannot undo this action"
@@ -60,6 +63,17 @@ struct Theme {
         static let completedSectionTitle = "Completed"
         static let cantEditTaskTitle = "Unable to edit Task"
         static let cantEditTaskBody = "You cannot edit a completed task. Please ensure the checkbox is unchecked to make any modifications."
+        
+        struct DateTimeFormat {
+            static let dateTimeFormat = "EEEE, MMM d, yyyy, h:mm a"
+            static let timeFormat = "h:mm a"
+        }
+    }
+    
+    // MARK: Number used 
+    struct Number {
+        static let taskTitleMaxLength = 50
+        static let notesMaxLength = 500
     }
     
     // MARK: Label display in buttons

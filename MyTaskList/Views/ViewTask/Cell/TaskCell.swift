@@ -16,7 +16,7 @@ class TaskCell: UITableViewCell {
     
     /// Date format for future dates
     static let futureDatesFormatter: DateFormatter = {
-        let format = "EEEE, MMM d, yyyy, h:mm a"
+        let format = Theme.Text.DateTimeFormat.dateTimeFormat
         let dateFormatter = DateFormatter()
         //dateFormatter.dateStyle = .medium
         dateFormatter.dateFormat = format
@@ -26,7 +26,7 @@ class TaskCell: UITableViewCell {
     
     /// Date format for Yesterday, Today and Tomorrow
     static let presentDatesFormatter: DateFormatter = {
-        let format = "h:mm a"
+        let format = Theme.Text.DateTimeFormat.timeFormat
         let dateFormatter = DateFormatter()
         //dateFormatter.dateStyle = .medium
         dateFormatter.dateFormat = format
@@ -107,11 +107,11 @@ class TaskCell: UITableViewCell {
         let formatedPresentDate = TaskCell.presentDatesFormatter.string(from: date)
 
         if Calendar.current.isDateInToday(date) {
-            taskCellUI.reminderMeLabel.text = "Today, \(formatedPresentDate)"
+            taskCellUI.reminderMeLabel.text = "\(Theme.Text.today) \(formatedPresentDate)"
         } else if Calendar.current.isDateInYesterday(date) {
-            taskCellUI.reminderMeLabel.text = "Yesterday, \(formatedPresentDate)"
+            taskCellUI.reminderMeLabel.text = "\(Theme.Text.yesterday) \(formatedPresentDate)"
         } else if Calendar.current.isDateInTomorrow(date) {
-            taskCellUI.reminderMeLabel.text = "Tomorrow, \(formatedPresentDate)"
+            taskCellUI.reminderMeLabel.text = "\(Theme.Text.tomorrow) \(formatedPresentDate)"
         } else {
             taskCellUI.reminderMeLabel.text = formatedFutureDate
         }
