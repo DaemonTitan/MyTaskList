@@ -56,7 +56,7 @@ class TaskCellUI: UIView {
         flagImage.contentMode = .scaleAspectFit
         let sfFlagName = "flag.fill"
 //        flagImage.image = UIImage(systemName: sfFlagName, withConfiguration: nil)?.withTintColor(Theme.Colours.orange, renderingMode: .alwaysOriginal)
-        flagImage.image = UIImage(named: Theme.images.flagRedFill)
+        flagImage.image = UIImage(named: Theme.Images.flagRedFill)
         flagImage.isHidden = true
         flagImage.translatesAutoresizingMaskIntoConstraints = false
         return flagImage

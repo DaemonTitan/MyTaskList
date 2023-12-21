@@ -31,15 +31,16 @@ class ViewTaskController: UIViewController {
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
-        
         notificationManager.notificationPermission(vc: self)
-        notificationManager.notificationList()
+        
         buttonLayout()
         realmManager.openRealm()
         realmManager.viewOpenedTask()
         realmManager.viewCompletedTask()
         
-        // find realm file location
+        // Print notification ID list
+        notificationManager.notificationList()
+        // Print realm file location
         realmManager.findRealmFile()
         
         taskViewUI.plusButton.addTarget(self, action: #selector(createTask), for: .touchUpInside)
