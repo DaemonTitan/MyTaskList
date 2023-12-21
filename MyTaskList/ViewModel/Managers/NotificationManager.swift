@@ -18,7 +18,7 @@ class NotificationManager {
         notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { (permissionGranted, error) in
             DispatchQueue.main.async {
                 if !permissionGranted {
-                    print("Permission Denied")
+                    //print("Permission Denied")
                 }
             }
         }

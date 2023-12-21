@@ -28,16 +28,14 @@ class ViewSelectTaskScreen: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = Theme.Colours.vividBlue
         title = Theme.Text.editTaskControllerTitle
-        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+        let textAttributes = [NSAttributedString.Key.foregroundColor: Theme.Colours.whiteColour]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         navigationController?.navigationBar.barTintColor = Theme.Colours.vividBlue
         configureView()
         
         viewTaskUI.taskTitleTextField.delegate = self
-        //viewTaskUI.noteTextField.delegate = self
         viewTaskUI.noteTextField.delegate = self
         viewTaskUI.taskTitleTextField.returnKeyType = .next
-        //viewTaskUI.noteTextField.returnKeyType = .done
         viewTaskUI.noteTextField.returnKeyType = .done
         viewTaskUI.unhideSaveButton()
         viewTaskUI.toggleReminderMeSwitch()
@@ -71,7 +69,6 @@ class ViewSelectTaskScreen: UIViewController {
         
         guard let taskItem = task else { return }
         viewTaskUI.taskTitleTextField.text = taskItem.title
-        //viewTaskUI.noteTextField.text = taskItem.note
         viewTaskUI.noteTextField.text = taskItem.note
         viewTaskUI.flagSwitch.isOn = taskItem.flag
         
@@ -136,7 +133,6 @@ class ViewSelectTaskScreen: UIViewController {
             viewTaskUI.taskDetailStackView.trailingAnchor.constraint(equalTo: viewTaskUI.contentView.trailingAnchor, constant: -18),
             viewTaskUI.taskTitleTextField.heightAnchor.constraint(equalToConstant: 40),
             viewTaskUI.taskTitleCountLabel.heightAnchor.constraint(equalToConstant: 20),
-            //viewTaskUI.noteTextField.heightAnchor.constraint(equalToConstant: 30),
             viewTaskUI.noteTextField.heightAnchor.constraint(equalToConstant: 100),
             viewTaskUI.notesCountLabel.heightAnchor.constraint(equalToConstant: 20),
         
@@ -170,7 +166,6 @@ extension ViewSelectTaskScreen: UITextFieldDelegate, UITextViewDelegate {
     // MARK: Text field
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == viewTaskUI.taskTitleTextField {
-            //viewTaskUI.noteTextField.becomeFirstResponder()
             viewTaskUI.noteTextField.becomeFirstResponder()
         } else {
             textField.resignFirstResponder()
@@ -179,7 +174,6 @@ extension ViewSelectTaskScreen: UITextFieldDelegate, UITextViewDelegate {
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        
         if textField === viewTaskUI.taskTitleTextField {
             guard let titleText = textField.text else { return }
             taskTitle = titleText
@@ -189,9 +183,8 @@ extension ViewSelectTaskScreen: UITextFieldDelegate, UITextViewDelegate {
     
     /// Set character limit to task title field
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let maxLength = 50
         let currentString = viewTaskUI.taskTitleTextField.text ?? ""
-        return currentString.count + (string.count - range.length) <= maxLength
+        return currentString.count + (string.count - range.length) <= Theme.Number.taskTitleMaxLength
     }
     
     // MARK: Text view
@@ -220,9 +213,8 @@ extension ViewSelectTaskScreen: UITextFieldDelegate, UITextViewDelegate {
     
     /// Set character limit to notes field
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        let maxLength = 500
         let currentString = viewTaskUI.noteTextField.text ?? ""
-        return currentString.count + (text.count - range.length) <= maxLength
+        return currentString.count + (text.count - range.length) <= Theme.Number.notesMaxLength
     }
 }
 
@@ -232,8 +224,8 @@ extension ViewSelectTaskScreen {
         guard let taskTitleCount = viewTaskUI.taskTitleTextField.text?.count else { return }
         guard let notesCount = viewTaskUI.noteTextField.text?.count else { return }
         
-        viewTaskUI.taskTitleCountLabel.text = "\(taskTitleCount) / 50"
-        viewTaskUI.notesCountLabel.text = "\(notesCount) / 500"
+        viewTaskUI.taskTitleCountLabel.text = "\(taskTitleCount) / \(String(Theme.Number.taskTitleMaxLength))"
+        viewTaskUI.notesCountLabel.text = "\(notesCount) / \(String(Theme.Number.notesMaxLength))"
     }
     
     @objc func keyboardWillShow(notification:NSNotification) {
@@ -271,7 +263,6 @@ extension ViewSelectTaskScreen {
     func updateTask() {
         guard let titleField = viewTaskUI.taskTitleTextField.text, !titleField.isEmpty else {return}
         guard let taskId = task?.id else {return}
-        //let noteField = viewTaskUI.noteTextField.text ?? ""
         let noteField = viewTaskUI.noteTextField.text ?? ""
         let flagSwitch = viewTaskUI.flagSwitch.isOn
         let reminderMeSwitch = viewTaskUI.reminderMeSwitch.isOn
@@ -298,7 +289,7 @@ extension ViewSelectTaskScreen {
                                     datePickerIsOn: reminderMeSwitch,
                                     reminderMeDate: reminderDate,
                                     notifyId: id)
-            notificationManager.dispatchNotification(title: "Task reminder",
+            notificationManager.dispatchNotification(title: Theme.Text.taskReminder,
                                                      body: titleField,
                                                      date: reminderDate)
             saveComplitionHandler?()

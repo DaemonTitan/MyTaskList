@@ -12,8 +12,6 @@ class EnterTaskController: UIViewController {
     private var realmManager = RealmManager()
     private var notificationManager = NotificationManager()
     private let notificationCenter = UNUserNotificationCenter.current()
-    private let taskTitleMaxLength = 50
-    private let notesMaxLength = 500
     
     public var completionHandler: (() -> Void)?
     
@@ -131,7 +129,7 @@ extension EnterTaskController: UITextFieldDelegate, UITextViewDelegate{
     /// Set character limit to task title field
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let currentString = enterTaskUI.taskTitleTextField.text ?? ""
-        return currentString.count + (string.count - range.length) <= taskTitleMaxLength
+        return currentString.count + (string.count - range.length) <= Theme.Number.taskTitleMaxLength
     }
     
     // MARK: Text View
@@ -152,7 +150,7 @@ extension EnterTaskController: UITextFieldDelegate, UITextViewDelegate{
     /// Set character limit to notes field
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let currentString = enterTaskUI.noteTextField.text ?? ""
-        return currentString.count + (text.count - range.length) <= notesMaxLength
+        return currentString.count + (text.count - range.length) <= Theme.Number.notesMaxLength
     }
 }
 
@@ -162,8 +160,8 @@ extension EnterTaskController {
         guard let taskTitleCount = enterTaskUI.taskTitleTextField.text?.count else { return }
         guard let notesCount = enterTaskUI.noteTextField.text?.count else { return }
         
-        enterTaskUI.taskTitleCountLabel.text = "\(taskTitleCount) / \(String(taskTitleMaxLength))"
-        enterTaskUI.notesCountLabel.text = "\(notesCount) / \(String(notesMaxLength))"
+        enterTaskUI.taskTitleCountLabel.text = "\(taskTitleCount) / \(String(Theme.Number.taskTitleMaxLength))"
+        enterTaskUI.notesCountLabel.text = "\(notesCount) / \(String(Theme.Number.notesMaxLength))"
     }
     
     @objc func keyboardWillShow(notification:NSNotification) {
