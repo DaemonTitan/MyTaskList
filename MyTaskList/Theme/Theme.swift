@@ -24,8 +24,9 @@ struct Theme {
     }
     
     // MARK: Image used in model
-    struct images {
+    struct Images {
         static let plusButton = "addButton"
+        static let noRecordFoundGif = "EmptyBox"
         static let sfButtonSquare = "square"
         static let sfButtonSqureCheckmark = "checkmark.square.fill"
         //static let sfFlagName = "flag.fill"

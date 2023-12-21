@@ -99,7 +99,7 @@ class TaskUI: UIView {
     /// Flag label
     lazy var flagLabel: UILabel = {
         var flagLabel = UILabel()
-        let sfSymbolName = Theme.images.flagCircleFill
+        let sfSymbolName = Theme.Images.flagCircleFill
         let flagText = Theme.Text.flagLabel
         let sfImageConfiguration = UIImage.SymbolConfiguration(font: .systemFont(ofSize: 25.0))
         let image = UIImage(systemName: sfSymbolName,
@@ -139,7 +139,7 @@ class TaskUI: UIView {
     /// Reminder me Label
     lazy var reminderMeLabel: UILabel = {
         var reminderMeLabel = UILabel()
-        let sfSymbolName = Theme.images.calendarCircleFill
+        let sfSymbolName = Theme.Images.calendarCircleFill
         let reminderMeText = Theme.Text.reminderMeLabel
         let sfImageConfiguration = UIImage.SymbolConfiguration(font: .systemFont(ofSize: 25.0))
         let image = UIImage(systemName: sfSymbolName, withConfiguration: sfImageConfiguration)?.withTintColor(.white, renderingMode: .alwaysOriginal)

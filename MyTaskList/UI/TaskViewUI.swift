@@ -13,7 +13,7 @@ class TaskViewUI: UIViewController {
     /// Create Task Button
     lazy var plusButton: UIButton = {
         var plusButton = UIButton()
-        plusButton.setImage(UIImage(named: Theme.images.plusButton), for: .normal)
+        plusButton.setImage(UIImage(named: Theme.Images.plusButton), for: .normal)
         plusButton.layer.cornerRadius = 25
         plusButton.clipsToBounds = true
         plusButton.layer.shadowColor = Theme.Colours.blueShadowColor.cgColor
@@ -38,7 +38,7 @@ class TaskViewUI: UIViewController {
     /// No record found
     lazy var noRecordGif: LottieAnimationView = {
         var noRecordGif = LottieAnimationView()
-        noRecordGif = .init(name: "EmptyBox")
+        noRecordGif = .init(name: Theme.Images.noRecordFoundGif)
         noRecordGif.contentMode = .scaleAspectFit
         noRecordGif.loopMode = .loop
         noRecordGif.animationSpeed = 1.0

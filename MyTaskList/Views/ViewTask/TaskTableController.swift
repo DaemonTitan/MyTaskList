@@ -111,7 +111,7 @@ extension ViewTaskController: UITableViewDataSource {
             }
             cell.configureTaskTitle(taskTitle: task.title)
             cell.configureFlag(showImage: task.flag)
-            cell.configureCompleteButton(imageName: Theme.images.sfButtonSquare,
+            cell.configureCompleteButton(imageName: Theme.Images.sfButtonSquare,
                                          size: 25.0,
                                          color: Theme.Colours.lightGray,
                                          state: .normal)
@@ -144,7 +144,7 @@ extension ViewTaskController: UITableViewDataSource {
             let task = realmManager.completeTaskData[indexPath.row]
             cell.completedTaskTitle(taskTitle: task.title)
             cell.configureFlag(showImage: false)
-            cell.configureCompleteButton(imageName: Theme.images.sfButtonSqureCheckmark,
+            cell.configureCompleteButton(imageName: Theme.Images.sfButtonSqureCheckmark,
                                          size: 25.0,
                                          color: Theme.Colours.green,
                                          state: .normal)
@@ -202,9 +202,9 @@ extension ViewTaskController: UITableViewDataSource {
                 completionHandler(true)
             }
             
-            deleteAction.image = UIImage(systemName: Theme.images.trash)
-            let flag = UIImage(systemName: Theme.images.flag)
-            let unflag = UIImage(systemName: Theme.images.unflag)
+            deleteAction.image = UIImage(systemName: Theme.Images.trash)
+            let flag = UIImage(systemName: Theme.Images.flag)
+            let unflag = UIImage(systemName: Theme.Images.unflag)
             let flagImage = task.flag ? unflag : flag
             flagAction.image = flagImage
             flagAction.backgroundColor = Theme.Colours.orange
@@ -224,7 +224,7 @@ extension ViewTaskController: UITableViewDataSource {
                 completionHandler(true)
             }
             
-            deleteAction.image = UIImage(systemName: Theme.images.trash)
+            deleteAction.image = UIImage(systemName: Theme.Images.trash)
             return UISwipeActionsConfiguration(actions: [deleteAction])
             
         default:
