@@ -37,9 +37,9 @@ class ViewTaskController: UIViewController {
         realmManager.viewCompletedTask()
         
         // Print notification ID list
-        notificationManager.notificationList()
+        //notificationManager.notificationList()
         // Print realm file location
-        realmManager.findRealmFile()
+        //realmManager.findRealmFile()
         
         taskViewUI.plusButton.addTarget(self, action: #selector(createTask), for: .touchUpInside)
     }
