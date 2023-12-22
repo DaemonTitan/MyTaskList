@@ -74,8 +74,8 @@ class ViewTaskController: UIViewController {
         
         let rootEnterTaskController = EnterTaskController()
         
-        rootEnterTaskController.completionHandler = { [weak self] in
-            self?.realmManager.readData()
+        rootEnterTaskController.createTaskCompletionHandler = { [weak self] in
+            self?.realmManager.viewOpenedTask()
             self?.tableView.reloadData()
         }
         
