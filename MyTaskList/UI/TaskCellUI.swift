@@ -12,7 +12,7 @@ class TaskCellUI: UIView {
     /// Display task titile in cell
     lazy var taskTitleLabel: UILabel = {
         var taskTitleLabel = UILabel()
-        taskTitleLabel.font = .systemFont(ofSize: 15)
+        //taskTitleLabel.font = .systemFont(ofSize: 15)
         taskTitleLabel.textColor = .black
         taskTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         return taskTitleLabel

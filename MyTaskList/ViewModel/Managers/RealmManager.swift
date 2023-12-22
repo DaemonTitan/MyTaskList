@@ -45,15 +45,15 @@ class RealmManager {
     }
     
     // MARK: Fetch data from Realm
-    func readData() {
-        do {
-            let realm = try Realm()
-            let results = realm.objects(TaskListItem.self).map({ $0 })
-            taskData = results.sorted(by: { $0.dateCreated > $1.dateCreated } )
-        } catch let error {
-            print(error.localizedDescription)
-        }
-    }
+//    func readData() {
+//        do {
+//            let realm = try Realm()
+//            let results = realm.objects(TaskListItem.self).map({ $0 })
+//            taskData = results.sorted(by: { $0.dateCreated > $1.dateCreated } )
+//        } catch let error {
+//            print(error.localizedDescription)
+//        }
+//    }
     
     // MARK: Data filter base on task status
     func taskFilter(status: Bool) {

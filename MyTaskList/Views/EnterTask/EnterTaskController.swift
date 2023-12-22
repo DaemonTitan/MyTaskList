@@ -13,7 +13,7 @@ class EnterTaskController: UIViewController {
     private var notificationManager = NotificationManager()
     private let notificationCenter = UNUserNotificationCenter.current()
     
-    public var completionHandler: (() -> Void)?
+    public var createTaskCompletionHandler: (() -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -211,7 +211,7 @@ extension EnterTaskController {
                                    datePickerIsOn: reminderMeSwitch,
                                    reminderMeDate: nil,
                                    notifyId: "")
-            completionHandler?()
+            createTaskCompletionHandler?()
             dismiss(animated: true)
         } else {
             notificationManager.dispatchNotification(title: Theme.Text.taskReminder,
@@ -223,7 +223,7 @@ extension EnterTaskController {
                                    datePickerIsOn: reminderMeSwitch,
                                    reminderMeDate: reminderDate,
                                    notifyId: id)
-            completionHandler?()
+            createTaskCompletionHandler?()
             dismiss(animated: true)
         }
     }
