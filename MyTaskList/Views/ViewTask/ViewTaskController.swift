@@ -7,8 +7,6 @@
 
 import UIKit
 
-var selectedNotificationId: String = ""
-
 class ViewTaskController: UIViewController {
     var taskViewUI = TaskViewUI()
     var taskTableViewModel = TaskTableViewModel()

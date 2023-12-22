@@ -60,7 +60,7 @@ struct Theme {
         static let enableNotificationBody = "To use reminder me feature, please enable notifications in settings."
         static let discardChangeAlertTitle = "Unsaved changes?"
         static let discardChangeAlertBody = "You have made changes, Do you want to keep editing or discard them?"
-        static let toDoListSectionTitle = "To-Do List"
+        static let taskListSectionTitle = "Task List"
         static let completedSectionTitle = "Completed"
         static let cantEditTaskTitle = "Unable to edit Task"
         static let cantEditTaskBody = "You cannot edit a completed task. Please ensure the checkbox is unchecked to make any modifications."

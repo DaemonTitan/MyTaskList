@@ -270,7 +270,7 @@ extension ViewSelectTaskScreen {
         let id = notificationManager.notificationId
 
         if viewTaskUI.remindMeDatePicker.isHidden {
-            notificationManager.deletePendingNotification(notificationId: selectedNotificationId)
+            notificationManager.deletePendingNotification(notificationId: Configure.selectedNotificationId)
             realmManager.updateData(id: taskId.stringValue,
                                     newTitle: titleField,
                                     newNote: noteField,
@@ -281,7 +281,7 @@ extension ViewSelectTaskScreen {
             saveComplitionHandler?()
             dismiss(animated: true)
         } else {
-            notificationManager.deletePendingNotification(notificationId: selectedNotificationId)
+            notificationManager.deletePendingNotification(notificationId: Configure.selectedNotificationId)
             realmManager.updateData(id: taskId.stringValue,
                                     newTitle: titleField,
                                     newNote: noteField,
@@ -311,7 +311,7 @@ extension ViewSelectTaskScreen {
     func deleteTask() {
         guard let taskId = task?.id else {return}
         realmManager.delete(id: taskId.stringValue)
-        notificationManager.deletePendingNotification(notificationId: selectedNotificationId)
+        notificationManager.deletePendingNotification(notificationId: Configure.selectedNotificationId)
         deleteComplitionHandler?()
         dismiss(animated: true)
     }

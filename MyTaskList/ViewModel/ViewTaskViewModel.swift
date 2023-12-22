@@ -10,11 +10,5 @@ import UIKit
 
 class ViewTaskViewModel {
     
-//    var selectedNotificationId: String = ""
-//    
-//    init(selectedNotificationId: String) {
-//        self.selectedNotificationId = selectedNotificationId
-//    }
-    
     
 }
