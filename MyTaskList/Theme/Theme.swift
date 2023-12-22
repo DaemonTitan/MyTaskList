@@ -63,7 +63,7 @@ struct Theme {
         static let taskListSectionTitle = "Task List"
         static let completedSectionTitle = "Completed"
         static let cantEditTaskTitle = "Unable to edit Task"
-        static let cantEditTaskBody = "You cannot edit a completed task. Please ensure the checkbox is unchecked to make any modifications."
+        static let cantEditTaskBody = "You can't edit a completed task. Please ensure the checkbox is unchecked to make any modifications."
         
         struct DateTimeFormat {
             static let dateTimeFormat = "EEEE, MMM d, yyyy, h:mm a"

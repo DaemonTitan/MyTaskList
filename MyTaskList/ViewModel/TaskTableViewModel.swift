@@ -8,9 +8,7 @@
 import Foundation
 import UIKit
 
-struct Configure {
-    static var selectedNotificationId: String = ""
-}
+
 
 class TaskTableViewModel {
     var taskViewUI = TaskViewUI()
