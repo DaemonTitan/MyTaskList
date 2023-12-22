@@ -193,14 +193,15 @@ class RealmManager {
     }
     
     // MARK: Complete a task
-    func completeTask(id: ObjectId, taskStatus: Bool, closeDate: Date? = nil, notifyId: String) {
+    func completeTask(id: ObjectId, taskStatus: Bool, flag: Bool, closeDate: Date? = nil, reminderMeDate: Date? = nil, notifyId: String) {
         do {
             let realm = try Realm()
             let task = realm.object(ofType: TaskListItem.self, forPrimaryKey: id)
             try realm.write {
                 task?.taskStatus = taskStatus
+                task?.flag = flag
                 task?.dateCompleted = closeDate
-                //task?.reminderMeDate = reminderMeDate
+                task?.reminderMeDate = reminderMeDate
                 task?.notificationId = notifyId
             }
         } catch let error {
@@ -208,4 +209,17 @@ class RealmManager {
         }
     }
     
+    // MARK: Reopen task
+    func reopenTask(id: ObjectId, taskStatus: Bool, closeDate: Date? = nil){
+        do {
+            let realm = try Realm()
+            let task = realm.object(ofType: TaskListItem.self, forPrimaryKey: id)
+            try realm.write {
+                task?.taskStatus = taskStatus
+                task?.dateCompleted = closeDate
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
 }

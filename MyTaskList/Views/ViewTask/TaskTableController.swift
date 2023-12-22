@@ -128,7 +128,12 @@ extension ViewTaskController: UITableViewDataSource {
                 /// Delete notification from Pending notification list
                 self.notificationManager.deletePendingNotification(notificationId: task.notificationId ?? "")
                 /// Update task status to complete and write closed date
-                self.realmManager.completeTask(id: task.id, taskStatus: true, closeDate: Date(), notifyId: "")
+                self.realmManager.completeTask(id: task.id,
+                                               taskStatus: true,
+                                               flag: false,
+                                               closeDate: Date(),
+                                               reminderMeDate: nil,
+                                               notifyId: "")
                 
                 //MARK: Move task from Task Data Array to Complete Task Data Array
                 /// Remove selected data from Task Data Array
@@ -162,8 +167,10 @@ extension ViewTaskController: UITableViewDataSource {
             
             cell.buttonTapCallBack = { [weak self] in
                 guard let self = self else {return}
-                /// Update task status to Uncomplete and write closed date to nil
-                self.realmManager.completeTask(id: task.id, taskStatus: false, closeDate: nil, notifyId: "")
+                /// Update task status to reopen task and write closed date to nil
+                //self.realmManager.completeTask(id: task.id, taskStatus: false, closeDate: nil, notifyId: "")
+                self.realmManager.reopenTask(id: task.id, taskStatus: false, closeDate: nil)
+                
                 //MARK: Move task from Complete Task Data Array to Task Data Array
                 /// Remove selected data from Completed Data Array
                 let selectedCompleteTask = self.realmManager.completeTaskData.remove(at: indexPath.row)

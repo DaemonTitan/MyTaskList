@@ -9,6 +9,10 @@ import Foundation
 import UserNotifications
 import UIKit
 
+struct Configure {
+    static var selectedNotificationId: String = ""
+}
+
 class NotificationManager {
     private let notificationCenter = UNUserNotificationCenter.current()
     var notificationId = UUID().uuidString
