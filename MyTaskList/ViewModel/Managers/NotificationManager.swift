@@ -67,8 +67,8 @@ class NotificationManager {
         UNUserNotificationCenter.current().getPendingNotificationRequests { notificationRequests in
             for request in notificationRequests {
                 let identifier = request.identifier
-                let content = request.content
-                let trigger = request.trigger
+//                let content = request.content
+//                let trigger = request.trigger
 
                 // Process each pending notification as needed
                 print("Identifier: \(identifier)")
@@ -77,7 +77,4 @@ class NotificationManager {
             }
         }
     }
-    
-    
-    
 }
