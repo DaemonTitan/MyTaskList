@@ -16,11 +16,12 @@ extension ViewTaskController: UITableViewDelegate {
     /// Tap on task row to view selected task
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
+        /// Task  List section
         case 0:
             tableView.deselectRow(at: indexPath, animated: true)
             let text = realmManager.taskData[indexPath.row]
             let taskNotificationId = realmManager.taskData[indexPath.row].notificationId ?? ""
-            selectedNotificationId = taskNotificationId
+            Configure.selectedNotificationId = taskNotificationId
             
             let rootViewSelectTaskScreen = ViewSelectTaskScreen()
             rootViewSelectTaskScreen.task = text
@@ -41,7 +42,8 @@ extension ViewTaskController: UITableViewDelegate {
             
             let viewSelectTaskScreen = UINavigationController(rootViewController: rootViewSelectTaskScreen)
             present(viewSelectTaskScreen, animated: true)
-            
+
+        /// Completed section
         case 1:
             tableView.deselectRow(at: indexPath, animated: true)
             Alert.showDisableEditTaskAlert(on: self)
@@ -65,8 +67,10 @@ extension ViewTaskController: UITableViewDataSource {
             } else {
                 taskTableViewModel.restoreTableView()
                 switch section {
+                /// Task List section
                 case 0:
                     return realmManager.taskData.count
+                /// Completed section
                 case 1:
                     return realmManager.completeTaskData.count
                 default:
@@ -79,12 +83,14 @@ extension ViewTaskController: UITableViewDataSource {
     /// Display section header
      func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
          switch section {
+         /// Task List section
          case 0:
              if realmManager.taskData.count > 0 {
-                 return Theme.Text.toDoListSectionTitle
+                 return Theme.Text.taskListSectionTitle
              } else {
                  return Theme.Text.emptyText
              }
+         /// Completed section
          case 1:
              if realmManager.completeTaskData.count > 0 {
                  return Theme.Text.completedSectionTitle
@@ -103,6 +109,7 @@ extension ViewTaskController: UITableViewDataSource {
         }
 
         switch indexPath.section {
+        /// Task List section
         case 0:
             // MARK: Configure To - Do section
             let task = realmManager.taskData[indexPath.row]
@@ -118,8 +125,10 @@ extension ViewTaskController: UITableViewDataSource {
             
             cell.buttonTapCallBack = { [weak self] in
                 guard let self = self else {return}
+                /// Delete notification from Pending notification list
+                self.notificationManager.deletePendingNotification(notificationId: task.notificationId ?? "")
                 /// Update task status to complete and write closed date
-                self.realmManager.completeTask(id: task.id, taskStatus: true, closeDate: Date())
+                self.realmManager.completeTask(id: task.id, taskStatus: true, closeDate: Date(), notifyId: "")
                 
                 //MARK: Move task from Task Data Array to Complete Task Data Array
                 /// Remove selected data from Task Data Array
@@ -138,7 +147,8 @@ extension ViewTaskController: UITableViewDataSource {
 //                }
                 //self.tableView.insertRows(at: [insertCompleteTaskIndexPath], with: .fade)
             }
-            
+        
+        /// Completed section
         case 1:
             // MARK: Configure Completed section
             let task = realmManager.completeTaskData[indexPath.row]
@@ -153,7 +163,7 @@ extension ViewTaskController: UITableViewDataSource {
             cell.buttonTapCallBack = { [weak self] in
                 guard let self = self else {return}
                 /// Update task status to Uncomplete and write closed date to nil
-                self.realmManager.completeTask(id: task.id, taskStatus: false, closeDate: nil)
+                self.realmManager.completeTask(id: task.id, taskStatus: false, closeDate: nil, notifyId: "")
                 //MARK: Move task from Complete Task Data Array to Task Data Array
                 /// Remove selected data from Completed Data Array
                 let selectedCompleteTask = self.realmManager.completeTaskData.remove(at: indexPath.row)
@@ -177,13 +187,14 @@ extension ViewTaskController: UITableViewDataSource {
     /// Swipe cell to delete task
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         switch indexPath.section {
+        /// Task List section
         case 0:
             let task = realmManager.taskData[indexPath.row]
-            selectedNotificationId = task.notificationId ?? ""
+            Configure.selectedNotificationId = task.notificationId ?? ""
             /// Delete task action
             let deleteAction = UIContextualAction(style: .destructive, title: Theme.ButtonLabel.deleteButton) { [weak self] (action, view, completionHandler) in
                 self?.realmManager.deleteTaskData(at: indexPath)
-                self?.notificationManager.deletePendingNotification(notificationId: selectedNotificationId)
+                self?.notificationManager.deletePendingNotification(notificationId: Configure.selectedNotificationId)
                 tableView.deselectRow(at: indexPath, animated: true)
                 self?.realmManager.viewOpenedTask()
                 self?.realmManager.viewCompletedTask()
@@ -210,13 +221,14 @@ extension ViewTaskController: UITableViewDataSource {
             flagAction.backgroundColor = Theme.Colours.orange
             return UISwipeActionsConfiguration(actions: [deleteAction, flagAction])
             
+        /// Completed section
         case 1:
             let completedtask = realmManager.completeTaskData[indexPath.row]
-            selectedNotificationId = completedtask.notificationId ?? ""
+            Configure.selectedNotificationId = completedtask.notificationId ?? ""
             /// Delete task action
             let deleteAction = UIContextualAction(style: .destructive, title: Theme.ButtonLabel.deleteButton) { [weak self] (action, view, completionHandler) in
                 self?.realmManager.deleteCompleteTaskData(at: indexPath)
-                self?.notificationManager.deletePendingNotification(notificationId: selectedNotificationId)
+                self?.notificationManager.deletePendingNotification(notificationId: Configure.selectedNotificationId)
                 tableView.deselectRow(at: indexPath, animated: true)
                 self?.realmManager.viewOpenedTask()
                 self?.realmManager.viewCompletedTask()
