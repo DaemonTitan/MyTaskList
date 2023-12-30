@@ -168,7 +168,6 @@ class TaskUI: UIView {
         remindMeDatePicker.datePickerMode = .dateAndTime
         remindMeDatePicker.isHidden = true
         remindMeDatePicker.tintColor = Theme.Colours.lightOrange
-        remindMeDatePicker.minimumDate = Date()
         remindMeDatePicker.overrideUserInterfaceStyle = .dark
         remindMeDatePicker.preferredDatePickerStyle = .inline
         remindMeDatePicker.translatesAutoresizingMaskIntoConstraints = false

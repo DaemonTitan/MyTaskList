@@ -26,6 +26,7 @@ class EnterTaskController: UIViewController {
         enterTaskUI.noteTextField.delegate = self
         enterTaskUI.taskTitleTextField.returnKeyType = .next
         enterTaskUI.noteTextField.returnKeyType = .done
+        enterTaskUI.remindMeDatePicker.minimumDate = Date()
         enterTaskUI.toggleReminderMeSwitch()
         enterTaskUI.textFieldEditChange()
         dismissKeyboard()

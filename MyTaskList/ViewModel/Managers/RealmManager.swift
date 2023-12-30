@@ -193,13 +193,14 @@ class RealmManager {
     }
     
     // MARK: Complete a task
-    func completeTask(id: ObjectId, taskStatus: Bool, flag: Bool, closeDate: Date? = nil, reminderMeDate: Date? = nil, notifyId: String) {
+    func completeTask(id: ObjectId, taskStatus: Bool, flag: Bool, datePickerIsOn: Bool, closeDate: Date? = nil, reminderMeDate: Date? = nil, notifyId: String) {
         do {
             let realm = try Realm()
             let task = realm.object(ofType: TaskListItem.self, forPrimaryKey: id)
             try realm.write {
                 task?.taskStatus = taskStatus
                 task?.flag = flag
+                task?.datePickerIsOn = datePickerIsOn
                 task?.dateCompleted = closeDate
                 task?.reminderMeDate = reminderMeDate
                 task?.notificationId = notifyId

@@ -9,6 +9,10 @@ import Foundation
 import UIKit
 
 class ViewTaskViewModel {
+    var viewTaskUI: TaskUI
     
+    init(viewTaskUI: TaskUI) {
+        self.viewTaskUI = viewTaskUI
+    }
     
 }
