@@ -131,6 +131,7 @@ extension ViewTaskController: UITableViewDataSource {
                 self.realmManager.completeTask(id: task.id,
                                                taskStatus: true,
                                                flag: false,
+                                               datePickerIsOn: false,
                                                closeDate: Date(),
                                                reminderMeDate: nil,
                                                notifyId: "")

@@ -65,28 +65,8 @@ class ViewSelectTaskScreen: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewTaskUI.saveTaskButton.isEnabled = false
-        
-        guard let taskItem = task else { return }
-        viewTaskUI.taskTitleTextField.text = taskItem.title
-        viewTaskUI.noteTextField.text = taskItem.note
-        viewTaskUI.flagSwitch.isOn = taskItem.flag
-        
-        if let noteField = task?.note {
-            taskTitle = taskItem.title
-            taskNote = noteField
-            taskFlag = taskItem.flag
-            reminderDate = taskItem.reminderMeDate
-        }
-        
-        guard let date = taskItem.reminderMeDate else { return }
-        if taskItem.reminderMeDate != nil {
-            viewTaskUI.reminderMeSwitch.isOn = true
-            viewTaskUI.remindMeDatePicker.isHidden = false
-            viewTaskUI.remindMeDatePicker.date = date
-        } else {
-            return
-        }
+        /// Display task data during screen loads
+        displayTaskData()
     }
     
     override func viewIsAppearing(_ animated: Bool) {
@@ -219,6 +199,29 @@ extension ViewSelectTaskScreen: UITextFieldDelegate, UITextViewDelegate {
 }
 
 extension ViewSelectTaskScreen {
+    /// Data mapping for display task on view select task controller
+    func displayTaskData() {
+        guard let taskItem = task else { return }
+        viewTaskUI.taskTitleTextField.text = taskItem.title
+        viewTaskUI.noteTextField.text = taskItem.note
+        viewTaskUI.flagSwitch.isOn = taskItem.flag
+        
+        if let taskDate = taskItem.reminderMeDate {
+            viewTaskUI.reminderMeSwitch.isOn = true
+            viewTaskUI.remindMeDatePicker.isHidden = false
+            viewTaskUI.remindMeDatePicker.date = taskDate
+        }
+        viewTaskUI.saveTaskButton.isEnabled = false
+        
+        if let noteField = task?.note {
+            taskTitle = taskItem.title
+            taskNote = noteField
+            taskFlag = taskItem.flag
+            reminderMe = taskItem.datePickerIsOn
+            reminderDate = taskItem.reminderMeDate
+        }
+    }
+    
     /// Display task titile and notes field character count down
     func displayCharacterCount() {
         guard let taskTitleCount = viewTaskUI.taskTitleTextField.text?.count else { return }
@@ -317,12 +320,34 @@ extension ViewSelectTaskScreen {
     }
     
     @objc func cancel() {
-        checkTextValueChange(viewTaskUI.flagSwitch)
+        checkTextValueChange()
     }
     
-    func checkTextValueChange(_ sender: UISwitch) {
+    func flagSwitchValueChange(_ toggle: UISwitch) {
+        if toggle ==  viewTaskUI.flagSwitch {
+            taskFlag = toggle.isOn
+        }
+    }
+    
+    func reminderMeSwitchValueChange(_ toggle: UISwitch) {
+        if toggle ==  viewTaskUI.reminderMeSwitch {
+            reminderMe = toggle.isOn
+        }
+    }
+    
+    func checkTextValueChange() {
+        flagSwitchValueChange(viewTaskUI.flagSwitch)
+        reminderMeSwitchValueChange(viewTaskUI.reminderMeSwitch)
+
         guard let taskItem = task else { return }
-        if taskTitle != taskItem.title || taskNote != taskItem.note || taskFlag != sender.isOn{
+        if viewTaskUI.reminderMeSwitch.isOn && viewTaskUI.remindMeDatePicker.date != taskItem.reminderMeDate {
+            Alert.showDiscardChangeAlert(on: self)
+        } else if viewTaskUI.reminderMeSwitch.isOn == false && reminderDate != taskItem.reminderMeDate {
+            Alert.showDiscardChangeAlert(on: self)
+        } else if taskTitle != taskItem.title ||
+                    taskNote != taskItem.note ||
+                    taskFlag != taskItem.flag ||
+                    reminderMe != taskItem.datePickerIsOn {
             Alert.showDiscardChangeAlert(on: self)
         } else {
             dismiss(animated: true)

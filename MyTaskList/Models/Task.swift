@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TaskTest {
+struct Tasks {
     var id: String
     var dateCreated: Date = Date()
     var title: String
