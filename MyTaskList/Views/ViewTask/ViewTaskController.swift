@@ -23,7 +23,7 @@ class ViewTaskController: UIViewController {
         super.viewDidLoad()
         title = Theme.Text.viewTaskControllerTitle
         view.addSubview(tableView)
-        view.addSubview(taskViewUI.blurView)
+        //view.addSubview(taskViewUI.blurView)
         view.addSubview(taskViewUI.plusButton)
         tableView.dataSource = self
         tableView.delegate = self
@@ -61,10 +61,10 @@ class ViewTaskController: UIViewController {
             taskViewUI.plusButton.heightAnchor.constraint(equalToConstant: 50),
             taskViewUI.plusButton.widthAnchor.constraint(equalToConstant: 50),
             
-            taskViewUI.blurView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            taskViewUI.blurView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            taskViewUI.blurView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            taskViewUI.blurView.topAnchor.constraint(equalTo: taskViewUI.plusButton.topAnchor, constant: -20)
+//            taskViewUI.blurView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            taskViewUI.blurView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            taskViewUI.blurView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+//            taskViewUI.blurView.topAnchor.constraint(equalTo: taskViewUI.plusButton.topAnchor, constant: -20)
         ])
     }
     

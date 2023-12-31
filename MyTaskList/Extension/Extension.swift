@@ -100,7 +100,6 @@ extension UIButton {
     /// Animate check mark
     func checkboxAnimation(closure: @escaping () -> Void){
         guard let image = self.imageView else {return}
-        self.adjustsImageWhenHighlighted = false
         self.isHighlighted = false
 
         UIView.animate(withDuration: 0.1, delay: 0.1, options: .curveLinear, animations: {

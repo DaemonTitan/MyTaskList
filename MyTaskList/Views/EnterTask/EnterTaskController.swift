@@ -70,10 +70,10 @@ class EnterTaskController: UIViewController {
             enterTaskUI.contentView.heightAnchor.constraint(equalTo: enterTaskUI.scrollView.heightAnchor, constant: 120),
             enterTaskUI.contentView.widthAnchor.constraint(equalTo: enterTaskUI.scrollView.widthAnchor),
         ])
-        newUILayout()
+        configureLayout()
     }
     
-    private func newUILayout() {
+    private func configureLayout() {
         enterTaskUI.contentView.addSubview(enterTaskUI.taskDetailStackView)
         enterTaskUI.contentView.addSubview(enterTaskUI.flagStackView)
         enterTaskUI.contentView.addSubview(enterTaskUI.dateStackView)
