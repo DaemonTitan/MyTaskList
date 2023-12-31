@@ -25,15 +25,15 @@ class TaskViewUI: UIViewController {
     }()
     
     /// My Task View Bottom Blur Effects
-    lazy var blurView: UIVisualEffectView = {
-        let blurEffect = UIBlurEffect(style: .regular)
-        let blurView = UIVisualEffectView(effect: blurEffect)
-        blurView.layer.masksToBounds = true
-        blurView.clipsToBounds = true
-        blurView.alpha = 0.65
-        blurView.translatesAutoresizingMaskIntoConstraints = false
-        return blurView
-    }()
+//    lazy var blurView: UIVisualEffectView = {
+//        let blurEffect = UIBlurEffect(style: .regular)
+//        let blurView = UIVisualEffectView(effect: blurEffect)
+//        blurView.layer.masksToBounds = true
+//        blurView.clipsToBounds = true
+//        blurView.alpha = 0.65
+//        blurView.translatesAutoresizingMaskIntoConstraints = false
+//        return blurView
+//    }()
     
     /// No record found
     lazy var noRecordGif: LottieAnimationView = {
