@@ -62,7 +62,7 @@ class NotificationManager {
         })
     }
     
-    // MARK: Get notification identifier list
+    // MARK: Get notification identifier list For testing purpose
     func notificationList() {
         UNUserNotificationCenter.current().getPendingNotificationRequests { notificationRequests in
             for request in notificationRequests {

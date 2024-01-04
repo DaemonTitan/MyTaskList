@@ -8,7 +8,6 @@
 import UIKit
 
 class ViewSelectTaskScreen: UIViewController {
-    
     private var viewTaskUI = TaskUI()
     private var realmManager = RealmManager()
     private var notificationManager = NotificationManager()
@@ -42,7 +41,7 @@ class ViewSelectTaskScreen: UIViewController {
         dismissKeyboard()
         
         leftBarButton(title: Theme.ButtonLabel.cancelButton,
-                      color: .white, style: .done,
+                      color: Theme.Colours.whiteColour, style: .done,
                       targe: self,
                       action: #selector(cancel))
         

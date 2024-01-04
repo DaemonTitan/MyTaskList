@@ -13,7 +13,7 @@ class TaskCellUI: UIView {
     lazy var taskTitleLabel: UILabel = {
         var taskTitleLabel = UILabel()
         //taskTitleLabel.font = .systemFont(ofSize: 15)
-        taskTitleLabel.textColor = .black
+        taskTitleLabel.textColor = Theme.Colours.black
         taskTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         return taskTitleLabel
     }()
@@ -54,7 +54,7 @@ class TaskCellUI: UIView {
     lazy var flagImage: UIImageView = {
         var flagImage = UIImageView()
         flagImage.contentMode = .scaleAspectFit
-        let sfFlagName = "flag.fill"
+        let sfFlagName = Theme.Images.flagFill
 //        flagImage.image = UIImage(systemName: sfFlagName, withConfiguration: nil)?.withTintColor(Theme.Colours.orange, renderingMode: .alwaysOriginal)
         flagImage.image = UIImage(named: Theme.Images.flagRedFill)
         flagImage.isHidden = true

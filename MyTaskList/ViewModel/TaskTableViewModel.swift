@@ -8,8 +8,6 @@
 import Foundation
 import UIKit
 
-
-
 class TaskTableViewModel {
     var taskViewUI = TaskViewUI()
     
