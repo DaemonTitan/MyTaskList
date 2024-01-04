@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 struct Alert {
-    
     // MARK: Open Setting app scren
     /// Open setting screen
     private func openSettings() {
@@ -130,6 +129,7 @@ struct Alert {
         }
     }
     
+    // MARK: Display disable edit function on complete task
     static func showDisableEditTaskAlert(on vc: UIViewController) {
         disableEditTaskAlert(on: vc, with: Theme.Text.cantEditTaskTitle,
                              message: Theme.Text.cantEditTaskBody)

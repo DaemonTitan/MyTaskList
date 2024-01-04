@@ -23,7 +23,7 @@ class RealmManager {
         }
     }
     
-    /// Check current schema version
+    // MARK: Check current schema version
     func checkSchema() {
         let configCheck = Realm.Configuration();
         do {
@@ -34,7 +34,7 @@ class RealmManager {
         }
     }
     
-    /// Display realm file location
+    //MARK: Display realm file location
     func findRealmFile() {
         do {
             let realm = try Realm()
@@ -44,7 +44,7 @@ class RealmManager {
         }
     }
     
-    // MARK: Fetch data from Realm
+    /// MARK: Fetch data from Realm
 //    func readData() {
 //        do {
 //            let realm = try Realm()

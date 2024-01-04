@@ -87,13 +87,13 @@ class TaskCell: UITableViewCell {
     func configureTaskTitle(taskTitle: String) {
         taskCellUI.taskTitleLabel.attributedText = taskTitle.removeStrikeThrough()
         taskCellUI.taskTitleLabel.font = .systemFont(ofSize: 15, weight: .semibold)
-        taskCellUI.taskTitleLabel.textColor = .black
+        taskCellUI.taskTitleLabel.textColor = Theme.Colours.black
     }
     
     func completedTaskTitle(taskTitle: String) {
         taskCellUI.taskTitleLabel.attributedText = taskTitle.strikeThrough()
         taskCellUI.taskTitleLabel.font = .systemFont(ofSize: 15, weight: .light)
-        taskCellUI.taskTitleLabel.textColor = .systemGray2
+        taskCellUI.taskTitleLabel.textColor = Theme.Colours.systemGray2
     }
     
     func configureFlag(showImage: Bool) {

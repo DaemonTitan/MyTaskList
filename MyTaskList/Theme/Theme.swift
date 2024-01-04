@@ -12,6 +12,8 @@ struct Theme {
     struct Colours {
         static let blueShadowColor = #colorLiteral(red: 0, green: 0.1250701678, blue: 0.9529175421, alpha: 0.825159136)
         static let whiteColour = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        static let tintWhite = UIColor.white
+        static let red = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
         static let vividBlue = #colorLiteral(red: 0.1864877343, green: 0.4360160828, blue: 0.9999772906, alpha: 1)
         static let lightGray = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         static let gray = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
@@ -20,6 +22,7 @@ struct Theme {
         static let lightOrange = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
         static let green = #colorLiteral(red: 0.2545660734, green: 0.7794763446, blue: 0.3503473699, alpha: 1)
         static let systemGray = UIColor.systemGray
+        static let systemGray2 = UIColor.systemGray2
         static let black = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
     }
     
@@ -32,7 +35,7 @@ struct Theme {
         //static let sfFlagName = "flag.fill"
         static let flagRedFill = "FlagRedFill"
         static let trash = "trash.fill"
-        static let flag = "flag.fill"
+        static let flagFill = "flag.fill"
         static let unflag = "flag.slash.fill"
         static let flagCircleFill = "flag.circle.fill"
         static let calendarCircleFill = "calendar.circle.fill"

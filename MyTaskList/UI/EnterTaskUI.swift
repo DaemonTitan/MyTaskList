@@ -208,7 +208,7 @@ class TaskUI: UIView {
     lazy var saveTaskButton: UIButton = {
         var saveTaskButton = UIButton()
         saveTaskButton.configuration = .filled()
-        saveTaskButton.tintColor = .white
+        saveTaskButton.tintColor = Theme.Colours.tintWhite
         saveTaskButton.configuration?.title = Theme.ButtonLabel.saveButton
         saveTaskButton.titleLabel?.font = .systemFont(ofSize: 100, weight: .bold)
         saveTaskButton.layer.cornerRadius = 20.0
@@ -221,7 +221,7 @@ class TaskUI: UIView {
     lazy var deleteTaskButton: UIButton = {
         var deleteTaskButton = UIButton()
         deleteTaskButton.configuration = .filled()
-        deleteTaskButton.tintColor = .white
+        deleteTaskButton.tintColor = Theme.Colours.tintWhite
         deleteTaskButton.configuration?.title = Theme.ButtonLabel.deleteButton
         deleteTaskButton.titleLabel?.font = .systemFont(ofSize: 100, weight: .bold)
         deleteTaskButton.layer.cornerRadius = 20.0

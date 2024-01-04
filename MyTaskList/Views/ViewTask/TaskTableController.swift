@@ -144,14 +144,6 @@ extension ViewTaskController: UITableViewDataSource {
                 /// Append removed row to Completed section
                 self.realmManager.completeTaskData.append(selectedTaskData)
                 self.tableView.reloadData()
-                
-                //let insertCompleteTaskIndexPath = IndexPath(row: self.realmManager.completeTaskData.count - 1 , section: 1)
-//                if self.realmManager.completeTaskData.count == 0 {
-//                    self.tableView.insertRows(at: [IndexPath(row: 0, section: 1)], with: .fade)
-//                } else {
-//                    self.tableView.insertRows(at: [insertCompleteTaskIndexPath], with: .fade)
-//                }
-                //self.tableView.insertRows(at: [insertCompleteTaskIndexPath], with: .fade)
             }
         
         /// Completed section
@@ -180,9 +172,6 @@ extension ViewTaskController: UITableViewDataSource {
                 /// Append removed row to To-do section
                 self.realmManager.taskData.append(selectedCompleteTask)
                 self.tableView.reloadData()
-                
-//                let insertTaskIndexPath = IndexPath(row: self.realmManager.taskData.count - 1, section: 0)
-//                self.tableView.insertRows(at: [insertTaskIndexPath], with: .fade)
             }
             
         default:
@@ -222,7 +211,7 @@ extension ViewTaskController: UITableViewDataSource {
             }
             
             deleteAction.image = UIImage(systemName: Theme.Images.trash)
-            let flag = UIImage(systemName: Theme.Images.flag)
+            let flag = UIImage(systemName: Theme.Images.flagFill)
             let unflag = UIImage(systemName: Theme.Images.unflag)
             let flagImage = task.flag ? unflag : flag
             flagAction.image = flagImage
