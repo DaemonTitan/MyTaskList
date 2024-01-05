@@ -67,7 +67,7 @@ class EnterTaskController: UIViewController {
             enterTaskUI.contentView.leadingAnchor.constraint(equalTo: enterTaskUI.scrollView.leadingAnchor),
             enterTaskUI.contentView.trailingAnchor.constraint(equalTo: enterTaskUI.scrollView.trailingAnchor),
             enterTaskUI.contentView.bottomAnchor.constraint(equalTo: enterTaskUI.scrollView.bottomAnchor),
-            enterTaskUI.contentView.heightAnchor.constraint(equalTo: enterTaskUI.scrollView.heightAnchor, constant: 120),
+            enterTaskUI.contentView.heightAnchor.constraint(equalTo: enterTaskUI.scrollView.heightAnchor, constant: 170),
             enterTaskUI.contentView.widthAnchor.constraint(equalTo: enterTaskUI.scrollView.widthAnchor),
         ])
         configureLayout()
