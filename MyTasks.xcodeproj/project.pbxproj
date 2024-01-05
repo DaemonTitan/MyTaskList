@@ -41,7 +41,7 @@
 		F3427FA72A1C8F0D00003CB7 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		F3427FAB2A1DEB9600003CB7 /* TaskCellUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCellUI.swift; sourceTree = "<group>"; };
 		F3427FAD2A1DEF3200003CB7 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
-		F37E85FC2A13B4AA0090D2C9 /* MyTaskList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyTaskList.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F37E85FC2A13B4AA0090D2C9 /* MyTasks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyTasks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F37E85FF2A13B4AA0090D2C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F37E86012A13B4AA0090D2C9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F37E86032A13B4AA0090D2C9 /* ViewTaskController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTaskController.swift; sourceTree = "<group>"; };
@@ -130,7 +130,7 @@
 		F37E85F32A13B4AA0090D2C9 = {
 			isa = PBXGroup;
 			children = (
-				F37E85FE2A13B4AA0090D2C9 /* MyTaskList */,
+				F37E85FE2A13B4AA0090D2C9 /* MyTasks */,
 				F37E85FD2A13B4AA0090D2C9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -138,12 +138,12 @@
 		F37E85FD2A13B4AA0090D2C9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F37E85FC2A13B4AA0090D2C9 /* MyTaskList.app */,
+				F37E85FC2A13B4AA0090D2C9 /* MyTasks.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F37E85FE2A13B4AA0090D2C9 /* MyTaskList */ = {
+		F37E85FE2A13B4AA0090D2C9 /* MyTasks */ = {
 			isa = PBXGroup;
 			children = (
 				F37E860D2A13B4AC0090D2C9 /* Info.plist */,
@@ -156,7 +156,7 @@
 				F3A1FC472A6FA7FF00818B86 /* Theme */,
 				F37E86232A13B6B90090D2C9 /* Assets  */,
 			);
-			path = MyTaskList;
+			path = MyTasks;
 			sourceTree = "<group>";
 		};
 		F37E861D2A13B5DD0090D2C9 /* ViewModel */ = {
@@ -228,9 +228,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F37E85FB2A13B4AA0090D2C9 /* MyTaskList */ = {
+		F37E85FB2A13B4AA0090D2C9 /* MyTasks */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F37E86102A13B4AC0090D2C9 /* Build configuration list for PBXNativeTarget "MyTaskList" */;
+			buildConfigurationList = F37E86102A13B4AC0090D2C9 /* Build configuration list for PBXNativeTarget "MyTasks" */;
 			buildPhases = (
 				F37E85F82A13B4AA0090D2C9 /* Sources */,
 				F37E85F92A13B4AA0090D2C9 /* Frameworks */,
@@ -240,14 +240,14 @@
 			);
 			dependencies = (
 			);
-			name = MyTaskList;
+			name = MyTasks;
 			packageProductDependencies = (
 				F37E86192A13B5C30090D2C9 /* Realm */,
 				F37E861B2A13B5C30090D2C9 /* RealmSwift */,
 				F3DF25512B1F428900395B38 /* Lottie */,
 			);
 			productName = MyTaskList;
-			productReference = F37E85FC2A13B4AA0090D2C9 /* MyTaskList.app */;
+			productReference = F37E85FC2A13B4AA0090D2C9 /* MyTasks.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -265,7 +265,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F37E85F72A13B4AA0090D2C9 /* Build configuration list for PBXProject "MyTaskList" */;
+			buildConfigurationList = F37E85F72A13B4AA0090D2C9 /* Build configuration list for PBXProject "MyTasks" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -282,7 +282,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F37E85FB2A13B4AA0090D2C9 /* MyTaskList */,
+				F37E85FB2A13B4AA0090D2C9 /* MyTasks */,
 			);
 		};
 /* End PBXProject section */
@@ -453,7 +453,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SD48432CPV;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MyTaskList/Info.plist;
+				INFOPLIST_FILE = MyTasks/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -463,7 +463,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = tony.chen.MyTaskList;
+				PRODUCT_BUNDLE_IDENTIFIER = tony.chen.MyTasks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -480,7 +480,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SD48432CPV;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MyTaskList/Info.plist;
+				INFOPLIST_FILE = MyTasks/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -490,7 +490,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = tony.chen.MyTaskList;
+				PRODUCT_BUNDLE_IDENTIFIER = tony.chen.MyTasks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -501,7 +501,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F37E85F72A13B4AA0090D2C9 /* Build configuration list for PBXProject "MyTaskList" */ = {
+		F37E85F72A13B4AA0090D2C9 /* Build configuration list for PBXProject "MyTasks" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F37E860E2A13B4AC0090D2C9 /* Debug */,
@@ -510,7 +510,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F37E86102A13B4AC0090D2C9 /* Build configuration list for PBXNativeTarget "MyTaskList" */ = {
+		F37E86102A13B4AC0090D2C9 /* Build configuration list for PBXNativeTarget "MyTasks" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F37E86112A13B4AC0090D2C9 /* Debug */,
