@@ -99,32 +99,37 @@ class ViewSelectTaskScreen: UIViewController {
     }
     
     private func newUILayout() {
-       viewTaskUI.contentView.addSubview(viewTaskUI.taskDetailStackView)
+       viewTaskUI.contentView.addSubview(viewTaskUI.taskTitleStackView)
+       viewTaskUI.contentView.addSubview(viewTaskUI.taskNotesStackView)
        viewTaskUI.contentView.addSubview(viewTaskUI.flagStackView)
-       viewTaskUI.contentView.addSubview(viewTaskUI.dateStackView)
+       viewTaskUI.contentView.addSubview(viewTaskUI.reminderMeStackView)
        viewTaskUI.contentView.addSubview(viewTaskUI.remindMeDatePicker)
        viewTaskUI.contentView.addSubview(viewTaskUI.deleteTaskButton)
        viewTaskUI.contentView.addSubview(viewTaskUI.saveTaskButton)
         
         NSLayoutConstraint.activate([
-            viewTaskUI.taskDetailStackView.topAnchor.constraint(equalTo: viewTaskUI.contentView.topAnchor, constant: 10),
-            viewTaskUI.taskDetailStackView.leadingAnchor.constraint(equalTo: viewTaskUI.contentView.leadingAnchor, constant: 18),
-            viewTaskUI.taskDetailStackView.trailingAnchor.constraint(equalTo: viewTaskUI.contentView.trailingAnchor, constant: -18),
+            viewTaskUI.taskTitleStackView.topAnchor.constraint(equalTo: viewTaskUI.contentView.topAnchor, constant: 10),
+            viewTaskUI.taskTitleStackView.leadingAnchor.constraint(equalTo: viewTaskUI.contentView.leadingAnchor, constant: 18),
+            viewTaskUI.taskTitleStackView.trailingAnchor.constraint(equalTo: viewTaskUI.contentView.trailingAnchor, constant: -18),
             viewTaskUI.taskTitleTextField.heightAnchor.constraint(equalToConstant: 40),
             viewTaskUI.taskTitleCountLabel.heightAnchor.constraint(equalToConstant: 20),
+            
+            viewTaskUI.taskNotesStackView.topAnchor.constraint(equalTo: viewTaskUI.taskTitleStackView.bottomAnchor, constant: 30),
+            viewTaskUI.taskNotesStackView.leadingAnchor.constraint(equalTo: viewTaskUI.contentView.leadingAnchor, constant: 18),
+            viewTaskUI.taskNotesStackView.trailingAnchor.constraint(equalTo: viewTaskUI.contentView.trailingAnchor, constant: -18),
             viewTaskUI.noteTextField.heightAnchor.constraint(equalToConstant: 100),
             viewTaskUI.notesCountLabel.heightAnchor.constraint(equalToConstant: 20),
         
-            viewTaskUI.flagStackView.topAnchor.constraint(equalTo: viewTaskUI.taskDetailStackView.bottomAnchor, constant: 30),
+            viewTaskUI.flagStackView.topAnchor.constraint(equalTo: viewTaskUI.taskNotesStackView.bottomAnchor, constant: 30),
             viewTaskUI.flagStackView.leadingAnchor.constraint(equalTo: viewTaskUI.contentView.leadingAnchor, constant: 18),
             viewTaskUI.flagStackView.trailingAnchor.constraint(equalTo: viewTaskUI.contentView.trailingAnchor, constant: -18),
             
-            viewTaskUI.dateStackView.topAnchor.constraint(equalTo: viewTaskUI.flagStackView.bottomAnchor, constant: 30),
-            viewTaskUI.dateStackView.leadingAnchor.constraint(equalTo: viewTaskUI.contentView.leadingAnchor, constant: 18),
-            viewTaskUI.dateStackView.trailingAnchor.constraint(equalTo: viewTaskUI.contentView.trailingAnchor, constant: -18),
+            viewTaskUI.reminderMeStackView.topAnchor.constraint(equalTo: viewTaskUI.flagStackView.bottomAnchor, constant: 30),
+            viewTaskUI.reminderMeStackView.leadingAnchor.constraint(equalTo: viewTaskUI.contentView.leadingAnchor, constant: 18),
+            viewTaskUI.reminderMeStackView.trailingAnchor.constraint(equalTo: viewTaskUI.contentView.trailingAnchor, constant: -18),
             viewTaskUI.reminderMeSwitch.heightAnchor.constraint(equalToConstant: 31),
         
-            viewTaskUI.remindMeDatePicker.topAnchor.constraint(equalTo: viewTaskUI.dateStackView.bottomAnchor, constant: 30),
+            viewTaskUI.remindMeDatePicker.topAnchor.constraint(equalTo: viewTaskUI.reminderMeStackView.bottomAnchor, constant: 30),
             viewTaskUI.remindMeDatePicker.leadingAnchor.constraint(equalTo: viewTaskUI.contentView.leadingAnchor, constant: 18),
             viewTaskUI.remindMeDatePicker.trailingAnchor.constraint(equalTo: viewTaskUI.contentView.trailingAnchor, constant: -18),
             
