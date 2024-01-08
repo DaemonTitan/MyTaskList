@@ -57,7 +57,7 @@ struct Theme {
         static let tomorrow = "Tomorrow,"
         static let yesterday = "Yesterday,"
         static let reminderMeLabel = " Reminder me"
-        static let chooseDateLabel = " Choose date"
+        static let chooseDateLabel = " Pick date/time"
         static let deleteTaskAlertTitle = "Delete task?"
         static let deleteTaskAlertBody = "You cannot undo this action"
         static let taskReminder = "Task reminder"
