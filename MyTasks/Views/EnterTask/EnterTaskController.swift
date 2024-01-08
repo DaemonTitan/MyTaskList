@@ -67,45 +67,51 @@ class EnterTaskController: UIViewController {
             enterTaskUI.contentView.leadingAnchor.constraint(equalTo: enterTaskUI.scrollView.leadingAnchor),
             enterTaskUI.contentView.trailingAnchor.constraint(equalTo: enterTaskUI.scrollView.trailingAnchor),
             enterTaskUI.contentView.bottomAnchor.constraint(equalTo: enterTaskUI.scrollView.bottomAnchor),
-            enterTaskUI.contentView.heightAnchor.constraint(equalTo: enterTaskUI.scrollView.heightAnchor, constant: 170),
+            enterTaskUI.contentView.heightAnchor.constraint(equalTo: enterTaskUI.scrollView.heightAnchor),
             enterTaskUI.contentView.widthAnchor.constraint(equalTo: enterTaskUI.scrollView.widthAnchor),
         ])
         configureLayout()
     }
     
     private func configureLayout() {
-        enterTaskUI.contentView.addSubview(enterTaskUI.taskDetailStackView)
+        enterTaskUI.contentView.addSubview(enterTaskUI.taskTitleStackView)
+        enterTaskUI.contentView.addSubview(enterTaskUI.taskNotesStackView)
         enterTaskUI.contentView.addSubview(enterTaskUI.flagStackView)
-        enterTaskUI.contentView.addSubview(enterTaskUI.dateStackView)
-        enterTaskUI.contentView.addSubview(enterTaskUI.remindMeDatePicker)
-        enterTaskUI.contentView.addSubview(enterTaskUI.saveTaskButton)
+        enterTaskUI.contentView.addSubview(enterTaskUI.reminderMeStackView)
+        enterTaskUI.contentView.addSubview(enterTaskUI.datePickerStackView)
+        view.addSubview(enterTaskUI.saveTaskButton)
         
         NSLayoutConstraint.activate([
-            enterTaskUI.taskDetailStackView.topAnchor.constraint(equalTo: enterTaskUI.contentView.topAnchor, constant: 10),
-            enterTaskUI.taskDetailStackView.leadingAnchor.constraint(equalTo: enterTaskUI.contentView.leadingAnchor, constant: 18),
-            enterTaskUI.taskDetailStackView.trailingAnchor.constraint(equalTo: enterTaskUI.contentView.trailingAnchor, constant: -18),
+            enterTaskUI.taskTitleStackView.topAnchor.constraint(equalTo: enterTaskUI.contentView.topAnchor, constant: 10),
+            enterTaskUI.taskTitleStackView.leadingAnchor.constraint(equalTo: enterTaskUI.contentView.leadingAnchor, constant: 18),
+            enterTaskUI.taskTitleStackView.trailingAnchor.constraint(equalTo: enterTaskUI.contentView.trailingAnchor, constant: -18),
             enterTaskUI.taskTitleTextField.heightAnchor.constraint(equalToConstant: 40),
             enterTaskUI.taskTitleCountLabel.heightAnchor.constraint(equalToConstant: 20),
-            enterTaskUI.noteTextField.heightAnchor.constraint(equalToConstant: 120),
+            
+            enterTaskUI.taskNotesStackView.topAnchor.constraint(equalTo: enterTaskUI.taskTitleStackView.bottomAnchor, constant: 30),
+            enterTaskUI.taskNotesStackView.leadingAnchor.constraint(equalTo: enterTaskUI.contentView.leadingAnchor, constant: 18),
+            enterTaskUI.taskNotesStackView.trailingAnchor.constraint(equalTo: enterTaskUI.contentView.trailingAnchor, constant: -18),
+            enterTaskUI.noteTextField.heightAnchor.constraint(equalToConstant: 150),
             enterTaskUI.notesCountLabel.heightAnchor.constraint(equalToConstant: 20),
         
-            enterTaskUI.flagStackView.topAnchor.constraint(equalTo: enterTaskUI.taskDetailStackView.bottomAnchor, constant: 30),
+            enterTaskUI.flagStackView.topAnchor.constraint(equalTo: enterTaskUI.taskNotesStackView.bottomAnchor, constant: 30),
             enterTaskUI.flagStackView.leadingAnchor.constraint(equalTo: enterTaskUI.contentView.leadingAnchor, constant: 18),
             enterTaskUI.flagStackView.trailingAnchor.constraint(equalTo: enterTaskUI.contentView.trailingAnchor, constant: -18),
             
-            enterTaskUI.dateStackView.topAnchor.constraint(equalTo: enterTaskUI.flagStackView.bottomAnchor, constant: 30),
-            enterTaskUI.dateStackView.leadingAnchor.constraint(equalTo: enterTaskUI.contentView.leadingAnchor, constant: 18),
-            enterTaskUI.dateStackView.trailingAnchor.constraint(equalTo: enterTaskUI.contentView.trailingAnchor, constant: -18),
-            enterTaskUI.reminderMeSwitch.heightAnchor.constraint(equalToConstant: 31),
+            enterTaskUI.reminderMeStackView.topAnchor.constraint(equalTo: enterTaskUI.flagStackView.bottomAnchor, constant: 30),
+            enterTaskUI.reminderMeStackView.leadingAnchor.constraint(equalTo: enterTaskUI.contentView.leadingAnchor, constant: 18),
+            enterTaskUI.reminderMeStackView.trailingAnchor.constraint(equalTo: enterTaskUI.contentView.trailingAnchor, constant: -18),
+            //enterTaskUI.reminderMeSwitch.heightAnchor.constraint(equalToConstant: 31),
         
-            enterTaskUI.remindMeDatePicker.topAnchor.constraint(equalTo: enterTaskUI.dateStackView.bottomAnchor, constant: 30),
-            enterTaskUI.remindMeDatePicker.leadingAnchor.constraint(equalTo: enterTaskUI.contentView.leadingAnchor, constant: 18),
-            enterTaskUI.remindMeDatePicker.trailingAnchor.constraint(equalTo: enterTaskUI.contentView.trailingAnchor, constant: -18),
+            enterTaskUI.datePickerStackView.topAnchor.constraint(equalTo: enterTaskUI.reminderMeStackView.bottomAnchor, constant: 30),
+            enterTaskUI.datePickerStackView.leadingAnchor.constraint(equalTo: enterTaskUI.contentView.leadingAnchor, constant: 18),
+            enterTaskUI.datePickerStackView.trailingAnchor.constraint(equalTo: enterTaskUI.contentView.trailingAnchor, constant: -18),
         
-            enterTaskUI.saveTaskButton.topAnchor.constraint(equalTo: enterTaskUI.remindMeDatePicker.bottomAnchor, constant: 30),
-            enterTaskUI.saveTaskButton.leadingAnchor.constraint(equalTo: enterTaskUI.contentView.leadingAnchor, constant: 40),
-            enterTaskUI.saveTaskButton.trailingAnchor.constraint(equalTo: enterTaskUI.contentView.trailingAnchor, constant: -40),
-            enterTaskUI.saveTaskButton.heightAnchor.constraint(equalToConstant: 40),
+            enterTaskUI.saveTaskButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            enterTaskUI.saveTaskButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            enterTaskUI.saveTaskButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            enterTaskUI.saveTaskButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+            enterTaskUI.saveTaskButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
 }

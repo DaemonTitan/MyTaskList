@@ -36,12 +36,14 @@ class RealmManager {
     
     //MARK: Display realm file location
     func findRealmFile() {
-        do {
-            let realm = try Realm()
-            print(Realm.Configuration.defaultConfiguration.fileURL)
-        } catch let error {
-            print(error.localizedDescription)
-        }
+//        do {
+//            let realm = try Realm()
+//            print(Realm.Configuration.defaultConfiguration.fileURL)
+//        } catch let error {
+//            print(error.localizedDescription)
+//        }
+        guard let fileURL = Realm.Configuration.defaultConfiguration.fileURL else { return }
+        print(fileURL)
     }
     
     /// MARK: Fetch data from Realm

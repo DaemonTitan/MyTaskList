@@ -39,6 +39,7 @@ struct Theme {
         static let unflag = "flag.slash.fill"
         static let flagCircleFill = "flag.circle.fill"
         static let calendarCircleFill = "calendar.circle.fill"
+        static let bellCircleFill = "bell.circle.fill"
     }
     
     // MARK: Text and label display in model
@@ -50,12 +51,13 @@ struct Theme {
         static let editTaskControllerTitle = "Edit Task"
         static let taskTitlePlaceholder = "Enter task title..."
         static let notePlaceholder = "Add note..."
-        static let flagLabel = "Flag"
+        static let flagLabel = " Flag"
         static let unflagLabel = "Unflag"
         static let today = "Today,"
         static let tomorrow = "Tomorrow,"
         static let yesterday = "Yesterday,"
         static let reminderMeLabel = " Reminder me"
+        static let chooseDateLabel = " Choose date"
         static let deleteTaskAlertTitle = "Delete task?"
         static let deleteTaskAlertBody = "You cannot undo this action"
         static let taskReminder = "Task reminder"

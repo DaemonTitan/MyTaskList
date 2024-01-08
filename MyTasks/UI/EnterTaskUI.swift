@@ -71,6 +71,7 @@ class TaskUI: UIView {
         return notesCount
     }()
     
+    /// Placeholder in notes field
     lazy var noteTextPlaceholder: UILabel = {
         var placeholder = UILabel()
         placeholder.text = Theme.Text.notePlaceholder
@@ -81,19 +82,30 @@ class TaskUI: UIView {
         return placeholder
     }()
 
-    /// Task titile and notes stack view
-    lazy var taskDetailStackView: UIStackView = {
-        var taskDetailStackView = UIStackView()
-        taskDetailStackView.axis = .vertical
-        taskDetailStackView.spacing = 13
-        taskDetailStackView.alignment = .fill
-        taskDetailStackView.distribution = .fill
-        taskDetailStackView.addArrangedSubview(taskTitleTextField)
-        taskDetailStackView.addArrangedSubview(taskTitleCountLabel)
-        taskDetailStackView.addArrangedSubview(noteTextField)
-        taskDetailStackView.addArrangedSubview(notesCountLabel)
-        taskDetailStackView.translatesAutoresizingMaskIntoConstraints = false
-        return taskDetailStackView
+    /// Task titile and text count stack view
+    lazy var taskTitleStackView: UIStackView = {
+        var taskTitleStackView = UIStackView()
+        taskTitleStackView.axis = .vertical
+        taskTitleStackView.spacing = 5
+        taskTitleStackView.alignment = .fill
+        taskTitleStackView.distribution = .fill
+        taskTitleStackView.addArrangedSubview(taskTitleTextField)
+        taskTitleStackView.addArrangedSubview(taskTitleCountLabel)
+        taskTitleStackView.translatesAutoresizingMaskIntoConstraints = false
+        return taskTitleStackView
+    }()
+    
+    /// Task notes and text count stack view
+    lazy var taskNotesStackView: UIStackView = {
+        var taskNotesStackView = UIStackView()
+        taskNotesStackView.axis = .vertical
+        taskNotesStackView.spacing = 5
+        taskNotesStackView.alignment = .fill
+        taskNotesStackView.distribution = .fill
+        taskNotesStackView.addArrangedSubview(noteTextField)
+        taskNotesStackView.addArrangedSubview(notesCountLabel)
+        taskNotesStackView.translatesAutoresizingMaskIntoConstraints = false
+        return taskNotesStackView
     }()
     
     /// Flag label
@@ -123,7 +135,7 @@ class TaskUI: UIView {
         return flagSwitch
     }()
     
-    /// Flag stack view
+    /// Flag and Flag switch stack view
     lazy var flagStackView: UIStackView = {
         var flagStackView = UIStackView()
         flagStackView.axis = .horizontal
@@ -139,7 +151,7 @@ class TaskUI: UIView {
     /// Reminder me Label
     lazy var reminderMeLabel: UILabel = {
         var reminderMeLabel = UILabel()
-        let sfSymbolName = Theme.Images.calendarCircleFill
+        let sfSymbolName = Theme.Images.bellCircleFill
         let reminderMeText = Theme.Text.reminderMeLabel
         let sfImageConfiguration = UIImage.SymbolConfiguration(font: .systemFont(ofSize: 25.0))
         let image = UIImage(systemName: sfSymbolName, withConfiguration: sfImageConfiguration)?.withTintColor(.white, renderingMode: .alwaysOriginal)
@@ -151,7 +163,7 @@ class TaskUI: UIView {
         return reminderMeLabel
     }()
     
-    /// Switches to enable due date
+    /// Reminder me switch
     lazy var reminderMeSwitch: UISwitch = {
         var reminderMeSwitch = UISwitch()
         reminderMeSwitch.onTintColor = Theme.Colours.vividGreen
@@ -162,31 +174,61 @@ class TaskUI: UIView {
         return reminderMeSwitch
     }()
     
-    /// Reminder me calender date picker
+    /// Reminder me label and Reminder me switch stack view
+    lazy var reminderMeStackView: UIStackView = {
+        var reminderMeStackView = UIStackView()
+        reminderMeStackView.axis = .horizontal
+        reminderMeStackView.spacing = 10
+        reminderMeStackView.alignment = .fill
+        reminderMeStackView.distribution = .fill
+        reminderMeStackView.addArrangedSubview(reminderMeLabel)
+        reminderMeStackView.addArrangedSubview(reminderMeSwitch)
+        reminderMeStackView.translatesAutoresizingMaskIntoConstraints = false
+        return reminderMeStackView
+    }()
+    
+    /// Choose date label and calendar icon
+    lazy var chooseDateLabel: UILabel = {
+        var chooseDateLabel = UILabel()
+        let sfSymbolName = Theme.Images.calendarCircleFill
+        let reminderMeText = Theme.Text.chooseDateLabel
+        let sfImageConfiguration = UIImage.SymbolConfiguration(font: .systemFont(ofSize: 25.0))
+        let image = UIImage(systemName: sfSymbolName, withConfiguration: sfImageConfiguration)?.withTintColor(.white, renderingMode: .alwaysOriginal)
+        chooseDateLabel.addImageToFrontLabel(image: image ?? UIImage(), text: reminderMeText)
+        chooseDateLabel.textAlignment = .left
+        chooseDateLabel.textColor = Theme.Colours.whiteColour
+        chooseDateLabel.font = .systemFont(ofSize: 18)
+        chooseDateLabel.isHidden = true
+        chooseDateLabel.translatesAutoresizingMaskIntoConstraints = false
+        return chooseDateLabel
+    }()
+    
+    /// Reminder me date picker
     lazy var remindMeDatePicker: UIDatePicker = {
         var remindMeDatePicker = UIDatePicker()
         remindMeDatePicker.datePickerMode = .dateAndTime
         remindMeDatePicker.isHidden = true
         remindMeDatePicker.tintColor = Theme.Colours.lightOrange
         remindMeDatePicker.overrideUserInterfaceStyle = .dark
-        remindMeDatePicker.preferredDatePickerStyle = .inline
+        remindMeDatePicker.preferredDatePickerStyle = .compact
         remindMeDatePicker.translatesAutoresizingMaskIntoConstraints = false
         return remindMeDatePicker
     }()
     
-    // Reminder me Stack view
-    lazy var dateStackView: UIStackView = {
-        var dateStackView = UIStackView()
-        dateStackView.axis = .horizontal
-        dateStackView.spacing = 10
-        dateStackView.alignment = .fill
-        dateStackView.distribution = .fill
-        dateStackView.addArrangedSubview(reminderMeLabel)
-        dateStackView.addArrangedSubview(reminderMeSwitch)
-        dateStackView.translatesAutoresizingMaskIntoConstraints = false
-        return dateStackView
+    /// Choose date and Date picker stack view
+    lazy var datePickerStackView: UIStackView = {
+        var datePickerStackView = UIStackView()
+        datePickerStackView.axis = .horizontal
+        datePickerStackView.spacing = 10
+        datePickerStackView.alignment = .fill
+        datePickerStackView.distribution = .fill
+        datePickerStackView.addArrangedSubview(chooseDateLabel)
+        datePickerStackView.addArrangedSubview(remindMeDatePicker)
+        datePickerStackView.translatesAutoresizingMaskIntoConstraints = false
+        return datePickerStackView
     }()
     
+    /// Scroll view
     lazy var scrollView: UIScrollView = {
         var scrollView = UIScrollView()
         //scrollView.backgroundColor = .gray
@@ -197,6 +239,7 @@ class TaskUI: UIView {
         return scrollView
     }()
     
+    /// UI elements content view
     lazy var contentView: UIView = {
         var contentView = UIView()
         //contentView.backgroundColor = .purple
@@ -244,7 +287,7 @@ extension TaskUI {
     /// Button action to hide reminder me date picker
     @objc func hideReminderMeField() {
         remindMeDatePicker.isHidden = !reminderMeSwitch.isOn
-        
+        chooseDateLabel.isHidden = !reminderMeSwitch.isOn
     }
     
     /// Check text field is empty or not to change save button state
