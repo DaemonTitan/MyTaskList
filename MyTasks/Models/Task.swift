@@ -12,6 +12,7 @@ struct Tasks {
     var dateCreated: Date = Date()
     var title: String
     var note: String?
+    var priority: String
     var flag: Bool
     var datePickerIsOn: Bool
     var reminderMeDate: Date? = Date()
@@ -24,6 +25,7 @@ struct Tasks {
         self.dateCreated = taskListItem.dateCreated
         self.title = taskListItem.title
         self.note = taskListItem.note
+        self.priority = taskListItem.priority
         self.flag = taskListItem.flag
         self.datePickerIsOn = taskListItem.datePickerIsOn
         self.reminderMeDate = taskListItem.reminderMeDate

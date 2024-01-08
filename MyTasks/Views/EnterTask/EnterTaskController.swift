@@ -76,6 +76,7 @@ class EnterTaskController: UIViewController {
     private func configureLayout() {
         enterTaskUI.contentView.addSubview(enterTaskUI.taskTitleStackView)
         enterTaskUI.contentView.addSubview(enterTaskUI.taskNotesStackView)
+        enterTaskUI.contentView.addSubview(enterTaskUI.priorityStackView)
         enterTaskUI.contentView.addSubview(enterTaskUI.flagStackView)
         enterTaskUI.contentView.addSubview(enterTaskUI.reminderMeStackView)
         enterTaskUI.contentView.addSubview(enterTaskUI.datePickerStackView)
@@ -93,8 +94,12 @@ class EnterTaskController: UIViewController {
             enterTaskUI.taskNotesStackView.trailingAnchor.constraint(equalTo: enterTaskUI.contentView.trailingAnchor, constant: -18),
             enterTaskUI.noteTextField.heightAnchor.constraint(equalToConstant: 150),
             enterTaskUI.notesCountLabel.heightAnchor.constraint(equalToConstant: 20),
+            
+            enterTaskUI.priorityStackView.topAnchor.constraint(equalTo: enterTaskUI.taskNotesStackView.bottomAnchor, constant: 30),
+            enterTaskUI.priorityStackView.leadingAnchor.constraint(equalTo: enterTaskUI.contentView.leadingAnchor, constant: 18),
+            enterTaskUI.priorityStackView.trailingAnchor.constraint(equalTo: enterTaskUI.contentView.trailingAnchor, constant: -18),
         
-            enterTaskUI.flagStackView.topAnchor.constraint(equalTo: enterTaskUI.taskNotesStackView.bottomAnchor, constant: 30),
+            enterTaskUI.flagStackView.topAnchor.constraint(equalTo: enterTaskUI.priorityStackView.bottomAnchor, constant: 30),
             enterTaskUI.flagStackView.leadingAnchor.constraint(equalTo: enterTaskUI.contentView.leadingAnchor, constant: 18),
             enterTaskUI.flagStackView.trailingAnchor.constraint(equalTo: enterTaskUI.contentView.trailingAnchor, constant: -18),
             
@@ -206,6 +211,7 @@ extension EnterTaskController {
     func saveTask() {
         guard let titleField = enterTaskUI.taskTitleTextField.text, !titleField.isEmpty else {return}
         let noteField = enterTaskUI.noteTextField.text ?? ""
+        let priority = enterTaskUI.priorityButton.titleLabel?.text ?? "None"
         let flagSwitch = enterTaskUI.flagSwitch.isOn
         let reminderMeSwitch = enterTaskUI.reminderMeSwitch.isOn
         let reminderDate = enterTaskUI.remindMeDatePicker.date
@@ -214,6 +220,7 @@ extension EnterTaskController {
         if enterTaskUI.remindMeDatePicker.isHidden {
             realmManager.writeData(title: titleField,
                                    note: noteField,
+                                   priority: priority,
                                    flag: flagSwitch,
                                    datePickerIsOn: reminderMeSwitch,
                                    reminderMeDate: nil,
@@ -226,6 +233,7 @@ extension EnterTaskController {
                                                      date: reminderDate)
             realmManager.writeData(title: titleField,
                                    note: noteField,
+                                   priority: priority,
                                    flag: flagSwitch,
                                    datePickerIsOn: reminderMeSwitch,
                                    reminderMeDate: reminderDate,

@@ -118,7 +118,7 @@ extension ViewTaskController: UITableViewDataSource {
             }
             cell.configureTaskTitle(taskTitle: task.title)
             cell.configureFlag(showImage: task.flag)
-            cell.configureCompleteButton(imageName: Theme.Images.sfButtonSquare,
+            cell.configureCompleteButton(imageName: Theme.Images.buttonSquare,
                                          size: 25.0,
                                          color: Theme.Colours.lightGray,
                                          state: .normal)
@@ -152,7 +152,7 @@ extension ViewTaskController: UITableViewDataSource {
             let task = realmManager.completeTaskData[indexPath.row]
             cell.completedTaskTitle(taskTitle: task.title)
             cell.configureFlag(showImage: false)
-            cell.configureCompleteButton(imageName: Theme.Images.sfButtonSqureCheckmark,
+            cell.configureCompleteButton(imageName: Theme.Images.buttonSqureCheckmark,
                                          size: 25.0,
                                          color: Theme.Colours.green,
                                          state: .normal)
@@ -177,7 +177,6 @@ extension ViewTaskController: UITableViewDataSource {
         default:
             fatalError("No sections")
         }
-        
         return cell
     }
     
