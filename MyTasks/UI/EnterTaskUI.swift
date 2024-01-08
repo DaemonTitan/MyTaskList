@@ -9,7 +9,8 @@ import Foundation
 import UIKit
 
 class TaskUI: UIView {
-    /// Record task title
+    // MARK: Task Title
+    /// Task title text field
     lazy var taskTitleTextField: UITextField = {
         var taskTitleTextField = UITextField()
         taskTitleTextField.attributedPlaceholder = NSAttributedString(string: Theme.Text.taskTitlePlaceholder,
@@ -38,7 +39,21 @@ class TaskUI: UIView {
         return taskTitleCount
     }()
     
-    /// Record task note
+    /// Task titile and text count stack view
+    lazy var taskTitleStackView: UIStackView = {
+        var taskTitleStackView = UIStackView()
+        taskTitleStackView.axis = .vertical
+        taskTitleStackView.spacing = 5
+        taskTitleStackView.alignment = .fill
+        taskTitleStackView.distribution = .fill
+        taskTitleStackView.addArrangedSubview(taskTitleTextField)
+        taskTitleStackView.addArrangedSubview(taskTitleCountLabel)
+        taskTitleStackView.translatesAutoresizingMaskIntoConstraints = false
+        return taskTitleStackView
+    }()
+    
+    // MARK: Task Notes
+    /// Task note large text box
     lazy var noteTextField: UITextView = {
         var noteTextField = UITextView()
         noteTextField.font = .systemFont(ofSize: 18)
@@ -61,16 +76,6 @@ class TaskUI: UIView {
         return noteTextField
     }()
     
-    /// Notes field character count down label
-    lazy var notesCountLabel: UILabel = {
-        var notesCount = UILabel()
-        notesCount.textColor = Theme.Colours.whiteColour
-        notesCount.font = .systemFont(ofSize: 14)
-        notesCount.textAlignment = .right
-        notesCount.translatesAutoresizingMaskIntoConstraints = false
-        return notesCount
-    }()
-    
     /// Placeholder in notes field
     lazy var noteTextPlaceholder: UILabel = {
         var placeholder = UILabel()
@@ -81,18 +86,15 @@ class TaskUI: UIView {
         placeholder.translatesAutoresizingMaskIntoConstraints = false
         return placeholder
     }()
-
-    /// Task titile and text count stack view
-    lazy var taskTitleStackView: UIStackView = {
-        var taskTitleStackView = UIStackView()
-        taskTitleStackView.axis = .vertical
-        taskTitleStackView.spacing = 5
-        taskTitleStackView.alignment = .fill
-        taskTitleStackView.distribution = .fill
-        taskTitleStackView.addArrangedSubview(taskTitleTextField)
-        taskTitleStackView.addArrangedSubview(taskTitleCountLabel)
-        taskTitleStackView.translatesAutoresizingMaskIntoConstraints = false
-        return taskTitleStackView
+    
+    /// Notes field character count down label
+    lazy var notesCountLabel: UILabel = {
+        var notesCount = UILabel()
+        notesCount.textColor = Theme.Colours.whiteColour
+        notesCount.font = .systemFont(ofSize: 14)
+        notesCount.textAlignment = .right
+        notesCount.translatesAutoresizingMaskIntoConstraints = false
+        return notesCount
     }()
     
     /// Task notes and text count stack view
@@ -108,7 +110,66 @@ class TaskUI: UIView {
         return taskNotesStackView
     }()
     
-    /// Flag label
+    // MARK: Priority
+    /// Priority label and Exclamation icon
+    lazy var priorityLabel: UILabel = {
+        var priorityLabel = UILabel()
+        let sfSymbolName = Theme.Images.priorityCircle
+        let priorityText = Theme.Text.priorityLabel
+        let sfImageConfiguration = UIImage.SymbolConfiguration(font: .systemFont(ofSize: 25.0))
+        let image = UIImage(systemName: sfSymbolName,
+                            withConfiguration: sfImageConfiguration)?.withTintColor(.white, renderingMode: .alwaysOriginal)
+        priorityLabel.addImageToFrontLabel(image: image ?? UIImage(), text: priorityText)
+        priorityLabel.textAlignment = .left
+        priorityLabel.textColor = Theme.Colours.whiteColour
+        priorityLabel.font = .systemFont(ofSize: 18)
+        priorityLabel.translatesAutoresizingMaskIntoConstraints = false
+        return priorityLabel
+    }()
+    
+    /// Priority single select
+    lazy var priorityButton: UIButton = {
+        var priorityButton = UIButton()
+        let optionClosure = {(action: UIAction) in }
+        let nonePriority = UIAction(title: Theme.Text.PriorityValue.None,
+                                    state: .on,
+                                    handler: optionClosure)
+        let lowerPriority = UIAction(title: Theme.Text.PriorityValue.Low,
+                                     image: UIImage(systemName: Theme.Images.signleexclamation),
+                                     handler: optionClosure)
+        let mediumPriority = UIAction(title: Theme.Text.PriorityValue.Medium,
+                                      image: UIImage(systemName: Theme.Images.doubleexclamation),
+                                      handler: optionClosure)
+        let highPriority = UIAction(title: Theme.Text.PriorityValue.High,
+                                    image: UIImage(systemName: Theme.Images.troubleexclamation),
+                                    attributes: .destructive,
+                                    handler: optionClosure)
+        let subMenu = UIMenu(title: Theme.Text.emptyText,
+                             options: .displayInline,
+                             children: [nonePriority])
+        priorityButton.menu = UIMenu(options: .displayInline,
+                                     children: [subMenu, lowerPriority, mediumPriority, highPriority])
+        priorityButton.showsMenuAsPrimaryAction = true
+        priorityButton.changesSelectionAsPrimaryAction = true
+        priorityButton.translatesAutoresizingMaskIntoConstraints = false
+        return priorityButton
+    }()
+    
+    /// Priority label and Priority Single Select Button stack view
+    lazy var priorityStackView: UIStackView = {
+        var priorityStackView = UIStackView()
+        priorityStackView.axis = .horizontal
+        priorityStackView.spacing = 90
+        priorityStackView.alignment = .fill
+        priorityStackView.distribution = .fill
+        priorityStackView.addArrangedSubview(priorityLabel)
+        priorityStackView.addArrangedSubview(priorityButton)
+        priorityStackView.translatesAutoresizingMaskIntoConstraints = false
+        return priorityStackView
+    }()
+    
+    // MARK: Flag
+    /// Flag label and Flag icon
     lazy var flagLabel: UILabel = {
         var flagLabel = UILabel()
         let sfSymbolName = Theme.Images.flagCircleFill
@@ -135,7 +196,7 @@ class TaskUI: UIView {
         return flagSwitch
     }()
     
-    /// Flag and Flag switch stack view
+    /// Flag label and Flag switch stack view
     lazy var flagStackView: UIStackView = {
         var flagStackView = UIStackView()
         flagStackView.axis = .horizontal
@@ -148,7 +209,8 @@ class TaskUI: UIView {
         return flagStackView
     }()
     
-    /// Reminder me Label
+    // MARK: Reminder me and Date picker
+    /// Reminder me Label and Bell icon
     lazy var reminderMeLabel: UILabel = {
         var reminderMeLabel = UILabel()
         let sfSymbolName = Theme.Images.bellCircleFill
@@ -187,7 +249,7 @@ class TaskUI: UIView {
         return reminderMeStackView
     }()
     
-    /// Choose date label and calendar icon
+    /// Pick date time label and calendar icon
     lazy var chooseDateLabel: UILabel = {
         var chooseDateLabel = UILabel()
         let sfSymbolName = Theme.Images.calendarCircleFill
@@ -203,7 +265,7 @@ class TaskUI: UIView {
         return chooseDateLabel
     }()
     
-    /// Reminder me date picker
+    /// Reminder me date time picker
     lazy var remindMeDatePicker: UIDatePicker = {
         var remindMeDatePicker = UIDatePicker()
         remindMeDatePicker.datePickerMode = .dateAndTime
@@ -215,7 +277,7 @@ class TaskUI: UIView {
         return remindMeDatePicker
     }()
     
-    /// Choose date and Date picker stack view
+    /// Pick date/time label and Date picker stack view
     lazy var datePickerStackView: UIStackView = {
         var datePickerStackView = UIStackView()
         datePickerStackView.axis = .horizontal
@@ -228,6 +290,7 @@ class TaskUI: UIView {
         return datePickerStackView
     }()
     
+    // MARK: Scroll and Content Views
     /// Scroll view
     lazy var scrollView: UIScrollView = {
         var scrollView = UIScrollView()
@@ -247,6 +310,7 @@ class TaskUI: UIView {
         return contentView
     }()
     
+    // MARK: Save and Delete Buttons
     /// Save task button
     lazy var saveTaskButton: UIButton = {
         var saveTaskButton = UIButton()

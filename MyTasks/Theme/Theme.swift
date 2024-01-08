@@ -30,9 +30,12 @@ struct Theme {
     struct Images {
         static let plusButton = "addButton"
         static let noRecordFoundGif = "EmptyBox"
-        static let sfButtonSquare = "square"
-        static let sfButtonSqureCheckmark = "checkmark.square.fill"
-        //static let sfFlagName = "flag.fill"
+        static let buttonSquare = "square"
+        static let buttonSqureCheckmark = "checkmark.square.fill"
+        static let priorityCircle = "exclamationmark.circle.fill"
+        static let signleexclamation = "exclamationmark"
+        static let doubleexclamation = "exclamationmark.2"
+        static let troubleexclamation = "exclamationmark.3"
         static let flagRedFill = "FlagRedFill"
         static let trash = "trash.fill"
         static let flagFill = "flag.fill"
@@ -51,6 +54,7 @@ struct Theme {
         static let editTaskControllerTitle = "Edit Task"
         static let taskTitlePlaceholder = "Enter task title..."
         static let notePlaceholder = "Add note..."
+        static let priorityLabel = " Priority"
         static let flagLabel = " Flag"
         static let unflagLabel = "Unflag"
         static let today = "Today,"
@@ -73,6 +77,13 @@ struct Theme {
         struct DateTimeFormat {
             static let dateTimeFormat = "EEEE, MMM d, yyyy, h:mm a"
             static let timeFormat = "h:mm a"
+        }
+        
+        struct PriorityValue {
+            static let None = "None"
+            static let Low = "Low"
+            static let Medium = "Medium"
+            static let High = "High"
         }
     }
     

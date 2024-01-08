@@ -36,12 +36,6 @@ class RealmManager {
     
     //MARK: Display realm file location
     func findRealmFile() {
-//        do {
-//            let realm = try Realm()
-//            print(Realm.Configuration.defaultConfiguration.fileURL)
-//        } catch let error {
-//            print(error.localizedDescription)
-//        }
         guard let fileURL = Realm.Configuration.defaultConfiguration.fileURL else { return }
         print(fileURL)
     }
@@ -100,10 +94,11 @@ class RealmManager {
     }
     
     // MARK: Save data to Realm
-    func writeData(title: String, note: String, flag: Bool, datePickerIsOn: Bool, reminderMeDate: Date? = nil, notifyId: String) {
+    func writeData(title: String, note: String, priority: String, flag: Bool, datePickerIsOn: Bool, reminderMeDate: Date? = nil, notifyId: String) {
         let taskObject = TaskListItem(value: [
             "title": title,
             "note": note,
+            "priority": priority,
             "flag": flag,
             "datePickerIsOn": datePickerIsOn,
             "reminderMeDate": reminderMeDate,
