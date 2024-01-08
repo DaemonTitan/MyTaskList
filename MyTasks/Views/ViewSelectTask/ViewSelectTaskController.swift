@@ -80,7 +80,7 @@ class ViewSelectTaskScreen: UIViewController {
     private func configureView() {
         view.addSubview(viewTaskUI.scrollView)
         NSLayoutConstraint.activate([
-            viewTaskUI.scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            viewTaskUI.scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             viewTaskUI.scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             viewTaskUI.scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             viewTaskUI.scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -92,20 +92,20 @@ class ViewSelectTaskScreen: UIViewController {
            viewTaskUI.contentView.leadingAnchor.constraint(equalTo: viewTaskUI.scrollView.leadingAnchor),
            viewTaskUI.contentView.trailingAnchor.constraint(equalTo: viewTaskUI.scrollView.trailingAnchor),
            viewTaskUI.contentView.bottomAnchor.constraint(equalTo: viewTaskUI.scrollView.bottomAnchor),
-           viewTaskUI.contentView.heightAnchor.constraint(equalTo: viewTaskUI.scrollView.heightAnchor, constant: 90),
+           viewTaskUI.contentView.heightAnchor.constraint(equalTo: viewTaskUI.scrollView.heightAnchor),
            viewTaskUI.contentView.widthAnchor.constraint(equalTo: viewTaskUI.scrollView.widthAnchor),
         ])
-        newUILayout()
+        configureLayout()
     }
     
-    private func newUILayout() {
-       viewTaskUI.contentView.addSubview(viewTaskUI.taskTitleStackView)
-       viewTaskUI.contentView.addSubview(viewTaskUI.taskNotesStackView)
-       viewTaskUI.contentView.addSubview(viewTaskUI.flagStackView)
-       viewTaskUI.contentView.addSubview(viewTaskUI.reminderMeStackView)
-       viewTaskUI.contentView.addSubview(viewTaskUI.remindMeDatePicker)
-       viewTaskUI.contentView.addSubview(viewTaskUI.deleteTaskButton)
-       viewTaskUI.contentView.addSubview(viewTaskUI.saveTaskButton)
+    private func configureLayout() {
+        viewTaskUI.contentView.addSubview(viewTaskUI.taskTitleStackView)
+        viewTaskUI.contentView.addSubview(viewTaskUI.taskNotesStackView)
+        viewTaskUI.contentView.addSubview(viewTaskUI.flagStackView)
+        viewTaskUI.contentView.addSubview(viewTaskUI.reminderMeStackView)
+        viewTaskUI.contentView.addSubview(viewTaskUI.datePickerStackView)
+        view.addSubview(viewTaskUI.deleteTaskButton)
+        view.addSubview(viewTaskUI.saveTaskButton)
         
         NSLayoutConstraint.activate([
             viewTaskUI.taskTitleStackView.topAnchor.constraint(equalTo: viewTaskUI.contentView.topAnchor, constant: 10),
@@ -127,18 +127,18 @@ class ViewSelectTaskScreen: UIViewController {
             viewTaskUI.reminderMeStackView.topAnchor.constraint(equalTo: viewTaskUI.flagStackView.bottomAnchor, constant: 30),
             viewTaskUI.reminderMeStackView.leadingAnchor.constraint(equalTo: viewTaskUI.contentView.leadingAnchor, constant: 18),
             viewTaskUI.reminderMeStackView.trailingAnchor.constraint(equalTo: viewTaskUI.contentView.trailingAnchor, constant: -18),
-            viewTaskUI.reminderMeSwitch.heightAnchor.constraint(equalToConstant: 31),
+            //viewTaskUI.reminderMeSwitch.heightAnchor.constraint(equalToConstant: 31),
         
-            viewTaskUI.remindMeDatePicker.topAnchor.constraint(equalTo: viewTaskUI.reminderMeStackView.bottomAnchor, constant: 30),
-            viewTaskUI.remindMeDatePicker.leadingAnchor.constraint(equalTo: viewTaskUI.contentView.leadingAnchor, constant: 18),
-            viewTaskUI.remindMeDatePicker.trailingAnchor.constraint(equalTo: viewTaskUI.contentView.trailingAnchor, constant: -18),
+            viewTaskUI.datePickerStackView.topAnchor.constraint(equalTo: viewTaskUI.reminderMeStackView.bottomAnchor, constant: 30),
+            viewTaskUI.datePickerStackView.leadingAnchor.constraint(equalTo: viewTaskUI.contentView.leadingAnchor, constant: 18),
+            viewTaskUI.datePickerStackView.trailingAnchor.constraint(equalTo: viewTaskUI.contentView.trailingAnchor, constant: -18),
             
-            viewTaskUI.deleteTaskButton.topAnchor.constraint(equalTo: viewTaskUI.remindMeDatePicker.bottomAnchor, constant: 30),
+            viewTaskUI.deleteTaskButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             viewTaskUI.deleteTaskButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -80),
             viewTaskUI.deleteTaskButton.heightAnchor.constraint(equalToConstant: 40),
             viewTaskUI.deleteTaskButton.widthAnchor.constraint(equalToConstant: 150),
             
-            viewTaskUI.saveTaskButton.topAnchor.constraint(equalTo: viewTaskUI.remindMeDatePicker.bottomAnchor, constant: 30),
+            viewTaskUI.saveTaskButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             viewTaskUI.saveTaskButton.leadingAnchor.constraint(equalTo: viewTaskUI.deleteTaskButton.trailingAnchor, constant: 20),
             viewTaskUI.saveTaskButton.heightAnchor.constraint(equalToConstant: 40),
             viewTaskUI.saveTaskButton.widthAnchor.constraint(equalToConstant: 150),
@@ -213,6 +213,7 @@ extension ViewSelectTaskScreen {
         if let taskDate = taskItem.reminderMeDate {
             viewTaskUI.reminderMeSwitch.isOn = true
             viewTaskUI.remindMeDatePicker.isHidden = false
+            viewTaskUI.chooseDateLabel.isHidden = false
             viewTaskUI.remindMeDatePicker.date = taskDate
         }
         viewTaskUI.saveTaskButton.isEnabled = false

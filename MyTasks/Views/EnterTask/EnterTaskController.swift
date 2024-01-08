@@ -55,7 +55,7 @@ class EnterTaskController: UIViewController {
     private func configureView() {
         view.addSubview(enterTaskUI.scrollView)
         NSLayoutConstraint.activate([
-            enterTaskUI.scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            enterTaskUI.scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             enterTaskUI.scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             enterTaskUI.scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             enterTaskUI.scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
