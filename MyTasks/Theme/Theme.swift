@@ -23,6 +23,7 @@ struct Theme {
         static let green = #colorLiteral(red: 0.2545660734, green: 0.7794763446, blue: 0.3503473699, alpha: 1)
         static let systemGray = UIColor.systemGray
         static let systemGray2 = UIColor.systemGray2
+        static let darkGray = UIColor.darkGray
         static let black = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
     }
     
@@ -89,8 +90,8 @@ struct Theme {
     
     // MARK: Number used 
     struct Number {
-        static let taskTitleMaxLength = 50
-        static let notesMaxLength = 500
+        static let taskTitleMaxLength = 30
+        static let notesMaxLength = 400
     }
     
     // MARK: Label display in buttons
