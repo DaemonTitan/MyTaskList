@@ -16,6 +16,7 @@ class ViewSelectTaskScreen: UIViewController {
     
     var taskTitle: String = ""
     var taskNote: String = ""
+    var taskPriority: String = ""
     var taskFlag: Bool = false
     var reminderMe: Bool = false
     var reminderDate: Date? = Date()
@@ -101,6 +102,7 @@ class ViewSelectTaskScreen: UIViewController {
     private func configureLayout() {
         viewTaskUI.contentView.addSubview(viewTaskUI.taskTitleStackView)
         viewTaskUI.contentView.addSubview(viewTaskUI.taskNotesStackView)
+        viewTaskUI.contentView.addSubview(viewTaskUI.priorityStackView)
         viewTaskUI.contentView.addSubview(viewTaskUI.flagStackView)
         viewTaskUI.contentView.addSubview(viewTaskUI.reminderMeStackView)
         viewTaskUI.contentView.addSubview(viewTaskUI.datePickerStackView)
@@ -119,8 +121,12 @@ class ViewSelectTaskScreen: UIViewController {
             viewTaskUI.taskNotesStackView.trailingAnchor.constraint(equalTo: viewTaskUI.contentView.trailingAnchor, constant: -18),
             viewTaskUI.noteTextField.heightAnchor.constraint(equalToConstant: 100),
             viewTaskUI.notesCountLabel.heightAnchor.constraint(equalToConstant: 20),
+            
+            viewTaskUI.priorityStackView.topAnchor.constraint(equalTo: viewTaskUI.taskNotesStackView.bottomAnchor, constant: 30),
+            viewTaskUI.priorityStackView.leadingAnchor.constraint(equalTo: viewTaskUI.contentView.leadingAnchor, constant: 18),
+            viewTaskUI.priorityStackView.trailingAnchor.constraint(equalTo: viewTaskUI.contentView.trailingAnchor, constant: -18),
         
-            viewTaskUI.flagStackView.topAnchor.constraint(equalTo: viewTaskUI.taskNotesStackView.bottomAnchor, constant: 30),
+            viewTaskUI.flagStackView.topAnchor.constraint(equalTo: viewTaskUI.priorityStackView.bottomAnchor, constant: 30),
             viewTaskUI.flagStackView.leadingAnchor.constraint(equalTo: viewTaskUI.contentView.leadingAnchor, constant: 18),
             viewTaskUI.flagStackView.trailingAnchor.constraint(equalTo: viewTaskUI.contentView.trailingAnchor, constant: -18),
             
@@ -208,6 +214,7 @@ extension ViewSelectTaskScreen {
         guard let taskItem = task else { return }
         viewTaskUI.taskTitleTextField.text = taskItem.title
         viewTaskUI.noteTextField.text = taskItem.note
+        selectPriority(button: viewTaskUI.priorityButton, priority: taskItem.priority)
         viewTaskUI.flagSwitch.isOn = taskItem.flag
         
         if let taskDate = taskItem.reminderMeDate {
@@ -221,9 +228,19 @@ extension ViewSelectTaskScreen {
         if let noteField = task?.note {
             taskTitle = taskItem.title
             taskNote = noteField
+            taskPriority = taskItem.priority
             taskFlag = taskItem.flag
             reminderMe = taskItem.datePickerIsOn
             reminderDate = taskItem.reminderMeDate
+        }
+    }
+    
+    func selectPriority(button: UIButton , priority: String) {
+        button.setTitle(priority, for: .normal)
+        for item in viewTaskUI.priorityButton.menu?.children.compactMap({ $0 as? UIAction })  ?? [] {
+            if item.title == priority {
+                item.state = .on
+            }
         }
     }
     
@@ -272,6 +289,7 @@ extension ViewSelectTaskScreen {
         guard let titleField = viewTaskUI.taskTitleTextField.text, !titleField.isEmpty else {return}
         guard let taskId = task?.id else {return}
         let noteField = viewTaskUI.noteTextField.text ?? ""
+        let priority = viewTaskUI.priorityButton.titleLabel?.text ?? "None"
         let flagSwitch = viewTaskUI.flagSwitch.isOn
         let reminderMeSwitch = viewTaskUI.reminderMeSwitch.isOn
         let reminderDate = viewTaskUI.remindMeDatePicker.date
@@ -282,6 +300,7 @@ extension ViewSelectTaskScreen {
             realmManager.updateData(id: taskId.stringValue,
                                     newTitle: titleField,
                                     newNote: noteField,
+                                    priority: priority,
                                     flag: flagSwitch,
                                     datePickerIsOn: reminderMeSwitch,
                                     reminderMeDate: nil,
@@ -293,6 +312,7 @@ extension ViewSelectTaskScreen {
             realmManager.updateData(id: taskId.stringValue,
                                     newTitle: titleField,
                                     newNote: noteField,
+                                    priority: priority,
                                     flag: flagSwitch,
                                     datePickerIsOn: reminderMeSwitch,
                                     reminderMeDate: reminderDate,

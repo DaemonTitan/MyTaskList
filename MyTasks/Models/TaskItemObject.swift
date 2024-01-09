@@ -13,7 +13,7 @@ class TaskListItem: Object {
     @Persisted var dateCreated: Date = Date()
     @Persisted var title: String = ""
     @Persisted var note: String? = ""
-    @Persisted var priority: String = "None"
+    @Persisted var priority: String = ""
     @Persisted var flag: Bool = false
     @Persisted var datePickerIsOn: Bool = false
     @Persisted var reminderMeDate: Date? = nil
