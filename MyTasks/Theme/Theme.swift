@@ -16,6 +16,7 @@ struct Theme {
         static let red = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
         static let vividBlue = #colorLiteral(red: 0.1864877343, green: 0.4360160828, blue: 0.9999772906, alpha: 1)
         static let lightGray = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        static let lightGray1 = UIColor.lightGray
         static let gray = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         static let orange = #colorLiteral(red: 1, green: 0.5433388929, blue: 0, alpha: 1)
         static let vividGreen = #colorLiteral(red: 0.2360480191, green: 1, blue: 0.2006964495, alpha: 1)
@@ -62,7 +63,7 @@ struct Theme {
         static let tomorrow = "Tomorrow,"
         static let yesterday = "Yesterday,"
         static let reminderMeLabel = " Reminder me"
-        static let chooseDateLabel = " Pick date/time"
+        static let chooseDateLabel = " Pick time"
         static let deleteTaskAlertTitle = "Delete task?"
         static let deleteTaskAlertBody = "You cannot undo this action"
         static let taskReminder = "Task reminder"
