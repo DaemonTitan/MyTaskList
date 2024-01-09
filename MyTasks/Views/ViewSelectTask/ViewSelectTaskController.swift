@@ -93,7 +93,7 @@ class ViewSelectTaskScreen: UIViewController {
            viewTaskUI.contentView.leadingAnchor.constraint(equalTo: viewTaskUI.scrollView.leadingAnchor),
            viewTaskUI.contentView.trailingAnchor.constraint(equalTo: viewTaskUI.scrollView.trailingAnchor),
            viewTaskUI.contentView.bottomAnchor.constraint(equalTo: viewTaskUI.scrollView.bottomAnchor),
-           viewTaskUI.contentView.heightAnchor.constraint(equalTo: viewTaskUI.scrollView.heightAnchor),
+           viewTaskUI.contentView.heightAnchor.constraint(equalTo: viewTaskUI.scrollView.heightAnchor, constant: 50),
            viewTaskUI.contentView.widthAnchor.constraint(equalTo: viewTaskUI.scrollView.widthAnchor),
         ])
         configureLayout()
@@ -102,10 +102,14 @@ class ViewSelectTaskScreen: UIViewController {
     private func configureLayout() {
         viewTaskUI.contentView.addSubview(viewTaskUI.taskTitleStackView)
         viewTaskUI.contentView.addSubview(viewTaskUI.taskNotesStackView)
+        viewTaskUI.contentView.addSubview(viewTaskUI.dividLineView1)
         viewTaskUI.contentView.addSubview(viewTaskUI.priorityStackView)
+        viewTaskUI.contentView.addSubview(viewTaskUI.dividLineView2)
         viewTaskUI.contentView.addSubview(viewTaskUI.flagStackView)
+        viewTaskUI.contentView.addSubview(viewTaskUI.dividLineView3)
         viewTaskUI.contentView.addSubview(viewTaskUI.reminderMeStackView)
         viewTaskUI.contentView.addSubview(viewTaskUI.datePickerStackView)
+        viewTaskUI.contentView.addSubview(viewTaskUI.saveButtonBackground)
         view.addSubview(viewTaskUI.deleteTaskButton)
         view.addSubview(viewTaskUI.saveTaskButton)
         
@@ -116,28 +120,47 @@ class ViewSelectTaskScreen: UIViewController {
             viewTaskUI.taskTitleTextField.heightAnchor.constraint(equalToConstant: 40),
             viewTaskUI.taskTitleCountLabel.heightAnchor.constraint(equalToConstant: 20),
             
-            viewTaskUI.taskNotesStackView.topAnchor.constraint(equalTo: viewTaskUI.taskTitleStackView.bottomAnchor, constant: 30),
+            viewTaskUI.taskNotesStackView.topAnchor.constraint(equalTo: viewTaskUI.taskTitleStackView.bottomAnchor, constant: 15),
             viewTaskUI.taskNotesStackView.leadingAnchor.constraint(equalTo: viewTaskUI.contentView.leadingAnchor, constant: 18),
             viewTaskUI.taskNotesStackView.trailingAnchor.constraint(equalTo: viewTaskUI.contentView.trailingAnchor, constant: -18),
-            viewTaskUI.noteTextField.heightAnchor.constraint(equalToConstant: 100),
+            viewTaskUI.noteTextField.heightAnchor.constraint(equalToConstant: 150),
             viewTaskUI.notesCountLabel.heightAnchor.constraint(equalToConstant: 20),
             
-            viewTaskUI.priorityStackView.topAnchor.constraint(equalTo: viewTaskUI.taskNotesStackView.bottomAnchor, constant: 30),
+            viewTaskUI.dividLineView1.topAnchor.constraint(equalTo: viewTaskUI.taskNotesStackView.bottomAnchor, constant: 30),
+            viewTaskUI.dividLineView1.leadingAnchor.constraint(equalTo: viewTaskUI.contentView.leadingAnchor),
+            viewTaskUI.dividLineView1.trailingAnchor.constraint(equalTo: viewTaskUI.contentView.trailingAnchor),
+            viewTaskUI.dividLineView1.heightAnchor.constraint(equalToConstant: 1),
+            
+            viewTaskUI.priorityStackView.topAnchor.constraint(equalTo: viewTaskUI.dividLineView1.bottomAnchor, constant: 30),
             viewTaskUI.priorityStackView.leadingAnchor.constraint(equalTo: viewTaskUI.contentView.leadingAnchor, constant: 18),
             viewTaskUI.priorityStackView.trailingAnchor.constraint(equalTo: viewTaskUI.contentView.trailingAnchor, constant: -18),
+            
+            viewTaskUI.dividLineView2.topAnchor.constraint(equalTo: viewTaskUI.priorityStackView.bottomAnchor, constant: 30),
+            viewTaskUI.dividLineView2.leadingAnchor.constraint(equalTo: viewTaskUI.contentView.leadingAnchor),
+            viewTaskUI.dividLineView2.trailingAnchor.constraint(equalTo: viewTaskUI.contentView.trailingAnchor),
+            viewTaskUI.dividLineView2.heightAnchor.constraint(equalToConstant: 1),
         
-            viewTaskUI.flagStackView.topAnchor.constraint(equalTo: viewTaskUI.priorityStackView.bottomAnchor, constant: 30),
+            viewTaskUI.flagStackView.topAnchor.constraint(equalTo: viewTaskUI.dividLineView2.bottomAnchor, constant: 30),
             viewTaskUI.flagStackView.leadingAnchor.constraint(equalTo: viewTaskUI.contentView.leadingAnchor, constant: 18),
             viewTaskUI.flagStackView.trailingAnchor.constraint(equalTo: viewTaskUI.contentView.trailingAnchor, constant: -18),
             
-            viewTaskUI.reminderMeStackView.topAnchor.constraint(equalTo: viewTaskUI.flagStackView.bottomAnchor, constant: 30),
+            viewTaskUI.dividLineView3.topAnchor.constraint(equalTo: viewTaskUI.flagStackView.bottomAnchor, constant: 30),
+            viewTaskUI.dividLineView3.leadingAnchor.constraint(equalTo: viewTaskUI.contentView.leadingAnchor),
+            viewTaskUI.dividLineView3.trailingAnchor.constraint(equalTo: viewTaskUI.contentView.trailingAnchor),
+            viewTaskUI.dividLineView3.heightAnchor.constraint(equalToConstant: 1),
+            
+            viewTaskUI.reminderMeStackView.topAnchor.constraint(equalTo: viewTaskUI.dividLineView3.bottomAnchor, constant: 30),
             viewTaskUI.reminderMeStackView.leadingAnchor.constraint(equalTo: viewTaskUI.contentView.leadingAnchor, constant: 18),
             viewTaskUI.reminderMeStackView.trailingAnchor.constraint(equalTo: viewTaskUI.contentView.trailingAnchor, constant: -18),
-            //viewTaskUI.reminderMeSwitch.heightAnchor.constraint(equalToConstant: 31),
         
             viewTaskUI.datePickerStackView.topAnchor.constraint(equalTo: viewTaskUI.reminderMeStackView.bottomAnchor, constant: 30),
             viewTaskUI.datePickerStackView.leadingAnchor.constraint(equalTo: viewTaskUI.contentView.leadingAnchor, constant: 18),
             viewTaskUI.datePickerStackView.trailingAnchor.constraint(equalTo: viewTaskUI.contentView.trailingAnchor, constant: -18),
+            
+            viewTaskUI.saveButtonBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            viewTaskUI.saveButtonBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            viewTaskUI.saveButtonBackground.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            viewTaskUI.saveButtonBackground.heightAnchor.constraint(equalToConstant: 60),
             
             viewTaskUI.deleteTaskButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             viewTaskUI.deleteTaskButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -80),

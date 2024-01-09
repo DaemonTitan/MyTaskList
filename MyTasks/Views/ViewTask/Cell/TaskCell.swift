@@ -58,7 +58,7 @@ class TaskCell: UITableViewCell {
             taskCellUI.backgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             
             taskCellUI.completeCheckButton.leadingAnchor.constraint(equalTo: taskCellUI.backgroundView.leadingAnchor),
-            taskCellUI.completeCheckButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -5),
+            taskCellUI.completeCheckButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -3),
             taskCellUI.completeCheckButton.heightAnchor.constraint(equalToConstant: 50),
             taskCellUI.completeCheckButton.widthAnchor.constraint(equalToConstant: 50),
             
@@ -69,7 +69,7 @@ class TaskCell: UITableViewCell {
             
             taskCellUI.taskTitleLabel.leadingAnchor.constraint(equalTo: taskCellUI.completeCheckButton.trailingAnchor, constant: 2),
             taskCellUI.taskTitleLabel.trailingAnchor.constraint(equalTo: taskCellUI.flagImage.leadingAnchor, constant: -3),
-            taskCellUI.taskTitleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -5),
+            taskCellUI.taskTitleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -3),
             taskCellUI.taskTitleLabel.heightAnchor.constraint(equalToConstant: 30),
             
             taskCellUI.reminderDateLabel.topAnchor.constraint(equalTo: taskCellUI.taskTitleLabel.bottomAnchor, constant: 5),

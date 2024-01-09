@@ -110,6 +110,15 @@ class TaskUI: UIView {
         return taskNotesStackView
     }()
     
+    /// Divid line from above Task titile and Notes field
+    lazy var dividLineView1: UIView = {
+        var dividLineView1 = UIView()
+        dividLineView1.layer.borderColor = Theme.Colours.lightGray1.cgColor
+        dividLineView1.layer.borderWidth = 1.0
+        dividLineView1.translatesAutoresizingMaskIntoConstraints = false
+        return dividLineView1
+    }()
+    
     // MARK: Priority
     /// Priority label and Exclamation icon
     lazy var priorityLabel: UILabel = {
@@ -167,6 +176,15 @@ class TaskUI: UIView {
         return priorityStackView
     }()
     
+    /// Divid line for Priority field
+    lazy var dividLineView2: UIView = {
+        var dividLineView2 = UIView()
+        dividLineView2.layer.borderColor = Theme.Colours.lightGray1.cgColor
+        dividLineView2.layer.borderWidth = 1.0
+        dividLineView2.translatesAutoresizingMaskIntoConstraints = false
+        return dividLineView2
+    }()
+    
     // MARK: Flag
     /// Flag label and Flag icon
     lazy var flagLabel: UILabel = {
@@ -206,6 +224,15 @@ class TaskUI: UIView {
         flagStackView.addArrangedSubview(flagSwitch)
         flagStackView.translatesAutoresizingMaskIntoConstraints = false
         return flagStackView
+    }()
+    
+    /// Divid line for Flag field
+    lazy var dividLineView3: UIView = {
+        var dividLineView3 = UIView()
+        dividLineView3.layer.borderColor = Theme.Colours.lightGray1.cgColor
+        dividLineView3.layer.borderWidth = 1.0
+        dividLineView3.translatesAutoresizingMaskIntoConstraints = false
+        return dividLineView3
     }()
     
     // MARK: Reminder me and Date picker
@@ -321,6 +348,14 @@ class TaskUI: UIView {
         saveTaskButton.layer.masksToBounds = true
         saveTaskButton.translatesAutoresizingMaskIntoConstraints = false
         return saveTaskButton
+    }()
+    
+    /// Save button background view
+    lazy var saveButtonBackground: UIView = {
+        var saveButtonBackground = UIView()
+        saveButtonBackground.backgroundColor = Theme.Colours.vividBlue
+        saveButtonBackground.translatesAutoresizingMaskIntoConstraints = false
+        return saveButtonBackground
     }()
     
     /// Delete task button
