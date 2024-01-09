@@ -43,11 +43,24 @@ class TaskCellUI: UIView {
     }()
     
     /// Display Reminder Date
-    lazy var reminderMeLabel: UILabel = {
-        var dateLabel = UILabel()
-        dateLabel.font = .systemFont(ofSize: 13)
-        dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        return dateLabel
+    lazy var reminderDateLabel: UILabel = {
+        var reminderDateLabel = UILabel()
+        reminderDateLabel.font = .systemFont(ofSize: 13)
+        reminderDateLabel.textColor = Theme.Colours.darkGray
+        reminderDateLabel.translatesAutoresizingMaskIntoConstraints = false
+        return reminderDateLabel
+    }()
+    
+    /// Display Priority
+    lazy var priorityLabel: UILabel = {
+        var priorityLabel = UILabel()
+        priorityLabel.font = .systemFont(ofSize: 12, weight: .medium)
+        priorityLabel.textAlignment = .center
+        priorityLabel.layer.cornerRadius = 8
+        priorityLabel.layer.masksToBounds = true
+        priorityLabel.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+        priorityLabel.translatesAutoresizingMaskIntoConstraints = false
+        return priorityLabel
     }()
     
     /// Display flag image

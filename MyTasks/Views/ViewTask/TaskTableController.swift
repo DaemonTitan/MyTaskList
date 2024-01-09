@@ -10,7 +10,7 @@ import UIKit
 
 extension ViewTaskController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        91
+        110
     }
     
     /// Tap on task row to view selected task
@@ -117,6 +117,7 @@ extension ViewTaskController: UITableViewDataSource {
                 cell.displayReminderMeDate(date: dateValue)
             }
             cell.configureTaskTitle(taskTitle: task.title)
+            cell.configurePriority(priority: task.priority)
             cell.configureFlag(showImage: task.flag)
             cell.configureCompleteButton(imageName: Theme.Images.buttonSquare,
                                          size: 25.0,
