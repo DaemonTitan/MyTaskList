@@ -132,7 +132,6 @@ class TaskUI: UIView {
         var priorityButton = UIButton()
         let optionClosure = {(action: UIAction) in }
         let nonePriority = UIAction(title: Theme.Text.PriorityValue.None,
-                                    state: .on,
                                     handler: optionClosure)
         let lowerPriority = UIAction(title: Theme.Text.PriorityValue.Low,
                                      image: UIImage(systemName: Theme.Images.signleexclamation),
@@ -391,6 +390,10 @@ extension TaskUI {
         /// Check task titile text field eidt change to change save button state
         taskTitleTextField.textFieldEditChangeListner {
             self.textfieldEditChange()
+        }
+        
+        priorityButton.buttonMenuTriggered {
+            self.enableSaveTaskButton()
         }
         
         /// Check flag switch eidt change to change save button state
