@@ -130,6 +130,13 @@ extension UIButton {
         }, for: .touchUpInside)
     }
     
+    /// UIButton menu action triggered
+    func buttonMenuTriggered(touchUpAction: @escaping () -> Void) {
+        addAction(UIAction() { action in
+            touchUpAction()
+        }, for: .menuActionTriggered)
+    }
+    
     func buttonBounceAnimation(button: UIButton) {
         button.transform = CGAffineTransform(scaleX: 0.50, y: 0.50)
         UIView.animate(withDuration: 0.8,

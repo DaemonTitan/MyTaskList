@@ -268,6 +268,7 @@ extension ViewSelectTaskScreen {
         viewTaskUI.scrollView.contentInset = contentInset
     }
     
+    // MARK: Update task details into Realm
     @objc func tapUpdateTask() {
         let saveButton = viewTaskUI.saveTaskButton
         saveButton.buttonBounceAnimation(button: saveButton)
@@ -325,6 +326,7 @@ extension ViewSelectTaskScreen {
         }
     }
     
+    // MARK: Delete task from Realm
     @objc func tapDeleteTask() {
         let deleteButton = viewTaskUI.deleteTaskButton
         deleteButton.buttonBounceAnimation(button: deleteButton)
@@ -335,7 +337,7 @@ extension ViewSelectTaskScreen {
             self.deleteTask()
         }
     }
-
+    
     func deleteTask() {
         guard let taskId = task?.id else {return}
         realmManager.delete(id: taskId.stringValue)
@@ -344,6 +346,7 @@ extension ViewSelectTaskScreen {
         dismiss(animated: true)
     }
     
+    // MARK: Cancel function
     @objc func cancel() {
         checkTextValueChange()
     }
