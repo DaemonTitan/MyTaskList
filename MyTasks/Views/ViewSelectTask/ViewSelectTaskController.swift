@@ -348,34 +348,11 @@ extension ViewSelectTaskScreen {
     
     // MARK: Cancel function
     @objc func cancel() {
-        checkTextValueChange()
+        checkSaveButtonStatus()
     }
     
-    func flagSwitchValueChange(_ toggle: UISwitch) {
-        if toggle ==  viewTaskUI.flagSwitch {
-            taskFlag = toggle.isOn
-        }
-    }
-    
-    func reminderMeSwitchValueChange(_ toggle: UISwitch) {
-        if toggle ==  viewTaskUI.reminderMeSwitch {
-            reminderMe = toggle.isOn
-        }
-    }
-    
-    func checkTextValueChange() {
-        flagSwitchValueChange(viewTaskUI.flagSwitch)
-        reminderMeSwitchValueChange(viewTaskUI.reminderMeSwitch)
-
-        guard let taskItem = task else { return }
-        if viewTaskUI.reminderMeSwitch.isOn && viewTaskUI.remindMeDatePicker.date != taskItem.reminderMeDate {
-            Alert.showDiscardChangeAlert(on: self)
-        } else if viewTaskUI.reminderMeSwitch.isOn == false && reminderDate != taskItem.reminderMeDate {
-            Alert.showDiscardChangeAlert(on: self)
-        } else if taskTitle != taskItem.title ||
-                    taskNote != taskItem.note ||
-                    taskFlag != taskItem.flag ||
-                    reminderMe != taskItem.datePickerIsOn {
+    func checkSaveButtonStatus() {
+        if viewTaskUI.saveTaskButton.isEnabled {
             Alert.showDiscardChangeAlert(on: self)
         } else {
             dismiss(animated: true)
