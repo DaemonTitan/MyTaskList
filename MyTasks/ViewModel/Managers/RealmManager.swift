@@ -158,7 +158,7 @@ class RealmManager {
     }
     
     // MARK: Modify and save data on Realm
-    func updateData(id: String, newTitle: String, newNote: String, flag: Bool, datePickerIsOn: Bool, reminderMeDate: Date? = nil, notifyId: String) {
+    func updateData(id: String, newTitle: String, newNote: String, priority: String, flag: Bool, datePickerIsOn: Bool, reminderMeDate: Date? = nil, notifyId: String) {
         do {
             let realm = try Realm()
             let objectID = try ObjectId(string: id)
@@ -166,6 +166,7 @@ class RealmManager {
             try realm.write {
                 task?.title = newTitle
                 task?.note = newNote
+                task?.priority = priority
                 task?.flag = flag
                 task?.datePickerIsOn = datePickerIsOn
                 task?.reminderMeDate = reminderMeDate
