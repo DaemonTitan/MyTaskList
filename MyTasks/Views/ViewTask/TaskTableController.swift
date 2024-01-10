@@ -152,12 +152,12 @@ extension ViewTaskController: UITableViewDataSource {
             // MARK: Configure Completed section
             let task = realmManager.completeTaskData[indexPath.row]
             cell.completedTaskTitle(taskTitle: task.title)
+            cell.completedTaskPriority(priority: task.priority)
             cell.configureFlag(showImage: false)
             cell.configureCompleteButton(imageName: Theme.Images.buttonSqureCheckmark,
                                          size: 25.0,
                                          color: Theme.Colours.green,
                                          state: .normal)
-            
             
             cell.buttonTapCallBack = { [weak self] in
                 guard let self = self else {return}
