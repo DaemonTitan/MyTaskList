@@ -55,7 +55,7 @@ class ViewTaskController: UIViewController {
 
     func buttonLayout() {
         NSLayoutConstraint.activate([
-            taskViewUI.plusButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 120),
+            taskViewUI.plusButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             taskViewUI.plusButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 300),
             taskViewUI.plusButton.heightAnchor.constraint(equalToConstant: 50),
             taskViewUI.plusButton.widthAnchor.constraint(equalToConstant: 50)

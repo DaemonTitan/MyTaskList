@@ -6,6 +6,10 @@
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
 		<false/>
+		<key>UIApplicationSupportsTabbedSceneCollection</key>
+		<false/>
+		<key>UIRequiresFullScreen</key>
+		<string>YES</string>
 		<key>UISceneConfigurations</key>
 		<dict>
 			<key>UIWindowSceneSessionRoleApplication</key>
