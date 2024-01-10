@@ -116,6 +116,10 @@ class TaskCell: UITableViewCell {
         }
     }
     
+    func completedTaskPriority(priority: String) {
+        setPriorityLabel(priority: priority, txtColour: Theme.Colours.whiteColour, bkColour: Theme.Colours.whiteColour)
+    }
+    
     func configureFlag(showImage: Bool) {
         if showImage == true {
             taskCellUI.flagImage.isHidden = false
