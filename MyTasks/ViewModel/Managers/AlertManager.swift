@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 struct Alert {
+    static var alertManager = Alert()
+    
     // MARK: Open Setting app scren
     /// Open setting screen
     private func openSettings() {

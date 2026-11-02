@@ -9,6 +9,8 @@ import Foundation
 import RealmSwift
 
 class RealmManager {
+    static var realmManager = RealmManager()
+    
     var taskData = [TaskListItem]()
     var completeTaskData = [TaskListItem]()
 

@@ -10,6 +10,7 @@ import UserNotifications
 import UIKit
 
 struct Configure {
+    static var notificationManager = Configure()
     static var selectedNotificationId: String = ""
 }
 
